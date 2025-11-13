@@ -1,6 +1,6 @@
 # HTB Jarvis - OSCP-Style Penetration Test Report
 
-**Author:** RandallTr
+**Author:** randalltr
 
 **Target:** 10.129.229.137
 
