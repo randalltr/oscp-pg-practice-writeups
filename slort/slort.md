@@ -1,4 +1,4 @@
-# Penetration Test Report
+# PG Practice Slort - Penetration Test Report
 
 **Target:** Slort (Proving Grounds Practice)
 
