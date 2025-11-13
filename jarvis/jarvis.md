@@ -26,12 +26,12 @@ All flags were retrieved.
 
 ## 2. Executive Recommendations
 
-**1. Patch phpMyAdmin** to a current supported version and disable risky features such as direct SQL execution for untrusted users.
-**2. Sanitize SQL input** or use prepared statements throughout the application.
-**3. Remove plaintext credentials from webroot**, implement proper secrets management.
-**4. Disable LOAD_FILE** and secure MySQL file privileges.
-**5. Enforce strict sudo restrictions** and remove dangerous SUID binaries.
-**6. Implement web application firewalls (WAF)** to mitigate SQLi and LFI attempts.
+1. **Patch phpMyAdmin** to a current supported version and disable risky features such as direct SQL execution for untrusted users.
+2. **Sanitize SQL input** or use prepared statements throughout the application.
+3. **Remove plaintext credentials from webroot**, implement proper secrets management.
+4. **Disable LOAD_FILE** and secure MySQL file privileges.
+5. **Enforce strict sudo restrictions** and remove dangerous SUID binaries.
+6. **Implement web application firewalls (WAF)** to mitigate SQLi and LFI attempts.
 
 ---
 
