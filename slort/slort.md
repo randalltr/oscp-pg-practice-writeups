@@ -1,9 +1,12 @@
 # Penetration Test Report
 
 **Target:** Slort (Proving Grounds Practice)
+
 **Target IP:** 192.168.222.53
+
 **Date:** September 19, 2025
-**Tester:** RandallTr
+
+**Tester:** randalltr
 
 ---
 
