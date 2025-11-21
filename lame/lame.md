@@ -53,7 +53,7 @@ The objective of this assessment was to identify vulnerabilities on the HTB Lame
 1. Enumerated DistCC (port 3632) and confirmed RCE.
 2. Executed DistCC exploit -> obtained shell as user `daemon`.
 3. Captured **user.txt**.
-4. Attempted privesc paths (socat, SUID search, at-job abuse) but none succeeded.
+4. Attempted privesc paths (socat, SUID search, `at` job abuse) but none succeeded.
 5. Pivoted to SMB enumeration and identified a vulnerable Samba version.
 6. Executed Samba username map script exploit -> obtained **root shell**.
 7. Captured **root.txt**.
