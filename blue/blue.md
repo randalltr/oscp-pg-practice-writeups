@@ -10,6 +10,12 @@
 
 ---
 
+## 0. Lessons Learned
+
+Set a timer for rabbit holes.
+
+---
+
 ## 1. Executive Summary
 
 A penetration test was conducted against the target host at 10.129.23.90. The objective was to identify exploitable vulnerabilities, gain unauthorized access, and obtain proof-of-access artifacts (user and administrator flags).

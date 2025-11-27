@@ -10,6 +10,12 @@
 
 ---
 
+## 0. Lesson Learned
+
+Remember to check all directories and findings from scans (Gobuster).
+
+---
+
 ## 1. Executive Summary
 
 The assessment targeted the "HTB Bashed" host within a controlled lab environment. A full compromise was achieved, including user-level access and privilege escalation to root. The primary weaknesses were:
