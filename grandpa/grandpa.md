@@ -213,6 +213,6 @@ Legacy systems should be placed in isolated VLANs away from critical assets.
 
 ## 11. Conclusion
 
-The engagement resulted in full compromise of the target machine. Vulnerabilities in outdated IIS WebDAV components (CVE-2017-7269) combined with dangerous local privileges (SeImpersonatePrivilege) enabled remote code execution and complete administrative takeover.
+The engagement resulted in full compromise of the target machine. Vulnerabilities in outdated IIS WebDAV components (**CVE-2017-7269**) combined with dangerous local privileges (**SeImpersonatePrivilege**) enabled remote code execution and complete administrative takeover.
 
 The existence of these critical issues indicates a high-risk environment requiring immediate remediation.
