@@ -216,3 +216,19 @@ Legacy systems should be placed in isolated VLANs away from critical assets.
 The engagement resulted in full compromise of the target machine. Vulnerabilities in outdated IIS WebDAV components (**CVE-2017-7269**) combined with dangerous local privileges (**SeImpersonatePrivilege**) enabled remote code execution and complete administrative takeover.
 
 The existence of these critical issues indicates a high-risk environment requiring immediate remediation.
+
+--- 
+
+## 12. Appendix A - Churrasco Exploit Resources
+
+### Churrasco.zip (SeImpersonatePrivilege 2003)
+
+Source: [https://www.exploit-db.com/exploits/6705](https://www.exploit-db.com/exploits/6705)
+
+### Churrasco.exe (SeImpersonatePrivilege 2003)
+
+Source: [https://github.com/Re4son/Churrasco](https://github.com/Re4son/Churrasco)
+
+### Microsoft Windows - 'SeImpersonatePrivilege' Local Privilege Escalation
+
+Source: [https://www.exploit-db.com/exploits/31667](https://www.exploit-db.com/exploits/31667)
