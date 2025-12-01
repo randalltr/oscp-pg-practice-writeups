@@ -7,7 +7,7 @@ This repository contains my personal **OSCP/PEN-200 practice writeups**, includi
 - Privilege escalation paths
 - Lessons learned per machine
 
-### Current machines include:
+Current machines include:
 
 - [bashed](./bashed/bashed.md)
 - [blue](./blue/blue.md)
