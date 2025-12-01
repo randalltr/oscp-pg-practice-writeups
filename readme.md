@@ -7,6 +7,16 @@ This repository contains my personal **OSCP/PEN-200 practice writeups**, includi
 - Privilege escalation paths
 - Lessons learned per machine
 
+### Current machines include:
+
+- [bashed](./bashed/bashed.md)
+- [blue](./blue/blue.md)
+- [grandpa](./grandpa/grandpa.md)
+- [jarvis](./jarvis/jarvis.md)
+- [lame](./lame/lame.md)
+- [nibbles](./nibbles/nibbles.md)
+- [slort](./slort/slort.md)
+
 Everything here comes from **legitimate, controlled environments** like HackTheBox and OffSec PG Practice.
 
 ---
@@ -19,16 +29,6 @@ Each directory represents a single target machine and contains:
 - **Enumeration & Exploitation Notes**
 - **Privilege Escalation Steps**
 - **Lessons Learned**
-
-Current machines include:
-
-- [bashed](./bashed/bashed.md)
-- [blue](./blue/blue.md)
-- [grandpa](./grandpa/grandpa.md)
-- [jarvis](./jarvis/jarvis.md)
-- [lame](./lame/lame.md)
-- [nibbles](./nibbles/nibbles.md)
-- [slort](./slort/slort.md)
 
 ---
 
