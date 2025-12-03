@@ -180,10 +180,10 @@ type "C:\Documents and Settings\Administrator\Desktop\root.txt"
 
 ## 10. Recommendations
 
-- 1. **Decommission Windows Server 2003**. The OS is end-of-life and receives no security patches.
-- 2. **Replace IIS 6.0**. WebDAV functionality in IIS 6.0 is dangerously outdated and should be replaced with a modern, supported alternative.
-- 3. **Remove SeImpersonatePrivilege from untrusted services**. Ensure low-privileged accounts cannot impersonate tokens.
-- 4. **Harden file transfer and remote execution paths**. Limit access to TEMP directories and untrusted binaries.
+1. **Decommission Windows Server 2003**. The OS is end-of-life and receives no security patches.
+2. **Replace IIS 6.0**. WebDAV functionality in IIS 6.0 is dangerously outdated and should be replaced with a modern, supported alternative.
+3. **Remove SeImpersonatePrivilege from untrusted services**. Ensure low-privileged accounts cannot impersonate tokens.
+4. **Harden file transfer and remote execution paths**. Limit access to TEMP directories and untrusted binaries.
 
 ---
 
