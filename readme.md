@@ -9,13 +9,14 @@ This repository contains my personal **OSCP/PEN-200 practice writeups**, includi
 
 Current machines include:
 
-- [bashed](./bashed/bashed.md)
-- [blue](./blue/blue.md)
-- [grandpa](./grandpa/grandpa.md)
-- [jarvis](./jarvis/jarvis.md)
-- [lame](./lame/lame.md)
-- [nibbles](./nibbles/nibbles.md)
-- [slort](./slort/slort.md)
+- [HTB Bashed](./bashed/bashed.md)
+- [HTB Blue](./blue/blue.md)
+- [HTB Grandpa](./grandpa/grandpa.md)
+- [HTB Granny](./granny/granny.md)
+- [HTB Jarvis](./jarvis/jarvis.md)
+- [HTB Lame](./lame/lame.md)
+- [HTB Nibbles](./nibbles/nibbles.md)
+- [PGP Slort](./slort/slort.md)
 
 Everything here comes from **legitimate, controlled environments** like HackTheBox and OffSec PG Practice.
 
