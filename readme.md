@@ -16,6 +16,7 @@ Current machines include:
 - [HTB Jarvis](./jarvis/jarvis.md)
 - [HTB Lame](./lame/lame.md)
 - [HTB Nibbles](./nibbles/nibbles.md)
+- [HTB Popcorn](./popcorn/popcorn.md)
 - [PGP Slort](./slort/slort.md)
 
 Everything here comes from **legitimate, controlled environments** like HackTheBox and OffSec PG Practice.
