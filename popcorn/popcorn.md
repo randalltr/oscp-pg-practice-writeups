@@ -60,9 +60,29 @@ nmap -p- -sCV 10.129.14.108 -T4 -oA popcorn_initial
 
 *Result:*
 
-- 22/tcp OpenSSH 5.1p1
-- 80/tcp Apache HTTP 2.2.12
+- 22/tcp - ssh - OpenSSH 5.1p1
+- 80/tcp - http - Apache httpd 2.2.12
 
 Apache default page showed no useful content. Virtual host **popcorn.htb** added to `/etc/hosts/`.
+
+---
+
+## 5. Web Enumeration
+
+### Gobuster Scan
+
+```
+gobuster dir -u http://popcorn.htb -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -x php
+```
+
+*Result:*
+
+Gobuster enumeration revealed the following relevant directories:
+
+- `/test/` -> PHP info page exposing **PHP 5.2.10** and **MySQL 5.1.37**
+- `/torrent/` -> Torrent Hoster web application
+- `/rename/` -> File move functionality
+
+These versions and applications indicated potential upload vulnerabilities.
 
 ---
