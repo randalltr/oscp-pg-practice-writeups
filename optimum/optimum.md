@@ -162,7 +162,7 @@ type C:\Users\Administrator\Desktop\root.txt
 
 The HTB Optimum host was fully compromised through a publicly known remote code execution vulnerability in HFS 2.3, followed by successful kernel-level privilege escalation via MS16-098. Proper patching and removal of unsupported software would have prevented both the foothold and full system compromise.
 
---
+---
 
 ## 11. Appendix
 
