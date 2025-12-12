@@ -143,15 +143,34 @@ type C:\Users\Administrator\Desktop\root.txt
 | Vulnerability | Severity | Description | Impact |
 |---------------|----------|-------------|--------|
 | Rejetto HTTP File Server 2.3 RCE | Critical | An insecure function in Rejetto HTTP File Server allows remote attackers to execute arbitrary programs | Remote Code Execution |
-| MS16-098 Windows Kernel Exploit | High | Kernel mode driver GDI object abuse enabling privilege escalation. | Root Access |
+| MS16-098 Windows Kernel Exploit | High | Kernel mode driver GDI object abuse enabling privilege escalation | Root Access |
 
 ---
 
-## Appendix
+## 9. Remediation Recommendations
+
+- Apply missing Microsoft security updates including **MS16-098**.
+- Review and apply all outstanding updates for Windows Server 2012 R2.
+- Replace or isolate **HFS 2.3**, which is deprecated and vulnerable. 
+- Restrict HTTP exposure to only necessary interfaces.
+- Enforce application allowlisting to prevent arbitrary binary execution.
+- Remove legacy tools such as `cmd.exe` exposure for service accounts.
+
+---
+
+## 10. Conclusion
+
+The HTB Optimum host was fully compromised through a publicly known remote code execution vulnerability in HFS 2.3, followed by successful kernel-level privilege escalation via MS16-098. Proper patching and removal of unsupported software would have prevented both the foothold and full system compromise.
+
+--
+
+## 11. Appendix
 
 ### Exploits Used
 
 [CVE-2014-6287 Rejetto HTTP File Server 2.3 RCE](https://github.com/rahisec/rejetto-http-file-server-2.3.x-RCE-exploit-CVE-2014-6287)
+
+[MS16-098 Windows Kernel Exploit](https://github.com/sensepost/ms16-098)
 
 ### Windows Kernel Exploit Clusters
 
