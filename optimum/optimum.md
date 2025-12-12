@@ -4,28 +4,24 @@
 
 **Date:** 2025-12-12
 
-**Target:** 10.129.13.67
-
-**Environment:** HTB Optimum (Retired Machine)
-
 ---
 
 ## 0. Lesson Learned
 
-Each Windows version has a small cluster of kernel vulnerabilities associated with it. You will likely need to search Google many times to find them all (or check the appendix).
+Each Windows version has a small cluster of kernel vulnerabilities associated with it. You will likely need to search Google many times to find them all (or check the Appendix).
 
 ---
 
 ## 1. Executive Summary
 
-
+A penetration test was conducted against the HTB Optimum Windows host. Enumeration identified and exposed **Rejetto HTTP File Server 2.3** instance vulnerable to remote code execution. This provided and initial shell as the user **kostas**. Privilege escalation was achieved by exploiting a missing Microsoft kernel patch (**MS16-098**) on **Windows Server 2012 R2 Build 9600**, resulting in full SYSTEM-level compromise.
 
 ---
 
 ## 2. Scope
 
 - **Target:** 10.129.13.67
-- **Environment:** HackTheBox (legal/authorized)
+- **Environment:** HackTheBox Optimum (Retired Machine)
 - **Testing Window:** 2025-12-9 to 2025-12-11
 - **Objective:** Obtain user-level and root-level access
 
@@ -56,15 +52,19 @@ Testing followed a standard OSCP methodology:
 
 ### Windows Kernel Exploit Clusters
 
-#### Windows 7 Server 2008 R2 (NT 6.1)
+#### Windows XP / Server 2003 (NT 5.x)
+
+- **MS08-067**
+- **MS09-050**
+- **MS10-015**
+- **MS11-080**
+
+#### Windows 7 / Server 2008 R2 (NT 6.1)
 
 - **MS11-046** - afd.sys
 - **MS13-053** - win32k.sys
 - **MS13-081** - win32k.sys
 - **MS14-058** - win32k.sys (shared with 2012 R2)
-
-Less common:
-
 - **MS15-051** - common across several OSes
 - **MS16-034** - win32k elevation
 - **MS10-092** - Task Scheduler (if schtasks is broken)
@@ -85,14 +85,7 @@ Less common:
 - **CVE-2017-0143 (EternalRomance / MS17-010)** - rarely used for privesc, but still possible sideways movement
 - **CVE-2016-0099** - secondary logon LPE
 
-#### Windows Server 2003 / XP (NT 5.x)
-
-- **MS08-067**
-- **MS09-050**
-- **MS10-015**
-- **MS11-080**
-
-#### Windows Server 2019 / Windows 10 Modern Builds
+#### Windows 10 Modern Builds / Server 2019
 
 - Misconfigured services
 - Weak ACLs
