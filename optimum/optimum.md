@@ -14,7 +14,7 @@ Each Windows version has a small cluster of kernel vulnerabilities associated wi
 
 ## 1. Executive Summary
 
-A penetration test was conducted against the HTB Optimum Windows host. Enumeration identified and exposed **Rejetto HTTP File Server 2.3** instance vulnerable to remote code execution. This provided and initial shell as the user **kostas**. Privilege escalation was achieved by exploiting a missing Microsoft kernel patch (**MS16-098**) on **Windows Server 2012 R2 Build 9600**, resulting in full SYSTEM-level compromise.
+A penetration test was conducted against the **HTB Optimum** Windows host. Enumeration identified and exposed **Rejetto HTTP File Server 2.3** instance vulnerable to remote code execution. This provided and initial shell as the user *kostas*. Privilege escalation was achieved by exploiting a missing Microsoft kernel patch (**MS16-098**) on **Windows Server 2012 R2 Build 9600**, resulting in full SYSTEM-level compromise.
 
 ---
 
@@ -40,15 +40,37 @@ Testing followed a standard OSCP methodology:
 
 ---
 
-## 4. Information Gathering
+## 4. Discovery & Enumeration
+
+### Port Scan
+
+A full TCP Nmap scan revealed a single exposed service on TCP/80 running **HttpFileServer 2.3**:
+
+```
+nmap -p- -sCV 10.129.13.67 -T4 -oA optimum_initial
+```
+
+UDP scan returned no actionable results.
+
+### Web Enumeration
+
+Browsing the root page showed the default HFS interface with no authentication required. A Gobuster scan did not identify useful directories.
+
+### Vulnerability Identification
+
+Research in to HFS 2.3 revealed multiple public exploits. After testing newer SSTI-based exploits unsuccessfully, a reliable RCE PoC was located for **CVE-2014-6287** (Rejetto HFS 2.3 RCE).
 
 ---
 
-## 5. Enumeration
+
 
 ---
 
 ## Appendix
+
+### Exploits Used
+
+[CVE-2014-6287 Rejetto HTTP File Server 2.3 RCE](https://github.com/rahisec/rejetto-http-file-server-2.3.x-RCE-exploit-CVE-2014-6287)
 
 ### Windows Kernel Exploit Clusters
 
