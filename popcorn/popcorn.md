@@ -24,8 +24,6 @@ The assessment was successful. A chain of web application vulnerabilities in the
 
 ---
 
----
-
 ## 2. Scope
 
 - **Target:** 10.129.14.108
