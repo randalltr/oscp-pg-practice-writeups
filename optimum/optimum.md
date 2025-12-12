@@ -8,7 +8,7 @@
 
 ## 0. Lesson Learned
 
-Each Windows version has a small cluster of kernel vulnerabilities associated with it. You will likely need to search Google many times to find them all (or check the Appendix).
+Each Windows version has a small cluster of kernel vulnerabilities associated with it. You will likely need to search Google many times to find them all (or check the [Appendix](#11-appendix)).
 
 ---
 
