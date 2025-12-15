@@ -187,13 +187,10 @@ The HTB Shocker host was fully compromised through a well-known but severe vulne
 ### Resources Used:
 
 Testing Shellshock CVE-2014-6271:
-
 [https://github.com/DrHaitham/CVE-2014-6271-Shellshock-?tab=readme-ov-file#4-exploiting-shellshock-with-curl](https://github.com/DrHaitham/CVE-2014-6271-Shellshock-?tab=readme-ov-file#4-exploiting-shellshock-with-curl)
 
 Bash -i Reverse Shell:
-
 [https://www.revshells.com/](https://www.revshells.com/)
 
 Perl Sudo Privesc Command:
-
 [https://gtfobins.github.io/gtfobins/perl/#sudo](https://gtfobins.github.io/gtfobins/perl/#sudo)
