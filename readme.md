@@ -18,7 +18,7 @@ Current machines include:
 - [HTB Nibbles](./nibbles/nibbles.md)
 - [HTB Optimum](./optimum/optimum.md)
 - [HTB Popcorn](./popcorn/popcorn.md)
-- [HTP Shocker](./shocker/shocker.md)
+- [HTB Shocker](./shocker/shocker.md)
 - [PGP Slort](./slort/slort.md)
 
 Machines coming soon:
