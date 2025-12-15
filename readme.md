@@ -1,4 +1,4 @@
-# OSCP / PG Practice Pentest Reports
+# OSCP / HackTheBox / PG Practice Pentest Reports
 
 This repository contains my personal **OSCP/PEN-200 practice writeups**, including:
 
@@ -18,7 +18,40 @@ Current machines include:
 - [HTB Nibbles](./nibbles/nibbles.md)
 - [HTB Optimum](./optimum/optimum.md)
 - [HTB Popcorn](./popcorn/popcorn.md)
+- [HTP Shocker](./shocker/shocker.md)
 - [PGP Slort](./slort/slort.md)
+
+Machines coming soon:
+
+- HTB Devel
+- HTB Sense
+- HTB Arctic
+- HTB Valentine
+- HTB Jeeves
+- HTB Ninevah
+- PGP Wombo
+- HTB Poison
+- PGP Pelican
+- HTB October
+- PGP Nickel
+- HTB Node
+- PGP Hemorrhage
+- HTB Cronos
+- PGP Coeus
+- HTB Mango
+- PGP Authby
+- PGP ClamAV
+- PGP Exfiltrated
+- PGP Loon
+- PGP Squid
+- HTB Forest
+- HTB Buff
+- HTB Sunday
+- PGP Vena
+- PGP Pebbles
+- PGP TechSupp
+- HTB Fuse
+- HTB Sauna
 
 Everything here comes from **legitimate, controlled environments** like HackTheBox and OffSec Proving Grounds Practice.
 
