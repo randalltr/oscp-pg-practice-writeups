@@ -11,6 +11,7 @@ Current machines include:
 
 - [HTB Bashed](./bashed/bashed.md)
 - [HTB Blue](./blue/blue.md)
+- [HTB Devel](./devel/devel.md)
 - [HTB Grandpa](./grandpa/grandpa.md)
 - [HTB Granny](./granny/granny.md)
 - [HTB Jarvis](./jarvis/jarvis.md)
@@ -23,7 +24,6 @@ Current machines include:
 
 Machines coming soon:
 
-- HTB Devel
 - HTB Sense
 - HTB Arctic
 - HTB Valentine
