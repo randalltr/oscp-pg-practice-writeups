@@ -35,10 +35,10 @@ Testing followed a standard OSCP methodology:
 
 - Information Gathering
 - Enumeration
-- Vulnerability Analysis
-- Exploitation
-- Privilege Escalation
+- Initial Access
 - Post-Exploitation
+- Privilege Escalation
+- Proof of Compromise
 
 ---
 
@@ -123,7 +123,7 @@ Execution of the exploit successfully elevated privileges to **NT AUTHORITY\SYST
 
 ---
 
-## 9. Proofs
+## 9. Proof of Compromise
 
 **User Flag**: *REDACTED*
 
