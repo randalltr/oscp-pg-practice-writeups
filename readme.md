@@ -92,11 +92,12 @@ All reports follow a standard outline:
 3. Methodology
 4. Information Gathering
 5. Enumeration
-6. Vulnerability Analysis
-7. Exploitation
+6. Initial Access
+7. Post-Exploitation
 8. Privilege Escalation
-9. Post-Exploitation
+9. Proof of Compromise
 10. Findings & Recommendations
+11. Appendix
 
 This mirrors what OSCP expects on exam day.
 
