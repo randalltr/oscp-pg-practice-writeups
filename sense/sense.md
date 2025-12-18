@@ -32,7 +32,7 @@ Successful exploitation allowed retrieval of both user and root flags, demonstra
 
 - **Target:** 10.129.11.160
 - **Environment:** HackTheBox Sense (Retired Machine)
-- **Testing Window:** 2025-12-17 to 2024-12-18
+- **Testing Window:** 2025-12-17 to 2025-12-18
 - **Objective:** Full system compromise
 
 ---
@@ -87,7 +87,7 @@ The web interface confirmed the application as **pfSense**, and further inspecti
 
 ## 6. Initial Access
 
-### Information Disclosure - `system-users.txt`
+### Information Disclosure - system-users.txt
 
 A publicly accessible file, `system-users.txt`, was discovered. This file disclosed a valid username and indicated the use of default credentials.
 
@@ -132,29 +132,43 @@ cat home/rohit/user.txt
 cat root/root.txt
 ```
 
----
-
-## 8. Key Vulnerabilities Identified
-
-| Vulnerability | Severity | Description | Impact |
-|---------------|----------|-------------|--------|
-|||||
-|||||
+This confirms full system compromise.
 
 ---
 
-## 9. Remediation Recommendations
+## 8. Remediation Recommendations
 
-
-
----
-
-## 10. Conclusion
-
-
+- **Remove Sensitive Files:** Ensure no credential or system information files are publicly accessible via the web server.
+- **Enforce Strong Credential Policy:** Eliminate default credentials and require strong, unique passwords.
+- **Patch Management:** Upgrade pfSense to a supported and fully patched version.
+- **Restrict Administrative Interfaces:** Limit access to the pfSense web interface by IP address or VPN.
+- **Certificate Management:** Replace self-signed certificates with properly managed certificates where possible.
 
 ---
 
-## 11. Appendix
+## 9. Conclusion
+
+The Sense host was compromised through well-known and easily exploitable weaknesses. An attacker with minimal effort could gain root access and fully control the system. Immediate remediation is strongly recommended to prevent real-world exploitation.
+
+---
+
+## 10. Appendix
 
 ### Exploits
+
+pfSense < 2.1.4 Command Injection (CVE-2014-4688) -
+[https://www.exploit-db.com/exploits/43560](https://www.exploit-db.com/exploits/43560)
+
+Modify the login_request:
+
+```
+login_request = client.post(login_url, data=encoded_data, cookies=client.cookies, headers=headers, verify=False)
+```
+
+And modify the exploit_request:
+
+```
+exploit_request = client.get(exploit_url, cookies=client.cookies, headers=headers, timeout=5, verify=False)
+```
+
+To correct the SSLError (`requests.exceptions.SSLError`) caused by `SSLCertVerificationError` (`SSL: CERTIFICATE_VERIFY_FAILED`).
