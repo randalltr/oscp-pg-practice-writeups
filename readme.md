@@ -9,6 +9,7 @@ This repository contains my personal **OSCP/PEN-200 practice writeups**, includi
 
 Current machines include:
 
+- [HTB Arctic](./arctic/arctic.md)
 - [HTB Bashed](./bashed/bashed.md)
 - [HTB Blue](./blue/blue.md)
 - [HTB Devel](./devel/devel.md)
@@ -25,7 +26,6 @@ Current machines include:
 
 Machines coming soon:
 
-- HTB Arctic
 - HTB Valentine
 - HTB Jeeves
 - HTB Ninevah
