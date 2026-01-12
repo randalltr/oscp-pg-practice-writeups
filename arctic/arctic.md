@@ -82,9 +82,33 @@ Exploit research was conducted using Exploit Database, identifying a Remote Comm
 
 A ColdFusion 8 Remote Command Execution vulnerability (CVE-2009-2265) was exploited using public exploit **EDB-50057**.
 
+The exploit script was modified to match the attacker IP, listener port, and target host and then run with:
+
+```
+python3 50057.py
+```
+
+After execution a reverse shell was obtained as `arctic\tolis` with shell context `C:\ColdFusion\runtime\bin`.
+
 ---
 
 ## 7. Post-Exploitation
+
+System enumeration was performed to identify the operating system as **Microsoft Windows Server 2008 R2 Standard Build 7600**.
+
+```
+systeminfo
+```
+
+Privilege enumeration identified **SeImpersonatePrivilege** as enabled.
+
+```
+whoami /priv
+```
+
+Credential harvesting was attempted but did not yield results.
+
+Based on OS version and privileges, token impersonation with *JuicyPotato* or *RottenPotatoNG* was identified as the most reliable escalation vector.
 
 ---
 
