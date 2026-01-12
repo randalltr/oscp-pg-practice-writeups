@@ -43,10 +43,59 @@ Testing followed a standard OSCP methodology:
 ---
 
 ## 4. Information Gathering
+
+A full TCP port scan was performed to identify exposed services:
+
+```
+nmap -p- -sCV 10.129.1.125 -T4 -oA arctic_initial
+```
+
+**Results:**
+- 135/tcp - Microsoft Windows RPC
+- 8500/tcp - HTTP (JRun Web Server)
+- 49154/tcp - Microsoft Windows RPC
+
+Port 8500 was selected for further investigation.
+
+---
+
 ## 5. Enumeration
+
+The HTTP service on port 8500 was manually browsed and directory listing was found to be enabled with observed directories:
+
+- `/CFIDE`
+- `/cfdocs`
+
+Accessing the following URL revealed a ColdFusion Administrator portal:
+
+```
+http://10.129.1.125:8500/CFIDE/Administrator
+```
+
+The application version was identified as **Adobe ColdFusion 8**, a version known to contain multiple critical vulnerabilities.
+
+Exploit research was conducted using Exploit Database, identifying a Remote Command Execution vulnerability applicable to this version.
+
+---
+
 ## 6. Initial Access
+
+---
+
 ## 7. Post-Exploitation
+
+---
+
 ## 8. Privilege Escalation
+
+---
+
 ## 9. Proof of Compromise
+
+---
+
 ## 10. Findings & Recommendations
+
+---
+
 ## 11. Appendix
