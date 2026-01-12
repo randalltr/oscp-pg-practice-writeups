@@ -170,6 +170,18 @@ type C:\Users\Administrator\Desktop\root.txt
 
 ## 10. Findings & Recommendations
 
+### Outdated Adobe ColdFusion 8 (Critical)
+
+**Impact:** Allows unauthenticated remote command execution.
+
+**Recommendation:** Upgrade to a supported ColdFusion version, restrict administrative endpoints, and disable directory listing.
+
+### Excessive Privileges - SeImpersonatePrivilege (High)
+
+**Impact:** Allowed privilege escalation to SYSTEM via token impersonation.
+
+**Recommendation:** Restrict token privileges and apply least-privilege principles. Ensure OS is fully patched.
+
 ---
 
 ## 11. Appendix
