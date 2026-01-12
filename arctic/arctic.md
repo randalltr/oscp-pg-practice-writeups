@@ -80,6 +80,8 @@ Exploit research was conducted using Exploit Database, identifying a Remote Comm
 
 ## 6. Initial Access
 
+A ColdFusion 8 Remote Command Execution vulnerability (CVE-2009-2265) was exploited using public exploit **EDB-50057**.
+
 ---
 
 ## 7. Post-Exploitation
@@ -99,3 +101,6 @@ Exploit research was conducted using Exploit Database, identifying a Remote Comm
 ---
 
 ## 11. Appendix
+
+ColdFusion 8 Remote Command Execution vulnerability (CVE-2009-2265):
+[https://www.exploit-db.com/exploits/50057](https://www.exploit-db.com/exploits/50057)
