@@ -70,18 +70,6 @@ The following services were identified:
 - Apache httpd 2.2.22 running on Ubuntu
 - HTTPS enabled with an expired SSL certificate
 
-Directory enumeration using Gobuster revealed several directories of interest:
-
-- `/decode`
-- `/encode`
-- `/dev`
-
-The `/decode` and `/encode` endpoints appeared to perform Base64 operations but did not execute server-side input.
-
----
-
-## 6. Initial Access
-
 Given the age of the Apache and OpenSSL stack, the HTTPS service was tested for the Heartbleed vulnerability using the following Nmap script:
 
 ```
@@ -96,19 +84,73 @@ A public Heartbleed proof-of-concept was executed, resulting in disclosure of Ba
 heartbleedbelievethehype
 ```
 
-The value was later confirmed to be a valid SSH passphrase.
+Directory enumeration using Gobuster revealed several directories of interest:
+
+- `/decode`
+- `/encode`
+- `/dev`
+
+The `/decode` and `/encode` endpoints appeared to perform Base64 operations but did not execute server-side input.
+
+Exploration of the `/dev` web directory revealed:
+
+- `notes.txt` - describing poor security practices
+- `hype_key` - a file containing hex-encoded data
+
+The hex data was decoded into an RSA private key, which was protected using the SSH passphrase `heartbleedbelievethehype`.
+
+---
+
+## 6. Initial Access
+
+Using the decoded RSA private key and SSH passphrase, the `hype` user account was accessed with SSH on port 22: 
+
+```
+ssh -i hype_key hype@10.129.232.136
+```
+
+This resulted in unprivileged access to the *Valentine* host.
 
 ---
 
 ## 7. Post-Exploitation
 
+After authenticating as the user `hype`, local enumeration was performed:
+
+- Ubuntu 12.04 LTS identified
+- Kernel version 3.2.x
+
 ---
 
 ## 8. Privilege Escalation
 
+Multiple exploits for Linux kernel and Ubuntu version were unsuccessful.
+
+Further enumeration using `linpeas.sh` identified a suspicious `tmux` socket owned by root. By attaching to the socket, a root shell was obtained:
+
+```
+/usr/bin/tmux -S /.devs/dev_sess
+```
+
+This resulted in a root shell session.
+
 ---
 
 ## 9. Proof of Compromise
+
+**User Flag**: *REDACTED*
+
+```
+cat /home/hype/user.txt
+```
+
+**Root Flag**: *REDACTED*
+
+```
+cat /root/root.txt
+```
+
+This confirms full system compromise.
 
 ---
 
@@ -117,3 +159,11 @@ The value was later confirmed to be a valid SSH passphrase.
 ---
 
 ## 11. Appendix
+
+### Resources Used
+
+Heartbleed Proof-of-Concept (CVE-2014-0160):
+[https://github.com/sensepost/heartbleed-poc](https://github.com/sensepost/heartbleed-poc)
+
+linPEAS Privilege Escalation Script:
+[https://github.com/peass-ng/PEASS-ng](https://github.com/peass-ng/PEASS-ng)
