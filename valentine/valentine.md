@@ -78,7 +78,13 @@ nmap -sV -p 443 --script=ssl-heartbleed.nse 10.129.232.136
 
 The service was confirmed vulnerable.
 
-A public Heartbleed proof-of-concept was executed, resulting in disclosure of Base64-encoded data. Decoding the leaked data revealed the string:
+A public Heartbleed proof-of-concept was executed:
+
+```
+python2 heartbleed-poc.py 10.129.232.136
+```
+
+Resulting in disclosure of Base64-encoded data. Decoding the leaked data revealed the SSH passphrase:
 
 ```
 heartbleedbelievethehype
@@ -94,10 +100,10 @@ The `/decode` and `/encode` endpoints appeared to perform Base64 operations but 
 
 Exploration of the `/dev` web directory revealed:
 
-- `notes.txt` - describing poor security practices
+- `notes.txt` - a note describing poor security practices
 - `hype_key` - a file containing hex-encoded data
 
-The hex data was decoded into an RSA private key, which was protected using the SSH passphrase `heartbleedbelievethehype`.
+The hex data was decoded into an RSA private key.
 
 ---
 
@@ -117,8 +123,8 @@ This resulted in unprivileged access to the *Valentine* host.
 
 After authenticating as the user `hype`, local enumeration was performed:
 
-- Ubuntu 12.04 LTS identified
-- Kernel version 3.2.x
+- Ubuntu 12.04 LTS
+- Linux 3.2.0-23-generic
 
 ---
 
