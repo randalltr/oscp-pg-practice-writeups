@@ -156,6 +156,24 @@ This confirms full system compromise.
 
 ## 10. Findings & Recommendations
 
+### Vulnerable OpenSSL Version (Heartbleed)
+
+**Severity:** Critical
+
+**Recommendation:** Upgrade OpenSSL to a non-vulnerable version and revoke all potentially compromised credentials.
+
+### Sensitive Files Exposed via Web Server
+
+**Severity:** High
+
+**Recommendation:** Remove sensitive directories from web root and enforce proper access controls.
+
+### Insecure Root tmux Session
+
+**Severity:** Critical
+
+**Recommendation:** Ensure privileged sessions do not expose world-accessible sockets and enforce strict permissions.
+
 ---
 
 ## 11. Appendix
