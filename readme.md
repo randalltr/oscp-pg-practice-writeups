@@ -23,10 +23,10 @@ Current machines include:
 - [HTB Sense](./sense/sense.md)
 - [HTB Shocker](./shocker/shocker.md)
 - [PGP Slort](./slort/slort.md)
+- [HTB Valentine](./valentine/valentine.md)
 
 Machines coming soon:
 
-- HTB Valentine
 - HTB Jeeves
 - HTB Ninevah
 - PGP Wombo
