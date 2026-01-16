@@ -16,6 +16,7 @@ Current machines include:
 - [HTB Grandpa](./grandpa/grandpa.md)
 - [HTB Granny](./granny/granny.md)
 - [HTB Jarvis](./jarvis/jarvis.md)
+- [HTB Jeeves](./jeeves/jeeves.md)
 - [HTB Lame](./lame/lame.md)
 - [HTB Nibbles](./nibbles/nibbles.md)
 - [HTB Optimum](./optimum/optimum.md)
@@ -27,7 +28,6 @@ Current machines include:
 
 Machines coming soon:
 
-- HTB Jeeves
 - HTB Ninevah
 - PGP Wombo
 - HTB Poison
