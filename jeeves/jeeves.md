@@ -49,3 +49,31 @@ Testing followed a standard OSCP methodology:
 ---
 
 ## 4. Information Gathering
+
+---
+
+## 5. Enumeration
+
+---
+
+## 6. Initial Access
+
+---
+
+## 7. Post-Exploitation
+
+---
+
+## 8. Privilege Escalation
+
+---
+
+## 9. Proof of Compromise
+
+---
+
+## 10. Findings & Recommendations
+
+---
+
+## 11. Appendix
