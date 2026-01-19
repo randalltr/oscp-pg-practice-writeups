@@ -2,7 +2,7 @@
 
 **Author:** randalltr
 
-**Date:** 2026-1-16
+**Date:** 2026-1-19
 
 ---
 
@@ -50,9 +50,41 @@ Testing followed a standard OSCP methodology:
 
 ## 4. Information Gathering
 
+An initial full TCP port scan was performed to identify exposed services.
+
+```
+nmap -p- -sCV 10.129.228.112 -T4 -oA jeeves_initial
+```
+
+This identified multiple open services, including HTTP (80), SMB (445), MSRPC (135), and a Jetty-based HTTP service on port 50000.
+
 ---
 
 ## 5. Enumeration
+
+### Web Enumeration
+
+Directory brute forcing was conducted against the HTTP services with both short and longer wordlists and looking for html extensions.
+
+```
+gobuster dir -u http://10.129.228.112 -w /usr/share/wordlists/dirb/common.txt --no-error
+
+gobuster dir -u http://10.129.228.112:50000 -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -x html --no-error
+```
+
+This revealed an `/askjeeves` directory hosting a Jenkins dashboard.
+
+### SMB Enumeration
+
+SMB enumeration was attempted to identify accessible shares and authentication behavior.
+
+```
+smbclient -L //10.129.228.112 -N
+
+smbclient -L //10.129.228.112 -U anonymous
+```
+
+SMB access was restricted, but weak security settings were later leveraged with valid credentials.
 
 ---
 
