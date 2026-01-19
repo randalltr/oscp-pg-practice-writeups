@@ -220,25 +220,15 @@ more < hm.txt:root.txt
 
 ## 10. Findings & Recommendations
 
-1. **Unrestriced Jenkins Script Console allowing arbitrary code execution:** 
+1. **Unrestriced Jenkins Script Console allowing arbitrary code execution:** Restrict Jenkins administrative access, disable the script console where not required, and enforce role-based access control.
 
-Restrict Jenkins administrative access, disable the script console where not required, and enforce role-based access control.
+2. **Sensitive credentials stored insecurely in a user-accessible KeePass database:** Store credentials securely using enterprise-grade secret management solutions and restrict access to sensitive credential files.
 
-2. **Sensitive credentials stored insecurely in a user-accessible KeePass database:** 
+3. **Reusable NTLM administrator hashes enabled pass-the-hash authentication and privilege escalation:** Disable NTLM authentication where possible, enforce Kerberos, and implement credential guard protections.
 
-Store credentials securely using enterprise-grade secret management solutions and restrict access to sensitive credential files.
+4. **Weak SMB security configuration allowed authentication without enforced message signing:** Enforce SMB signing and harden SMB configurations to prevent relay and credential abuse attacks.
 
-3. **Reusable NTLM administrator hashes enabled pass-the-hash authentication and privilege escalation:**
-
-Disable NTLM authentication where possible, enforce Kerberos, and implement credential guard protections.
-
-4. **Weak SMB security configuration allowed authentication without enforced message signing:** 
-
-Enforce SMB signing and harden SMB configurations to prevent relay and credential abuse attacks.
-
-5. **Sensitive data was hidden using NTFS Alternate Data Streams, bypassing standard file visibility:**
-
-Monitor for NTFS ADS usage, restrict unnecessary file write permissions, and include ADS checks in security audits.
+5. **Sensitive data was hidden using NTFS Alternate Data Streams, bypassing standard file visibility:** Monitor for NTFS ADS usage, restrict unnecessary file write permissions, and include ADS checks in security audits.
 
 ---
 
