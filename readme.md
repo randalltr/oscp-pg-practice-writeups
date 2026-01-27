@@ -19,6 +19,7 @@ Current machines include:
 - [HTB Jeeves](./jeeves/jeeves.md)
 - [HTB Lame](./lame/lame.md)
 - [HTB Nibbles](./nibbles/nibbles.md)
+- [HTB Nineveh](./nineveh/nineveh.md)
 - [HTB Optimum](./optimum/optimum.md)
 - [HTB Popcorn](./popcorn/popcorn.md)
 - [HTB Sense](./sense/sense.md)
@@ -28,7 +29,6 @@ Current machines include:
 
 Machines coming soon:
 
-- HTB Ninevah
 - PGP Wombo
 - HTB Poison
 - PGP Pelican
