@@ -143,6 +143,12 @@ This confirms full system compromise.
 
 ## 10. Findings & Recommendations
 
+### Unauthenticated Redis Service
+
+**Severity:** Critical
+
+**Recommendation:** Restrict Redis access to localhost or trusted management networks only, enforce authentication, and disable high-risk features such as `CONFIG`, `MODULE`, and replication where not required. Redis should be run as a non-root user and protected with firewall rules to prevent unauthenticated access and remote code execution.
+
 ---
 
 ## 11. Appendix
