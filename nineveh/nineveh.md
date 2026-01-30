@@ -247,9 +247,59 @@ Resulting in a root shell.
 
 ## 9. Proof of Compromise
 
+**User Flag**: *REDACTED*
+
+```
+cat /home/amrois/user.txt
+```
+
+**Root Flag**: *REDACTED*
+
+```
+cat /root/root.txt
+```
+
+This confirms full system compromise.
+
 ---
 
 ## 10. Findings & Recommendations
+
+### Weak Authentication on Web Application Logic
+
+**Severity:** High
+
+**Recommendation:** Enforce strong password policies, implement account lockout mechanisms, and monitor authentication attempts to prevent brute-force attacks.
+
+### Insecure phpLiteAdmin Deployment
+
+**Severity:** Critical
+
+**Recommendation:** Remove phpLiteAdmin from production systems or restrict access via authentication and network-level controls; upgrade to a patched version if continued use is required.
+
+### Directory Traversal Vulnerability in File Include Parameter
+
+**Severity:** Critical
+
+**Recommendation:** Validate and sanitize all user-supplied input used in file operations, enforce fixed file paths, and prevent directory traversal by rejecting path traversal sequences.
+
+### Remote Code Execution via Web Application
+
+**Severity:** Critical
+
+**Recommendation:** Eliminate unsafe file inclusion logic, disable execution permissions in upload and temporary directories, and apply secure coding practices to prevent arbitrary command execution.
+
+### Insecure Port Knocking Configuration
+
+**Severity:** Medium
+
+**Recommendation:** Remove port knocking in favor of proper firewall rules and authenticated access controls, or restrict configuration file permission to prevent disclosure.
+
+### Vulnerable Scheduled Task (chkrootkit)
+
+**Severity:** Critical
+
+**Recommendation:** Upgrade or remove vulnerable software executed by scheduled tasks and ensure cron jobs do not execute files from writeable directories.
 
 ---
 
