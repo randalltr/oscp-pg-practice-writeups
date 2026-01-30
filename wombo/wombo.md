@@ -60,6 +60,27 @@ Identified open ports:
 
 ## 5. Enumeration
 
+### HTTP (Port 80)
+
+- Default nginx landing page
+- No dynamic content or input vectors identified
+
+### HTTP (Port 8080 - NodeBB)
+
+- Public forum accessible
+- Admin (`/admin`) and password reset (`/reset`) endpoints discovered
+- No immediate unauthenticated exploit path identified
+
+### Redis (Port 6379)
+
+Redis was accessible without authentication, confirmed using:
+
+```
+redis-cli -h 192.168.169.69
+```
+
+This represented a critical misconfiguration and became the primary attack vector.
+
 ---
 
 ## 6. Initial Access
