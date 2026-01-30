@@ -2,7 +2,7 @@
 
 **Author:** randalltr
 
-**Date:** 2026-1-27
+**Date:** 2026-1-30
 
 ---
 
@@ -164,6 +164,34 @@ This resulted in a shell as `www-data` (uid=33).
 ---
 
 ## 8. Privilege Escalation
+
+### Local Enumeration
+
+System information was gathered to identify privilege escalation vectors:
+
+```
+uname -a
+
+cat /etc/*-release
+```
+
+### Port Knocking Discovery
+
+Running processes were inspected, revealing a running `knockd` service:
+
+```
+ps aux
+
+cat /etc/knockd.conf
+```
+
+A port knocking sequence was identified and executed:
+
+```
+knock -v 10.129.186.238 571 290 911 -d 500
+```
+
+After knocking, SSH (port 22) became accessible.
 
 ---
 
