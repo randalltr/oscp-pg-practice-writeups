@@ -156,5 +156,5 @@ This confirms full system compromise.
 Redis Pentesting Cheatsheet -
 [https://hackviser.com/tactics/pentesting/services/redis](https://hackviser.com/tactics/pentesting/services/redis)
 
-Redis Rogue Server RCE -
+Redis Rogue Server Remote Code Execution -
 [https://github.com/jas502n/Redis-RCE](https://github.com/jas502n/Redis-RCE)
