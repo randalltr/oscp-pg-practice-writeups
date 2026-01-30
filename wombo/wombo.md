@@ -111,13 +111,33 @@ This resulted in immediate command execution as the root user.
 
 ## 7. Post-Exploitation
 
+Upon successful exploitation, an interactive root shell was obtained. System access was fully validated, and no additional lateral movement was required.
+
+The location of a `user.txt` flag was searched for, but returned nonexistent:
+
+```
+find / -name "user.txt"
+```
+
 ---
 
 ## 8. Privilege Escalation
 
+Not applicable.
+
+The Redis service was running as root, and exploitation resulted directly in root-level access.
+
 ---
 
 ## 9. Proof of Compromise
+
+**Root Flag**: *REDACTED*
+
+```
+cat /root/proof.txt
+```
+
+This confirms full system compromise.
 
 ---
 
