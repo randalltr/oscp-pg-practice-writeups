@@ -26,10 +26,10 @@ Current machines include:
 - [HTB Shocker](./shocker/shocker.md)
 - [PGP Slort](./slort/slort.md)
 - [HTB Valentine](./valentine/valentine.md)
+- [PGP Wombo](./wombo/wombo.md)
 
 Machines coming soon:
 
-- PGP Wombo
 - HTB Poison
 - PGP Pelican
 - HTB October
