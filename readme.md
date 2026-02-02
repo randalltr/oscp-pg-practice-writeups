@@ -21,6 +21,7 @@ Current machines include:
 - [HTB Nibbles](./nibbles/nibbles.md)
 - [HTB Nineveh](./nineveh/nineveh.md)
 - [HTB Optimum](./optimum/optimum.md)
+- [HTB Poison](./poison/poison.md)
 - [HTB Popcorn](./popcorn/popcorn.md)
 - [HTB Sense](./sense/sense.md)
 - [HTB Shocker](./shocker/shocker.md)
@@ -30,7 +31,6 @@ Current machines include:
 
 Machines coming soon:
 
-- HTB Poison
 - PGP Pelican
 - HTB October
 - PGP Nickel
