@@ -103,6 +103,12 @@ This mirrors what OSCP expects on exam day.
 
 ---
 
+## Findings and Recommendations Reference
+
+A reference of likely Findings & Recommendations can be found [here](./oscp-findings-reference.md).
+
+---
+
 ## Legal
 
 All content is derived from **authorized penetration testing labs**.
