@@ -73,6 +73,46 @@ No significant UDP attack surface was identified.
 
 ## 5. Enumeration
 
+Anonymous SMB access was denied:
+
+```
+smbclient -L //192.168.207.99 -U anonymous
+```
+
+Anonymous FTP login was unsuccessful:
+
+```
+ftp 192.168.207.99
+```
+
+RDP access was denied:
+
+```
+rdpclient -U "" -N 192.168.207.99
+```
+
+The HTTP port 8089 was enumerated revealing backend GET requests to APIPA address port 33333 and the following directories:
+
+```
+/list-current-deployments
+
+/list-running-procs
+
+/list-active-nodes
+```
+
+Direct access to port 33333 returned "Invalid Token". Using Burp to change the request type to POST and probing the above directories exposed credentials on `/list-running-procs`:
+
+```
+ariah : Tm93aXNlU2xvb3BUaGVvcnkxMzkK
+```
+
+Base64 Decoded:
+
+```
+ariah : NowiseSloopTheory139
+```
+
 ---
 
 ## 6. Initial Access
