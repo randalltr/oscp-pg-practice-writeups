@@ -19,6 +19,7 @@ Current machines include:
 - [HTB Jeeves](./jeeves/jeeves.md)
 - [HTB Lame](./lame/lame.md)
 - [HTB Nibbles](./nibbles/nibbles.md)
+- [PGP Nickel](./nickel/nickel.md)
 - [HTB Nineveh](./nineveh/nineveh.md)
 - [HTB October](./october/october.md)
 - [HTB Optimum](./optimum/optimum.md)
@@ -33,7 +34,6 @@ Current machines include:
 
 Machines coming soon:
 
-- PGP Nickel
 - HTB Node
 - PGP Hemorrhage
 - HTB Cronos
