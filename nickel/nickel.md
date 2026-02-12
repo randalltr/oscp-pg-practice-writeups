@@ -10,6 +10,14 @@
 
 Always check C:\ for files.
 
+On Windows, once you're local admin, common paths to SYSTEM are:
+
+- PsExec (`-s`)
+- Scheduled tasks
+- Services (create/start as SYSTEM)
+- Token impersonation
+- RunAs with /savecred (if available)
+
 ---
 
 ## 1. Executive Summary
