@@ -30,6 +30,19 @@ Remove or upgrade the vulnerable application, restrict administrative interfaces
 
 ## 2. Weak or Exposed Credentials
 
+### **Finding:** Hardcoded Credentials in Source Code
+
+**Severity:** High
+
+**Description:**
+Sensitive credentials were embedded directly within application source code accessible to low-privileged users.
+
+**Impact:**
+Attackers could retrieve credentials and use them to gain unauthorized access to services or escalate privileges.
+
+**Recommendation:**
+Remove hardcoded credentials from source code, use secure configuration storage or secret management solutions, and restrict access to sensitive files.
+
 ### **Finding:** Credentials Stored in Registry or System Files (Windows)
 
 **Severity:** High
@@ -181,6 +194,19 @@ Disable anonymous access, separate file transfer directories from web roots, and
 
 ## 4. Web Application Vulnerabilities
 
+### **Finding:** Broken Access Control in API Endpoint
+
+**Severity:** High
+
+**Description:**
+An API endpoint lacked proper authorization checks, allowing unauthorized users to access restricted functionality.
+
+**Impact:**
+Attackers could perform privileged actions or access sensitive data without proper authentication.
+
+**Recommendation:**
+Implement proper access control checks on all API endpoints and enforce role-based access control.
+
 ### **Finding:** Insecure File Permissions on Web Root
 
 **Severity:** High
@@ -288,6 +314,32 @@ Validate and sanitize inputs, avoid direct shell execution, and use parameterize
 ---
 
 ## 5. Misconfigured Privileges and Sudo Rights
+
+### **Finding:** Improperly Configured SUID Binary Allowing Arbitrary Backups
+
+**Severity:** Critical
+
+**Description:**
+A SUID binary allowed low-privileged users to perform backup operations with elevated privileges, enabling arbitrary command execution.
+
+**Impact:**
+Attackers could exploit the SUID binary to escalate privileges to root.
+
+**Recommendation:**
+Remove unnecessary SUID permissions, restrict privileged binaries, and enforce least-privilege principles.
+
+### **Finding:** Insecure Command Execution via MongoDB Scheduler
+
+**Severity:** Critical
+
+**Description:**
+A scheduled task executed user-controlled commands through a MongoDB-backed scheduler, allowing arbitrary command execution with elevated privileges.
+
+**Impact:**
+Attackers could execute arbitrary commands and escalate privileges to root or SYSTEM.
+
+**Recommendation:**
+Sanitize and validate all scheduler commands, restrict MongoDB access, and enforce least-privilege execution for scheduled tasks.
 
 ### **Finding:** Sudo Rights on Dangerous Binaries
 
@@ -606,7 +658,6 @@ Attackers could modify service files and escalate privileges.
 
 **Recommendation:**
 Restrict service file permissions and run services with the minimum required privileges.
-
 ---
 
 ## Ultra-Short Emergency Exam Reference (1-Line Fixes)

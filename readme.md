@@ -21,6 +21,7 @@ Current machines include:
 - [HTB Nibbles](./nibbles/nibbles.md)
 - [PGP Nickel](./nickel/nickel.md)
 - [HTB Nineveh](./nineveh/nineveh.md)
+- [HTB Node]()
 - [HTB October](./october/october.md)
 - [HTB Optimum](./optimum/optimum.md)
 - [PGP Pelican](./pelican/pelican.md)
@@ -34,7 +35,6 @@ Current machines include:
 
 Machines coming soon:
 
-- HTB Node
 - PGP Hemorrhage
 - HTB Cronos
 - PGP Coeus
