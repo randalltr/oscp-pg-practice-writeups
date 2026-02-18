@@ -9,6 +9,7 @@ This repository contains my personal **OSCP/PEN-200 practice writeups**, includi
 
 Current machines include:
 
+- [HTB Active](./active/active.md)
 - [HTB Arctic](./arctic/arctic.md)
 - [HTB Bashed](./bashed/bashed.md)
 - [HTB Blue](./blue/blue.md)
@@ -21,7 +22,7 @@ Current machines include:
 - [HTB Nibbles](./nibbles/nibbles.md)
 - [PGP Nickel](./nickel/nickel.md)
 - [HTB Nineveh](./nineveh/nineveh.md)
-- [HTB Node]()
+- [HTB Node](./node/node.md)
 - [HTB October](./october/october.md)
 - [HTB Optimum](./optimum/optimum.md)
 - [PGP Pelican](./pelican/pelican.md)
