@@ -275,7 +275,3 @@ Attackers could recover the password and gain full control of the domain.
 
 **Recommendation:**
 Enforce long, random passwords for privileged accounts, monitor Event ID 4769 for suspicious ticket activity, and implement regular password rotation policies.
-
----
-
-## 11. Appendix
