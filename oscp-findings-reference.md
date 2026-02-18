@@ -125,6 +125,19 @@ Avoid storing credentials in plaintext. Sanitize scripts, clear history files, a
 
 ## 3. Unauthenticated or Misconfigured Network Services
 
+### **Finding:** Anonymous SMB Share Access
+
+**Severity:** Critical
+
+**Description:**
+SMB shares were accessible without authentication, allowing anonymous enumeration of files and directories.
+
+**Impact:**
+Attackers could access sensitive data, identify credential files, or discover information useful for further compromise.
+
+**Recommendation:**
+Disable null sessions, restrict anonymous access to SMB shares, and enforce authentication for all file share access.
+
 ### **Finding:** Unrestricted SMB Share Access
 
 **Severity:** High
@@ -573,6 +586,19 @@ Enforce SMB signing, disable NTLM where possible, and implement credential prote
 
 ## 11. Sensitive Data Exposure
 
+### **Finding:** Group Policy Preference Password Exposure
+
+**Severity:** Critical
+
+**Description:**
+Group Policy Preferences stored credentials using a reversible encryption method with a publicly known key, allowing password recovery.
+
+**Impact:**
+Attackers could extract and decrypt stored credentials, potentially gaining administrative access to the domain.
+
+**Recommendation:**
+Remove all Group Policy Preference passwords, implement LAPS or gMSA accounts, and audit SYSVOL and replication permissions.
+
 ### **Finding:** Sensitive Data Stored Insecurely
 
 **Severity:** High
@@ -589,6 +615,32 @@ Restrict file permissions, use centralized secret storage, and conduct regular a
 ---
 
 ## 12. Active Directory Weaknesses
+
+### **Finding:** Kerberoastable Administrator Account
+
+**Severity:** Critical
+
+**Description:**
+A highly privileged account had a Service Principal Name (SPN) configured, making it vulnerable to Kerberoasting attacks.
+
+**Impact:**
+Attackers could request service tickets, crack the password offline, and gain domain administrator privileges.
+
+**Recommendation:**
+Remove SPNs from privileged accounts, use dedicated service accounts, and enforce strong, random passwords.
+
+### **Finding:** Weak Domain Administrator Password
+
+**Severity:** Critical
+
+**Description:**
+A domain administrator account used a weak password that was susceptible to offline cracking.
+
+**Impact:**
+Attackers could recover the password and gain full control of the domain.
+
+**Recommendation:**
+Enforce long, random passwords for privileged accounts, monitor Event ID 4769 for suspicious ticket activity, and implement regular password rotation policies.
 
 ### **Finding:** Kerberoastable Service Account
 
