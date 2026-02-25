@@ -14,6 +14,7 @@ Current machines include:
 - [HTB Bashed](./bashed/bashed.md)
 - [HTB Blue](./blue/blue.md)
 - [HTB Devel](./devel/devel.md)
+- [HTB Forest](./forest/forest.md)
 - [HTB Grandpa](./grandpa/grandpa.md)
 - [HTB Granny](./granny/granny.md)
 - [HTB Jarvis](./jarvis/jarvis.md)
