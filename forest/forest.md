@@ -8,7 +8,9 @@
 
 ## 0. Lesson Learned
 
+Different enumeration protocols expose different views of Active Directory. If you rely on only one (like LDAP), you will miss things.
 
+Not all AS-REP hashes are equal. The encryption type matters. AES etype 18 is slow and expensive to compute. RC4 type 23 is fast and crackable. Same password. Different encryption.
 
 ---
 
@@ -316,3 +318,6 @@ Remove unnecessary users from the Account Operators group, carefully restrict de
 ---
 
 ## 11. Appendix
+
+PowerView (Dev Branch) -
+[https://github.com/PowerShellMafia/PowerSploit/tree/dev](https://github.com/PowerShellMafia/PowerSploit/tree/dev)
