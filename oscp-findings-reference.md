@@ -616,6 +616,45 @@ Restrict file permissions, use centralized secret storage, and conduct regular a
 
 ## 12. Active Directory Weaknesses
 
+### **Finding:** Over-Permissive Account Operators Membership
+
+**Severity:** High
+
+**Description:**
+The Account Operators group contained users with excessive privileges, allowing modification of privileged domain groups.
+
+**Impact:**
+Attackers could manipulate group memberships and escalate privileges within the domain.
+
+**Recommendation:**
+Remove unnecessary users from the Account Operators group, carefully restrict delegated administration, and regularly audit privileged group memberships.
+
+### **Finding:** Excessive Privileges via Exchange Windows Permissions
+
+**Severity:** Critical
+
+**Description:**
+Members of the Exchange Windows Permissions group had excessive permissions on the domain object, including the ability to modify ACLs.
+
+**Impact:**
+Attackers could grant themselves DCSync rights and extract domain credentials, leading to full domain compromise.
+
+**Recommendation:**
+Remove unnecessary WriteDACL permissions on the domain object, audit Exchange-related security groups, and apply the principle of least privilege to delegated administrative roles.
+
+### **Finding:** AS-REP Roastable Service Account
+
+**Severity:** Critical
+
+**Description:**
+A service account was configured without Kerberos preauthentication enabled, making it vulnerable to AS-REP roasting attacks.
+
+**Impact:**
+Attackers could request authentication material and perform offline password cracking without valid domain credentials, potentially leading to privilege escalation.
+
+**Recommendation:**
+Enforce Kerberos preauthentication for all accounts, audit for accounts with the UF_DONT_REQUIRE_PREAUTH flag set, and ensure strong, complex passwords are used for service accounts.
+
 ### **Finding:** Kerberoastable Administrator Account
 
 **Severity:** Critical
