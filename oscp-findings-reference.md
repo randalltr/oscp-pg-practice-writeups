@@ -616,6 +616,45 @@ Restrict file permissions, use centralized secret storage, and conduct regular a
 
 ## 12. Active Directory Weaknesses
 
+### **Finding:** Excessive Privileges Assigned to Service Account
+
+**Severity:** Critical
+
+**Description:**
+A service account was granted excessive domain privileges beyond operational requirements.
+
+**Impact:**
+Attackers compromising the account could perform privileged actions such as dumping domain secrets or escalating to domain administrator.
+
+**Recommendation:**
+Review service account privileges, remove unnecessary rights, and apply the principle of least privilege. Regularly audit privileged group memberships.
+
+### **Finding:** Autologon Credentials Stored in Registry
+
+**Severity:** Critical
+
+**Description:**
+Autologon credentials were stored in the Windows registry, allowing retrieval of plaintext service account credentials.
+
+**Impact:**
+Attackers with local access could extract credentials and escalate privileges or move laterally within the domain.
+
+**Recommendation:**
+Remove stored autologon credentials, disable automatic logon functionality where unnecessary, and implement LAPS or managed service accounts.
+
+### **Finding:** Weak Domain Password Policy
+
+**Severity:** High
+
+**Description:**
+The domain password policy allowed weak or easily guessable passwords that could be cracked using common wordlists.
+
+**Impact:**
+Attackers could recover user credentials through offline cracking or password spraying, potentially leading to privilege escalation.
+
+**Recommendation:**
+Enforce strong password complexity requirements, implement account lockout policies, and monitor for excessive authentication attempts.
+
 ### **Finding:** Over-Permissive Account Operators Membership
 
 **Severity:** High
