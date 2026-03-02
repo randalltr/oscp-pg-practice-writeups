@@ -30,6 +30,19 @@ Remove or upgrade the vulnerable application, restrict administrative interfaces
 
 ## 2. Weak or Exposed Credentials
 
+### **Finding:** Plaintext Password Stored in LDAP Attribute
+
+**Severity:** Critical
+
+**Description:**
+A domain user password was stored in plaintext within an Active Directory attribute (such as the description field), making it accessible to authenticated users.
+
+**Impact:**
+Attackers could retrieve the exposed credential and use it to authenticate as the affected user, potentially leading to privilege escalation or lateral movement.
+
+**Recommendation:**
+Prohibit storage of credentials in Active Directory attributes, implement auditing for sensitive attribute exposure, and perform credential rotation for affected accounts.
+
 ### **Finding:** Hardcoded Credentials in Source Code
 
 **Severity:** High
@@ -207,6 +220,19 @@ Disable anonymous access, separate file transfer directories from web roots, and
 
 ## 4. Web Application Vulnerabilities
 
+### **Finding:** WebDAV Authenticated File Upload Enabled
+
+**Severity:** Critical
+
+**Description:**
+The WebDAV service allowed authenticated users to upload arbitrary files to the IIS web root using the HTTP PUT method.
+
+**Impact:**
+Attackers could upload malicious files and achieve remote code execution on the server.
+
+**Recommendation:**
+Disable WebDAV if not required, restrict the HTTP PUT method, and enforce secure upload directory controls with execution restrictions.
+
 ### **Finding:** Broken Access Control in API Endpoint
 
 **Severity:** High
@@ -327,6 +353,19 @@ Validate and sanitize inputs, avoid direct shell execution, and use parameterize
 ---
 
 ## 5. Misconfigured Privileges and Sudo Rights
+
+### **Finding:** SeImpersonatePrivilege Assigned to Service Account
+
+**Severity:** Critical
+
+**Description:**
+A service account possessed the SeImpersonatePrivilege privilege, allowing token impersonation attacks.
+
+**Impact:**
+Attackers could exploit token impersonation techniques to escalate privileges to SYSTEM.
+
+**Recommendation:**
+Harden service account privileges, remove unnecessary impersonation rights, apply Microsoft privilege hardening guidance, and monitor for abnormal token impersonation activity.
 
 ### **Finding:** Improperly Configured SUID Binary Allowing Arbitrary Backups
 

