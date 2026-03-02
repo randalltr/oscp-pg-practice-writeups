@@ -8,13 +8,21 @@
 
 ## 0. Lesson Learned
 
-
+WebDAV exploitation does not require a special directory. It can be enabled at root. Check the potentially risky methods and always test upload directly to `/`.
 
 ---
 
 ## 1. Executive Summary
 
+The target host Hutch was identified as a Windows Server 2019 Domain Controller hosting Active Directory services, IIS with WebDAV enabled, SMB, LDAP, Kerberos, and WinRM.
 
+Initial access was achieved through LDAP enumeration, which revealed plaintext credentials stored within a user description field. These credentials were used to authenticate against multiple services.
+
+Further enumeration revealed that IIS WebDAV allowed authenticated file uploads via HTTP PUT. This misconfiguration enabled arbitrary ASPX file upload, leading to remote code execution as `iis apppool\defaultapppool`.
+
+Privilege escalation was achieved by leveraging the `SeImpersonatePrivilege` using GodPotato, resulting in SYSTEM-level access.
+
+Administrator credentials were then recovered, and full domain compromise was demonstrated.
 
 ---
 

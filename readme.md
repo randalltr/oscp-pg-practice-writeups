@@ -17,6 +17,7 @@ Current machines include:
 - [HTB Forest](./forest/forest.md)
 - [HTB Grandpa](./grandpa/grandpa.md)
 - [HTB Granny](./granny/granny.md)
+- [PGP Hutch](./hutch/hutch.md)
 - [HTB Jarvis](./jarvis/jarvis.md)
 - [HTB Jeeves](./jeeves/jeeves.md)
 - [HTB Lame](./lame/lame.md)
