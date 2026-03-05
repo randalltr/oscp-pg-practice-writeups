@@ -1,4 +1,4 @@
-# PGP Nickel - OSCP-Style Penetration Test Report
+# PGP Hutch - OSCP-Style Penetration Test Report
 
 **Author:** randalltr
 
