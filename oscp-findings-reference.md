@@ -138,6 +138,19 @@ Avoid storing credentials in plaintext. Sanitize scripts, clear history files, a
 
 ## 3. Unauthenticated or Misconfigured Network Services
 
+### **Finding:** Anonymous Writable SMB Share
+
+**Severity:** High
+
+**Description:**
+An SMB share allowed anonymous users to write files without authentication.
+
+**Impact:**
+Attackers could upload malicious files or tools to the share, potentially enabling credential harvesting attacks or facilitating further compromise.
+
+**Recommendation:**
+Disable anonymous access to SMB shares, restrict share permissions to authenticated users, and monitor file shares for unauthorized uploads.
+
 ### **Finding:** Anonymous SMB Share Access
 
 **Severity:** Critical
@@ -353,6 +366,19 @@ Validate and sanitize inputs, avoid direct shell execution, and use parameterize
 ---
 
 ## 5. Misconfigured Privileges and Sudo Rights
+
+### **Finding:** SeRestorePrivilege Assigned to Non-Administrator Account
+
+**Severity:** Critical
+
+**Description:**
+A non-administrative user account possessed the SeRestorePrivilege privilege, allowing modification of protected system files.
+
+**Impact:**
+Attackers could abuse this privilege to replace protected files and escalate privileges to SYSTEM.
+
+**Recommendation:**
+Restrict SeRestorePrivilege to administrative accounts only, review user privilege assignments regularly, and enforce the principle of least privilege.
 
 ### **Finding:** SeImpersonatePrivilege Assigned to Service Account
 
@@ -594,6 +620,19 @@ Restrict SSH port forwarding, enforce access controls, and monitor tunneling act
 ---
 
 ## 10. Weak SMB or NTLM Security
+
+### **Finding:** NTLM Authentication Exposure via SMB Share
+
+**Severity:** High
+
+**Description:**
+Users accessing files within the SMB share triggered NTLM authentication attempts that could be captured by attacker-controlled infrastructure.
+
+**Impact:**
+Attackers could capture NTLM authentication hashes and attempt relay or offline cracking attacks to gain unauthorized access.
+
+**Recommendation:**
+Disable NTLM authentication where possible, enforce SMB signing, and restrict outbound SMB connections to prevent credential relay attacks.
 
 ### **Finding:** SMBv1 Enabled
 
