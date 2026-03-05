@@ -40,19 +40,24 @@ Current machines include:
 Machines coming soon:
 
 - PGP Resourced
+- HTB Resolute
 - HTB Cronos
 - PGP Coeus
 - HTB Mango
+- HTB Cascade
 - PGP Authby
 - PGP ClamAV
 - PGP Exfiltrated
+- HTB Support
 - PGP Loon
 - PGP Squid
 - HTB Forest
 - HTB Buff
+- HTB Blackfield
 - HTB Sunday
 - PGP Vena
 - PGP Pebbles
+- PGP Authority
 - PGP TechSupp
 - HTB Fuse
 - HTB Sauna
