@@ -276,5 +276,5 @@ Restrict SeRestorePrivilege to administrative accounts only, review user privile
 SeRestorePrivilege Enabled Abuse Documentation -
 [https://github.com/gtworek/Priv2Admin](https://github.com/gtworek/Priv2Admin)
 
-URL IconFile Attack - 
+URL IconFile Attack / NTLM Hash Theft - 
 [https://xapax.github.io/security/#attacking_active_directory_domain/active_directory_privilege_escalation/ntlm_relaying_and_theft/](https://xapax.github.io/security/#attacking_active_directory_domain/active_directory_privilege_escalation/ntlm_relaying_and_theft/)
