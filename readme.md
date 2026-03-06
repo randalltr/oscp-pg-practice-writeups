@@ -30,6 +30,7 @@ Current machines include:
 - [PGP Pelican](./pelican/pelican.md)
 - [HTB Poison](./poison/poison.md)
 - [HTB Popcorn](./popcorn/popcorn.md)
+- [PGP Resourced](./resourced/resourced.md)
 - [HTB Sense](./sense/sense.md)
 - [HTB Shocker](./shocker/shocker.md)
 - [PGP Slort](./slort/slort.md)
@@ -39,7 +40,6 @@ Current machines include:
 
 Machines coming soon:
 
-- PGP Resourced
 - HTB Resolute
 - HTB Cronos
 - PGP Coeus
