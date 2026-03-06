@@ -31,6 +31,7 @@ Current machines include:
 - [HTB Poison](./poison/poison.md)
 - [HTB Popcorn](./popcorn/popcorn.md)
 - [PGP Resourced](./resourced/resourced.md)
+- [HTB Sauna](./sauna/sauna.md)
 - [HTB Sense](./sense/sense.md)
 - [HTB Shocker](./shocker/shocker.md)
 - [PGP Slort](./slort/slort.md)
@@ -60,7 +61,6 @@ Machines coming soon:
 - PGP Authority
 - PGP TechSupp
 - HTB Fuse
-- HTB Sauna
 
 Everything here comes from **legitimate, controlled environments** like HackTheBox and OffSec Proving Grounds Practice.
 
