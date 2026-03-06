@@ -664,6 +664,19 @@ Enforce SMB signing, disable NTLM where possible, and implement credential prote
 
 ## 11. Sensitive Data Exposure
 
+### **Finding:** Sensitive Active Directory Database Files Exposed via SMB Share
+
+**Severity:** Critical
+
+**Description:**
+An SMB share exposed sensitive Active Directory database files, including NTDS.dit and registry hive files.
+
+**Impact:**
+Attackers could download the files and extract domain password hashes, potentially leading to full domain compromise.
+
+**Recommendation:**
+Restrict SMB share permissions to authorized administrators only, store backups in secured locations, and monitor file shares for exposure of sensitive Active Directory data.
+
 ### **Finding:** Group Policy Preference Password Exposure
 
 **Severity:** Critical
@@ -693,6 +706,19 @@ Restrict file permissions, use centralized secret storage, and conduct regular a
 ---
 
 ## 12. Active Directory Weaknesses
+
+### **Finding:** Excessive Delegation Permissions Allowing Resource-Based Constrained Delegation Abuse
+
+**Severity:** Critical
+
+**Description:**
+Improper delegation permissions allowed attackers to configure Resource-Based Constrained Delegation (RBCD), enabling impersonation of privileged domain users.
+
+**Impact:**
+Attackers could impersonate domain administrators and gain full control of the domain.
+
+**Recommendation:**
+Review and restrict delegation permissions, limit machine account creation privileges, and regularly audit Active Directory objects for improper delegation configuration.
 
 ### **Finding:** Excessive Privileges Assigned to Service Account
 
