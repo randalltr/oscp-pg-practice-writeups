@@ -13,6 +13,7 @@ Current machines include:
 - [HTB Arctic](./arctic/arctic.md)
 - [HTB Bashed](./bashed/bashed.md)
 - [HTB Blue](./blue/blue.md)
+- [HTB Cronos](./cronos/cronos.md)
 - [HTB Devel](./devel/devel.md)
 - [HTB Forest](./forest/forest.md)
 - [HTB Grandpa](./grandpa/grandpa.md)
@@ -42,7 +43,6 @@ Current machines include:
 
 Machines coming soon:
 
-- HTB Cronos
 - PGP Coeus
 - HTB Mango
 - HTB Cascade
