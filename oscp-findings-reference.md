@@ -138,6 +138,19 @@ Avoid storing credentials in plaintext. Sanitize scripts, clear history files, a
 
 ## 3. Unauthenticated or Misconfigured Network Services
 
+### **Finding:** DNS Zone Transfer Enabled
+
+**Severity:** High
+
+**Description:**
+The DNS server permitted unauthenticated zone transfers, allowing attackers to retrieve the full list of DNS records for the domain.
+
+**Impact:**
+Attackers could enumerate internal hosts, services, and infrastructure components, aiding further reconnaissance and potential lateral movement.
+
+**Recommendation:**
+Restrict zone transfers to trusted DNS servers only and configure the DNS server to deny unauthorized transfer requests.
+
 ### **Finding:** Anonymous Writable SMB Share
 
 **Severity:** High
@@ -232,6 +245,32 @@ Disable anonymous access, separate file transfer directories from web roots, and
 ---
 
 ## 4. Web Application Vulnerabilities
+
+### **Finding:** Command Injection
+
+**Severity:** Critical
+
+**Description:**
+A web-based diagnostic tool executed system commands using unsanitized user input.
+
+**Impact:**
+Attackers could execute arbitrary commands on the server, potentially leading to full system compromise.
+
+**Recommendation:**
+Validate and sanitize user input, avoid passing user input directly to system command execution functions, and restrict commands to predefined safe operations.
+
+### **Finding:** SQL Injection Vulnerability
+
+**Severity:** Critical
+
+**Description:**
+The application login form was vulnerable to SQL injection, allowing attackers to manipulate backend database queries.
+
+**Impact:**
+Attackers could bypass authentication controls, retrieve sensitive data, or modify database contents.
+
+**Recommendation:**
+Use prepared statements and parameterized queries, implement input validation, and avoid directly embedding user input in SQL queries.
 
 ### **Finding:** WebDAV Authenticated File Upload Enabled
 
@@ -487,6 +526,19 @@ Restrict high-risk privileges and assign only required permissions to service ac
 ---
 
 ## 6. Writable Files, Services, or Scheduled Tasks
+
+### **Finding:** Insecure Cron Job Privilege Escalation
+
+**Severity:** Critical
+
+**Description:**
+A cron job executed a script that was writable by a lower-privileged user.
+
+**Impact:**
+Attackers could modify the script to execute arbitrary commands with root privileges.
+
+**Recommendation:**
+Ensure scripts executed by privileged cron jobs are owned by root and not writable by other users.
 
 ### **Finding:** Writable Configuration File Used by Privileged Service
 
