@@ -43,23 +43,23 @@ Current machines include:
 
 Machines coming soon:
 
-- PGP Heist
-- HTB Mango
 - HTB Cascade
+- HTB Buff
+- HTB Blackfield
+- HTB Support
+- HTB Fuse
+- HTB Mango
+- HTB Sunday
+- HTB Authority
+- PGP BlackGate
+- PGP Escape
+- PGP Heist
 - PGP Authby
 - PGP ClamAV
 - PGP Exfiltrated
-- HTB Support
-- PGP Escape
 - PGP Squid
-- HTB Buff
-- HTB Blackfield
-- PGP BlackGate
-- HTB Sunday
 - PGP Pebbles
 - PGP Craft2
-- HTB Authority
-- HTB Fuse
 
 Everything here comes from **legitimate, controlled environments** like HackTheBox and OffSec Proving Grounds Practice.
 
