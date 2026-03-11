@@ -664,6 +664,19 @@ Enforce SMB signing, disable NTLM where possible, and implement credential prote
 
 ## 11. Sensitive Data Exposure
 
+### **Finding:** PowerShell Transcripts Containing Credentials
+
+**Severity:** High
+
+**Description:**
+PowerShell transcript logs contained administrative commands with plaintext credentials.
+
+**Impact:**
+Attackers with access to the transcript logs could retrieve credentials and potentially escalate privileges or move laterally within the environment.
+
+**Recommendation:**
+Avoid executing commands containing plaintext credentials, restrict access to PowerShell transcript logs, and implement secure credential storage mechanisms.
+
 ### **Finding:** Sensitive Active Directory Database Files Exposed via SMB Share
 
 **Severity:** Critical
@@ -706,6 +719,19 @@ Restrict file permissions, use centralized secret storage, and conduct regular a
 ---
 
 ## 12. Active Directory Weaknesses
+
+### **Finding:** Privileged DNSAdmins Group Abuse
+
+**Severity:** Critical
+
+**Description:**
+Membership in the DNSAdmins group allowed modification of DNS server configuration, enabling attackers to load arbitrary DLLs into the DNS service.
+
+**Impact:**
+Attackers could execute malicious code as SYSTEM on the domain controller, leading to full domain compromise.
+
+**Recommendation:**
+Limit membership of the DNSAdmins group to authorized administrators, monitor DNS server configuration changes, and implement application whitelisting to prevent unauthorized DLL execution.
 
 ### **Finding:** Excessive Delegation Permissions Allowing Resource-Based Constrained Delegation Abuse
 
