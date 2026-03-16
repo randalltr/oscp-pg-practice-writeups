@@ -30,6 +30,19 @@ Remove or upgrade the vulnerable application, restrict administrative interfaces
 
 ## 2. Weak or Exposed Credentials
 
+### **Finding:** Hardcoded Cryptographic Key in Application Binary
+
+**Severity:** High
+
+**Description:**
+An application binary contained a hardcoded cryptographic key used for protecting sensitive data.
+
+**Impact:**
+Attackers could extract the embedded key and decrypt protected information or bypass application security mechanisms.
+
+**Recommendation:**
+Avoid embedding cryptographic keys in application code, use secure key management solutions, and rotate any exposed keys immediately.
+
 ### **Finding:** Plaintext Password Stored in LDAP Attribute
 
 **Severity:** Critical
