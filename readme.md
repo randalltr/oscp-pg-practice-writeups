@@ -13,6 +13,7 @@ Current machines include:
 - [HTB Arctic](./arctic/arctic.md)
 - [HTB Bashed](./bashed/bashed.md)
 - [HTB Blue](./blue/blue.md)
+- [HTB Buff](./buff/buff.md)
 - [HTB Cascade](./cascade/cascade.md)
 - [HTB Cronos](./cronos/cronos.md)
 - [HTB Devel](./devel/devel.md)
@@ -44,7 +45,6 @@ Current machines include:
 
 Machines coming soon:
 
-- HTB Buff
 - HTB Blackfield
 - HTB Support
 - HTB Fuse

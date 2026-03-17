@@ -609,6 +609,19 @@ Restrict write access to service paths, apply least-privilege permissions, and m
 
 ## 7. Kernel or OS Privilege Escalation
 
+### **Finding:** Vulnerable Local Service Allowing Privilege Escalation
+
+**Severity:** High
+
+**Description:**
+A locally installed service contained a known vulnerability (such as a buffer overflow) that could be exploited by a low-privileged user.
+
+**Impact:**
+Attackers could exploit the vulnerable service to escalate privileges to Administrator or SYSTEM.
+
+**Recommendation:**
+Update or remove the vulnerable service, apply available security patches, and implement exploit mitigation mechanisms such as DEP and ASLR.
+
 ### **Finding:** Unquoted Service Path
 
 **Severity:** High
@@ -668,6 +681,19 @@ Remove development tools from production, require authentication, and restrict a
 ---
 
 ## 9. Insecure Internal Service Exposure
+
+### **Finding:** Insecure Internal Service Exposure
+
+**Severity:** High
+
+**Description:**
+An internal service was exposed without proper access controls or authentication mechanisms.
+
+**Impact:**
+Attackers could interact with the service to enumerate functionality, access sensitive data, or exploit it for privilege escalation or lateral movement.
+
+**Recommendation:**
+Restrict access to internal services using firewall rules, enforce authentication, and limit exposure to trusted users or networks only.
 
 ### **Finding:** Internal Service Accessible via Port Forwarding
 
