@@ -811,6 +811,32 @@ Restrict file permissions, use centralized secret storage, and conduct regular a
 
 ## 12. Active Directory Weaknesses
 
+### **Finding:** SeBackupPrivilege Assigned to Non-Administrator Account
+
+**Severity:** Critical
+
+**Description:**
+A non-administrative account possessed the SeBackupPrivilege privilege, allowing access to sensitive system files regardless of file permissions.
+
+**Impact:**
+Attackers could abuse this privilege to extract sensitive data such as registry hives or Active Directory database files, leading to credential compromise and privilege escalation.
+
+**Recommendation:**
+Remove SeBackupPrivilege from non-administrative accounts, restrict backup privileges to authorized users only, and audit privilege assignments regularly.
+
+### **Finding:** Excessive Delegated Privileges Allowing Password Reset Abuse
+
+**Severity:** Critical
+
+**Description:**
+A domain account was granted delegated privileges such as ForceChangePassword over other users, allowing unauthorized password resets.
+
+**Impact:**
+Attackers could reset passwords for privileged accounts and gain unauthorized access, potentially leading to domain compromise.
+
+**Recommendation:**
+Restrict delegated privileges to only required accounts, review Active Directory ACLs regularly, and enforce the principle of least privilege.
+
 ### **Finding:** Privileged DNSAdmins Group Abuse
 
 **Severity:** Critical
