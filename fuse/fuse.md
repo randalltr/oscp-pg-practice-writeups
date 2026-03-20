@@ -333,5 +333,5 @@ Restrict delegated privileges to only required accounts, review Active Directory
 
 ## 11. Appendix
 
-SeLoadPrivilege Exploit - 
+SeLoadDriverPrivilege Exploit - 
 [https://github.com/JoshMorrison99/SeLoadDriverPrivilege](https://github.com/JoshMorrison99/SeLoadDriverPrivilege)
