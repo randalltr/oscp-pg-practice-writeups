@@ -244,12 +244,12 @@ Shell received as SYSTEM. Successful privilege escalation via vulnerable driver.
 
 ---
 
-9. Proof of Compromise
+## 9. Proof of Compromise
 
 **User Flag**: *REDACTED*
 
 ```
-type C:\Users\support\Desktop\user.txt
+type C:\Users\svc-print\Desktop\user.txt
 ```
 
 **Root Flag**: *REDACTED*
