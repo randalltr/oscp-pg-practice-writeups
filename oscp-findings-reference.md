@@ -811,6 +811,19 @@ Restrict file permissions, use centralized secret storage, and conduct regular a
 
 ## 12. Active Directory Weaknesses
 
+### **Finding:** Weak Access Controls Allowing Resource-Based Constrained Delegation Abuse
+
+**Severity:** Critical
+
+**Description:**
+Improper access controls within Active Directory allowed a non-privileged group (e.g., "Shared Support Accounts") to modify delegation-related attributes, enabling Resource-Based Constrained Delegation (RBCD) attacks.
+
+**Impact:**
+Attackers could configure delegation to impersonate privileged users, including domain administrators, leading to full domain compromise.
+
+**Recommendation:**
+Restrict delegation-related permissions to authorized administrators, review group memberships with elevated rights, and regularly audit Active Directory objects for misconfigured access controls.
+
 ### **Finding:** SeBackupPrivilege Assigned to Non-Administrator Account
 
 **Severity:** Critical
