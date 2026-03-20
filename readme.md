@@ -19,6 +19,7 @@ Current machines include:
 - [HTB Cronos](./cronos/cronos.md)
 - [HTB Devel](./devel/devel.md)
 - [HTB Forest](./forest/forest.md)
+- [HTB Fuse](./fuse/fuse.md)
 - [HTB Grandpa](./grandpa/grandpa.md)
 - [HTB Granny](./granny/granny.md)
 - [PGP Hutch](./hutch/hutch.md)
@@ -47,7 +48,6 @@ Current machines include:
 
 Machines coming soon:
 
-- HTB Fuse
 - HTB Mango
 - HTB Sunday
 - HTB Authority

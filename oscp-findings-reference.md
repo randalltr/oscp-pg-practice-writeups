@@ -419,6 +419,19 @@ Validate and sanitize inputs, avoid direct shell execution, and use parameterize
 
 ## 5. Misconfigured Privileges and Sudo Rights
 
+### **Finding:** SeLoadDriverPrivilege Assigned to Non-Administrator Account
+
+**Severity:** Critical
+
+**Description:**
+A non-administrative user possessed the SeLoadDriverPrivilege privilege, allowing the loading of arbitrary drivers.
+
+**Impact:**
+Attackers could exploit this privilege to execute code at the SYSTEM level and fully compromise the host.
+
+**Recommendation:**
+Restrict SeLoadDriverPrivilege to trusted administrators only, review privilege assignments regularly, and enforce the principle of least privilege.
+
 ### **Finding:** SeRestorePrivilege Assigned to Non-Administrator Account
 
 **Severity:** Critical
@@ -754,6 +767,32 @@ Enforce SMB signing, disable NTLM where possible, and implement credential prote
 ---
 
 ## 11. Sensitive Data Exposure
+
+### **Finding:** Credential Leakage via Device or Service Configuration
+
+**Severity:** Critical
+
+**Description:**
+Service credentials were exposed within device or service configuration files (e.g., printer configuration).
+
+**Impact:**
+Attackers could retrieve credentials and escalate privileges to a higher-privileged service account.
+
+**Recommendation:**
+Remove credentials from configuration files, use secure credential storage mechanisms, and restrict access to sensitive configuration data.
+
+### **Finding:** Credential Exposure via Application Logs
+
+**Severity:** High
+
+**Description:**
+Sensitive usernames and operational data were exposed through publicly accessible application logs.
+
+**Impact:**
+Attackers could enumerate valid user accounts and identify potential attack paths.
+
+**Recommendation:**
+Restrict access to log files, sanitize sensitive information from logs, and implement proper logging and access control policies.
 
 ### **Finding:** PowerShell Transcripts Containing Credentials
 
