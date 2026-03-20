@@ -40,13 +40,13 @@ Current machines include:
 - [HTB Sense](./sense/sense.md)
 - [HTB Shocker](./shocker/shocker.md)
 - [PGP Slort](./slort/slort.md)
+- [HTB Support](./support/support.md)
 - [HTB Valentine](./valentine/valentine.md)
 - [PGP Vault](./vault/vault.md)
 - [PGP Wombo](./wombo/wombo.md)
 
 Machines coming soon:
 
-- HTB Support
 - HTB Fuse
 - HTB Mango
 - HTB Sunday
