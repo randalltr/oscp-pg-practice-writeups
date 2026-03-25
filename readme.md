@@ -26,6 +26,7 @@ Current machines include:
 - [HTB Jarvis](./jarvis/jarvis.md)
 - [HTB Jeeves](./jeeves/jeeves.md)
 - [HTB Lame](./lame/lame.md)
+- [HTB Mango](./mango/mango.md)
 - [HTB Nibbles](./nibbles/nibbles.md)
 - [PGP Nickel](./nickel/nickel.md)
 - [HTB Nineveh](./nineveh/nineveh.md)
@@ -48,7 +49,6 @@ Current machines include:
 
 Machines coming soon:
 
-- HTB Mango
 - HTB Sunday
 - HTB Authority
 - PGP BlackGate
@@ -60,6 +60,16 @@ Machines coming soon:
 - PGP Squid
 - PGP Pebbles
 - PGP Craft2
+- PGP Access
+- PGP Jacko
+- PGP HA Natraj
+- PGP Heist
+- PGP Vault
+- PGP CTF-200-01
+- PGP Tiki
+- PGP Seppuku
+- PGP Katana
+- PGP DJINN-3
 
 Everything here comes from **legitimate, controlled environments** like HackTheBox and OffSec Proving Grounds Practice.
 
