@@ -42,6 +42,7 @@ Current machines include:
 - [HTB Sense](./sense/sense.md)
 - [HTB Shocker](./shocker/shocker.md)
 - [PGP Slort](./slort/slort.md)
+- [HTB Sunday](./sunday/sunday.md)
 - [HTB Support](./support/support.md)
 - [HTB Valentine](./valentine/valentine.md)
 - [PGP Vault](./vault/vault.md)
@@ -49,7 +50,6 @@ Current machines include:
 
 Machines coming soon:
 
-- HTB Sunday
 - HTB Authority
 - PGP BlackGate
 - PGP Escape
