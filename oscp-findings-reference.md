@@ -30,6 +30,19 @@ Remove or upgrade the vulnerable application, restrict administrative interfaces
 
 ## 2. Weak or Exposed Credentials
 
+### **Finding:** Weak or Predictable Credentials
+
+**Severity:** High
+
+**Description:**
+The system used predictable or easily guessable credentials.
+
+**Impact:**
+Attackers could gain unauthorized access to services such as SSH using valid credentials.
+
+**Recommendation:**
+Enforce strong password policies, eliminate default or guessable credentials, and implement account lockout mechanisms.
+
 ### **Finding:** Hardcoded Cryptographic Key in Application Binary
 
 **Severity:** High
@@ -150,6 +163,19 @@ Avoid storing credentials in plaintext. Sanitize scripts, clear history files, a
 ---
 
 ## 3. Unauthenticated or Misconfigured Network Services
+
+### **Finding:** User Enumeration via Finger Service
+
+**Severity:** Medium
+
+**Description:**
+The Finger service allowed unauthenticated users to enumerate valid system usernames.
+
+**Impact:**
+Attackers could identify valid user accounts and use them for further attacks such as brute force or credential spraying.
+
+**Recommendation:**
+Disable the Finger service if not required, or restrict access using firewall rules and access controls.
 
 ### **Finding:** DNS Zone Transfer Enabled
 
@@ -444,6 +470,32 @@ Validate and sanitize inputs, avoid direct shell execution, and use parameterize
 ---
 
 ## 5. Misconfigured Privileges and Sudo Rights
+
+### **Finding:** Insecure Sudo Configuration Allowing Arbitrary Command Execution
+
+**Severity:** Critical
+
+**Description:**
+A user was allowed to execute a privileged binary via sudo without restrictions.
+
+**Impact:**
+Attackers could leverage the binary to execute commands as root and achieve full system compromise.
+
+**Recommendation:**
+Remove unnecessary sudo privileges, restrict execution of privileged binaries, and enforce least-privilege access controls.
+
+### **Finding:** Insecure Sudo Configuration Allowing Shell Escape via Binary
+
+**Severity:** Critical
+
+**Description:**
+A user was permitted to execute a binary via sudo that allowed shell escape or arbitrary command execution.
+
+**Impact:**
+Attackers could exploit the binary to execute commands as root and fully compromise the system.
+
+**Recommendation:**
+Avoid granting sudo access to binaries capable of shell execution, restrict sudo permissions to required commands only, and enforce least-privilege policies.
 
 ### **Finding:** Insecure SUID Binary Allowing Arbitrary File Write
 
@@ -819,6 +871,19 @@ Enforce SMB signing, disable NTLM where possible, and implement credential prote
 ---
 
 ## 11. Sensitive Data Exposure
+
+### **Finding:** Exposed Backup Files Containing Password Hashes
+
+**Severity:** High
+
+**Description:**
+Sensitive backup files containing password hashes were accessible to unauthorized users.
+
+**Impact:**
+Attackers could retrieve the hashes and perform offline cracking to recover valid credentials.
+
+**Recommendation:**
+Restrict access to backup directories, encrypt sensitive data at rest, and ensure backups are stored securely.
 
 ### **Finding:** Credential Leakage via Device or Service Configuration
 
