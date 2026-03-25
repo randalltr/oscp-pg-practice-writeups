@@ -259,6 +259,32 @@ Disable anonymous access, separate file transfer directories from web roots, and
 
 ## 4. Web Application Vulnerabilities
 
+### **Finding:** NoSQL Injection in Authentication
+
+**Severity:** Critical
+
+**Description:**
+The application login functionality was vulnerable to NoSQL injection, allowing attackers to manipulate backend queries using MongoDB operators such as `$regex` and `$ne`.
+
+**Impact:**
+Attackers could bypass authentication mechanisms and extract valid user credentials.
+
+**Recommendation:**
+Sanitize and validate all user input, implement strict query validation, use parameterized queries, and avoid directly passing user-controlled input into database queries.
+
+### **Finding:** Credential Exposure via Application Logic
+
+**Severity:** High
+
+**Description:**
+The application returned differential responses during authentication attempts, allowing attackers to brute force credentials.
+
+**Impact:**
+Attackers could enumerate valid usernames and passwords, leading to unauthorized access.
+
+**Recommendation:**
+Implement account lockout policies, enforce rate limiting, and use consistent error messages for authentication failures.
+
 ### **Finding:** Command Injection
 
 **Severity:** Critical
@@ -418,6 +444,19 @@ Validate and sanitize inputs, avoid direct shell execution, and use parameterize
 ---
 
 ## 5. Misconfigured Privileges and Sudo Rights
+
+### **Finding:** Insecure SUID Binary Allowing Arbitrary File Write
+
+**Severity:** Critical
+
+**Description:**
+A binary was configured with SUID permissions and allowed arbitrary file write operations with elevated privileges.
+
+**Impact:**
+Attackers could modify sensitive system files and escalate privileges to root.
+
+**Recommendation:**
+Remove SUID permissions from unnecessary binaries, restrict execution of interpreters with elevated privileges, and audit SUID binaries regularly.
 
 ### **Finding:** SeLoadDriverPrivilege Assigned to Non-Administrator Account
 
@@ -694,6 +733,19 @@ Remove development tools from production, require authentication, and restrict a
 ---
 
 ## 9. Insecure Internal Service Exposure
+
+### **Finding:** Weak Access Control in SSH Configuration
+
+**Severity:** Medium
+
+**Description:**
+SSH configuration allowed insufficient access restrictions, enabling unintended lateral movement between user accounts.
+
+**Impact:**
+Attackers could reuse credentials to pivot between accounts and escalate privileges.
+
+**Recommendation:**
+Enforce strict SSH access controls, restrict user login permissions, and prevent credential reuse across accounts.
 
 ### **Finding:** Insecure Internal Service Exposure
 
