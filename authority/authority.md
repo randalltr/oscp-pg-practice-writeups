@@ -8,7 +8,11 @@
 
 ## 0. Lesson Learned
 
-When you're stuck and run out of ideas, try Certipy.
+When you're stuck and run out of ideas (but have AD + LDAP, and creds), try Certipy:
+
+```
+certipy-ad find -u user -p pass -target domain -vulnerable
+```
 
 ---
 
