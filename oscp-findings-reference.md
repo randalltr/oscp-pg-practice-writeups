@@ -30,6 +30,32 @@ Remove or upgrade the vulnerable application, restrict administrative interfaces
 
 ## 2. Weak or Exposed Credentials
 
+### **Finding:** Weak Credential Management and Reuse
+
+**Severity:** High
+
+**Description:**
+Passwords were reused across multiple services and stored insecurely.
+
+**Impact:**
+Attackers could reuse compromised credentials to access additional services and escalate privileges.
+
+**Recommendation:**
+Implement strong password policies, enforce credential uniqueness, and ensure secure storage of authentication data.
+
+### **Finding:** Exposed Credentials in Configuration Files
+
+**Severity:** Critical
+
+**Description:**
+Credentials were stored in plaintext within configuration files accessible via SMB shares.
+
+**Impact:**
+Attackers could retrieve valid credentials and use them to gain unauthorized access to services.
+
+**Recommendation:**
+Remove plaintext credentials from configuration files, use secure credential storage mechanisms, and restrict access to sensitive files.
+
 ### **Finding:** Weak or Predictable Credentials
 
 **Severity:** High
@@ -769,6 +795,19 @@ Apply all security patches, upgrade to a supported OS version, and implement a p
 
 ## 8. Insecure Development or Administrative Interfaces
 
+### **Finding:** Application Exposed in Configuration Mode Without Authentication
+
+**Severity:** Critical
+
+**Description:**
+An application (e.g., PWM) was exposed in configuration mode without authentication, allowing modification of backend settings.
+
+**Impact:**
+Attackers could manipulate LDAP configurations and capture credentials, potentially leading to domain compromise.
+
+**Recommendation:**
+Disable configuration mode in production environments, enforce authentication for administrative interfaces, and restrict access to trusted users.
+
 ### **Finding:** Exposed Development or Administrative Interface
 
 **Severity:** High
@@ -966,6 +1005,32 @@ Restrict file permissions, use centralized secret storage, and conduct regular a
 ---
 
 ## 12. Active Directory Weaknesses
+
+### **Finding:** Excessive Machine Account Creation Privileges
+
+**Severity:** Medium
+
+**Description:**
+Domain users were permitted to create machine accounts due to a non-restricted machine account quota.
+
+**Impact:**
+Attackers could create controlled machine accounts and leverage them in delegation or certificate-based attacks.
+
+**Recommendation:**
+Set `ms-DS-MachineAccountQuota` to 0 if not required and restrict machine account creation to authorized administrators only.
+
+### **Finding:** Vulnerable Active Directory Certificate Services Configuration (ESC1)
+
+**Severity:** Critical
+
+**Description:**
+A certificate template allowed user-controlled subject alternative names (e.g., UPN), enabling abuse of Active Directory Certificate Services (ADCS).
+
+**Impact:**
+Attackers could request certificates impersonating privileged users such as Administrator, leading to full domain compromise.
+
+**Recommendation:**
+Restrict enrollment permissions on certificate templates, remove vulnerable templates, and audit ADCS configurations for misconfigurations.
 
 ### **Finding:** Weak Access Controls Allowing Resource-Based Constrained Delegation Abuse
 
