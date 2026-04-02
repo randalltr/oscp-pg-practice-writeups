@@ -11,6 +11,7 @@ Current machines include:
 
 - [HTB Active](./active/active.md)
 - [HTB Arctic](./arctic/arctic.md)
+- [HTB Authority](./authority/authority.md)
 - [HTB Bashed](./bashed/bashed.md)
 - [HTB Blackfield](./blackfield/blackfield.md)
 - [HTB Blue](./blue/blue.md)
@@ -50,21 +51,14 @@ Current machines include:
 
 Machines coming soon:
 
-- HTB Authority
 - PGP BlackGate
-- PGP Escape
-- PGP Heist
-- PGP Authby
 - PGP ClamAV
 - PGP Exfiltrated
 - PGP Squid
 - PGP Pebbles
 - PGP Craft2
-- PGP Access
 - PGP Jacko
 - PGP HA Natraj
-- PGP Heist
-- PGP Vault
 - PGP CTF-200-01
 - PGP Tiki
 - PGP Seppuku
