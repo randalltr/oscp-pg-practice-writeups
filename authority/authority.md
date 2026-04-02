@@ -90,7 +90,7 @@ Revealing the `Development` share accessible anonymously.
 Files from the `Development` share were downloaded for offline analysis:
 
 ```
-smbclient //10.129.229.56/Development -N -c 'recurse ON,prompt OFF,mget *'
+smbclient //10.129.229.56/Development -N -c 'recurse ON; prompt OFF; mget *'
 ```
 
 ---
