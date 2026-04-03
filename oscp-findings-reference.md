@@ -30,6 +30,19 @@ Remove or upgrade the vulnerable application, restrict administrative interfaces
 
 ## 2. Weak or Exposed Credentials
 
+### **Finding:** Hardcoded Authorization Key in Application Binary
+
+**Severity:** High
+
+**Description:**
+An application binary (e.g., `redis-status`) contained a hardcoded authorization key that could be retrieved through static analysis.
+
+**Impact:**
+Attackers could extract the key and bypass authentication controls to execute privileged functionality.
+
+**Recommendation:**
+Remove hardcoded credentials from application binaries, implement secure key storage mechanisms, and rotate any exposed keys.
+
 ### **Finding:** Weak Credential Management and Reuse
 
 **Severity:** High
@@ -189,6 +202,19 @@ Avoid storing credentials in plaintext. Sanitize scripts, clear history files, a
 ---
 
 ## 3. Unauthenticated or Misconfigured Network Services
+
+### **Finding:** Unauthenticated Redis Service Exposure
+
+**Severity:** Critical
+
+**Description:**
+The Redis service was exposed without authentication, allowing remote interaction with the database.
+
+**Impact:**
+Attackers could execute commands on the Redis instance, potentially leading to remote code execution and initial system compromise.
+
+**Recommendation:**
+Enable authentication for Redis, bind the service to localhost or restrict access via firewall rules, and enable protected mode.
 
 ### **Finding:** User Enumeration via Finger Service
 
@@ -496,6 +522,19 @@ Validate and sanitize inputs, avoid direct shell execution, and use parameterize
 ---
 
 ## 5. Misconfigured Privileges and Sudo Rights
+
+### **Finding:** Insecure Sudo Configuration Allowing Shell Escape via Pager
+
+**Severity:** Critical
+
+**Description:**
+A user was permitted to execute a binary (e.g., `redis-status`) via sudo that invoked a pager, allowing shell escape.
+
+**Impact:**
+Attackers could exploit the pager functionality to spawn a root shell and achieve full system compromise.
+
+**Recommendation:**
+Remove unnecessary sudo privileges, disable pager invocation or sanitize the execution environment, and avoid granting sudo access to binaries capable of shell escape.
 
 ### **Finding:** Insecure Sudo Configuration Allowing Arbitrary Command Execution
 
