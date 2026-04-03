@@ -14,6 +14,7 @@ Current machines include:
 - [HTB Authority](./authority/authority.md)
 - [HTB Bashed](./bashed/bashed.md)
 - [HTB Blackfield](./blackfield/blackfield.md)
+- [PGP BlackGate](./blackgate/blackgate.md)
 - [HTB Blue](./blue/blue.md)
 - [HTB Buff](./buff/buff.md)
 - [HTB Cascade](./cascade/cascade.md)
@@ -51,7 +52,6 @@ Current machines include:
 
 Machines coming soon:
 
-- PGP BlackGate
 - PGP ClamAV
 - PGP Exfiltrated
 - PGP Squid
