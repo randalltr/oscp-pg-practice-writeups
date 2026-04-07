@@ -40,6 +40,7 @@ Current machines include:
 - [HTB Popcorn](./popcorn/popcorn.md)
 - [HTB Resolute](./resolute/resolute.md)
 - [PGP Resourced](./resourced/resourced.md)
+- [HTB Sau](./sau/sau.md)
 - [HTB Sauna](./sauna/sauna.md)
 - [HTB Sense](./sense/sense.md)
 - [HTB Shocker](./shocker/shocker.md)

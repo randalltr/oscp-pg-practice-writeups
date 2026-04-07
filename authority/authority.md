@@ -226,7 +226,7 @@ The WinRM shell was restarted and flags were obtained as `svc_ldap` user.
 **User Flag**: *REDACTED*
 
 ```
-type C:\Users\svc_ldap\Desktop\root.txt
+type C:\Users\svc_ldap\Desktop\user.txt
 ```
 
 **Root Flag**: *REDACTED*
