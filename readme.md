@@ -9,6 +9,7 @@ This repository contains my personal **OSCP/PEN-200 practice writeups**, includi
 
 Current machines include:
 
+- [HTB Access](./access/access.md)
 - [HTB Active](./active/active.md)
 - [HTB Arctic](./arctic/arctic.md)
 - [HTB Authority](./authority/authority.md)
@@ -20,6 +21,7 @@ Current machines include:
 - [HTB Cascade](./cascade/cascade.md)
 - [HTB Cronos](./cronos/cronos.md)
 - [HTB Devel](./devel/devel.md)
+- [HTB Escape](./escape/escape.md)
 - [HTB Forest](./forest/forest.md)
 - [HTB Fuse](./fuse/fuse.md)
 - [HTB Grandpa](./grandpa/grandpa.md)

@@ -43,6 +43,32 @@ Remove or upgrade the vulnerable application, restrict administrative interfaces
 
 ## 2. Weak or Exposed Credentials
 
+### **Finding:** Weak MSSQL Credentials
+
+**Severity:** High
+
+**Description:**
+The MSSQL service accepted weak or easily guessable credentials, allowing unauthorized database access.
+
+**Impact:**
+Attackers could authenticate to the database, enumerate data, and potentially leverage the service for further compromise.
+
+**Recommendation:**
+Enforce strong password policies, disable default or weak credentials, and restrict database access to authorized users and hosts.
+
+### **Finding:** Stored Administrative Credentials via Windows Credential Manager
+
+**Severity:** Critical
+
+**Description:**
+Administrative credentials were stored locally and retrievable using Windows Credential Manager (e.g., `cmdkey`).
+
+**Impact:**
+Attackers could extract stored credentials and reuse them to escalate privileges or access additional systems.
+
+**Recommendation:**
+Avoid storing administrative credentials on systems, enforce credential protection mechanisms such as Credential Guard, and regularly audit stored credentials.
+
 ### **Finding:** Hardcoded Authorization Key in Application Binary
 
 **Severity:** High
@@ -215,6 +241,32 @@ Avoid storing credentials in plaintext. Sanitize scripts, clear history files, a
 ---
 
 ## 3. Unauthenticated or Misconfigured Network Services
+
+### **Finding:** NTLM Hash Exposure via MSSQL UNC Path Injection
+
+**Severity:** Critical
+
+**Description:**
+The MSSQL service allowed execution of functionality (e.g., via extended stored procedures) that triggered outbound authentication to attacker-controlled UNC paths.
+
+**Impact:**
+Attackers could capture NTLM authentication hashes and perform relay or offline cracking attacks to gain unauthorized access.
+
+**Recommendation:**
+Disable or restrict dangerous stored procedures (e.g., `xp_dirtree`, `xp_fileexist`), block outbound SMB traffic, and enforce SMB signing where possible.
+
+### **Finding:** Anonymous FTP Access Exposing Sensitive Files
+
+**Severity:** High
+
+**Description:**
+The FTP service allowed anonymous login and exposed sensitive backup and configuration files.
+
+**Impact:**
+Attackers could retrieve internal data, including credential databases and archived files, aiding further compromise.
+
+**Recommendation:**
+Disable anonymous FTP access, restrict file permissions, and ensure sensitive files are not stored in publicly accessible directories.
 
 ### **Finding:** Unauthenticated Redis Service Exposure
 
@@ -989,6 +1041,32 @@ Enforce SMB signing, disable NTLM where possible, and implement credential prote
 
 ## 11. Sensitive Data Exposure
 
+### **Finding:** Credential Exposure in Log Files
+
+**Severity:** Critical
+
+**Description:**
+Sensitive credentials were stored in plaintext within application or system log files.
+
+**Impact:**
+Attackers could retrieve credentials from logs and use them to escalate privileges or access additional services.
+
+**Recommendation:**
+Sanitize logs to prevent storage of sensitive information, restrict access to log files, and implement secure credential handling practices.
+
+### **Finding:** Credential Exposure in Backup Files
+
+**Severity:** Critical
+
+**Description:**
+Sensitive credentials were stored in plaintext within backup database files accessible to unauthorized users.
+
+**Impact:**
+Attackers could recover valid credentials through offline analysis and gain unauthorized access to systems or services.
+
+**Recommendation:**
+Encrypt sensitive data within backups, restrict access to backup storage locations, and implement secure backup handling procedures.
+
 ### **Finding:** Exposed Backup Files Containing Password Hashes
 
 **Severity:** High
@@ -1083,6 +1161,19 @@ Restrict file permissions, use centralized secret storage, and conduct regular a
 ---
 
 ## 12. Active Directory Weaknesses
+
+### **Finding:** Vulnerable Active Directory Certificate Services Configuration (ESC1)
+
+**Severity:** Critical
+
+**Description:**
+A certificate template allowed user-controlled subject alternative names (e.g., UPN), enabling abuse of Active Directory Certificate Services (ADCS).
+
+**Impact:**
+Attackers could request certificates impersonating privileged users such as Administrator, leading to full domain compromise.
+
+**Recommendation:**
+Restrict enrollment permissions on certificate templates, remove vulnerable templates, and audit ADCS configurations for misconfigurations.
 
 ### **Finding:** Excessive Machine Account Creation Privileges
 
