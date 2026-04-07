@@ -1,5 +1,18 @@
 ## 1. Outdated or Vulnerable Software
 
+### **Finding:** Unauthenticated Command Injection in Network Monitoring or Logging Service
+
+**Severity:** Critical
+
+**Description:**
+A network monitoring or logging service contained a vulnerability that allowed unauthenticated command injection through user-controlled input.
+
+**Impact:**
+Attackers could execute arbitrary commands on the system and gain unauthorized access.
+
+**Recommendation:**
+Upgrade to a patched version, restrict access to the service, and implement input validation and authentication controls.
+
 ### **Finding:** Outdated or End-of-Life Software
 
 **Severity:** Critical
@@ -337,6 +350,19 @@ Disable anonymous access, separate file transfer directories from web roots, and
 
 ## 4. Web Application Vulnerabilities
 
+### **Finding:** Server-Side Request Forgery (SSRF)
+
+**Severity:** High
+
+**Description:**
+The application allowed user-controlled HTTP requests to be forwarded to internal or external services without proper validation.
+
+**Impact:**
+Attackers could access internal services not exposed externally, potentially leading to sensitive data exposure or further exploitation.
+
+**Recommendation:**
+Validate and restrict outbound requests, implement allowlists for permitted destinations, and disable or secure request forwarding functionality.
+
 ### **Finding:** NoSQL Injection in Authentication
 
 **Severity:** Critical
@@ -522,6 +548,19 @@ Validate and sanitize inputs, avoid direct shell execution, and use parameterize
 ---
 
 ## 5. Misconfigured Privileges and Sudo Rights
+
+### **Finding:** Insecure Sudo Configuration Allowing Shell Escape via systemctl Pager
+
+**Severity:** Critical
+
+**Description:**
+A user was permitted to execute `systemctl` via sudo, which invoked a pager allowing shell escape.
+
+**Impact:**
+Attackers could exploit the pager functionality to spawn a root shell and achieve full system compromise.
+
+**Recommendation:**
+Restrict sudo permissions to only required commands, disable pager invocation where possible, and avoid allowing commands that enable interactive shell escape.
 
 ### **Finding:** Insecure Sudo Configuration Allowing Shell Escape via Pager
 

