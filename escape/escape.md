@@ -371,7 +371,7 @@ Full Domain Administrator access achieved.
 **User Flag**: *REDACTED*
 
 ```
-type C:\Users\security\Desktop\user.txt
+type C:\Users\Ryan.Cooper\Desktop\user.txt
 ```
 
 **Root Flag**: *REDACTED*

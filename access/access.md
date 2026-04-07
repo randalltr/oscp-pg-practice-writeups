@@ -414,3 +414,13 @@ Attackers could extract stored credentials and reuse them to escalate privileges
 
 **Recommendation:**
 Avoid storing administrative credentials on systems, enforce credential protection mechanisms such as Credential Guard, and regularly audit stored credentials.
+
+---
+
+## 11. Appendix
+
+Pentesting FTP -
+[https://hackviser.com/tactics/pentesting/services/ftp](https://hackviser.com/tactics/pentesting/services/ftp)
+
+Pentesting Telnet -
+[https://hackviser.com/tactics/pentesting/services/telnet](https://hackviser.com/tactics/pentesting/services/telnet)
