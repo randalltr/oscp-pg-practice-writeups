@@ -19,6 +19,7 @@ Current machines include:
 - [HTB Blue](./blue/blue.md)
 - [HTB Buff](./buff/buff.md)
 - [HTB Cascade](./cascade/cascade.md)
+- [PGP ClamAV](./clamav/clamav.md)
 - [HTB Cronos](./cronos/cronos.md)
 - [HTB Devel](./devel/devel.md)
 - [HTB Escape](./escape/escape.md)
@@ -55,7 +56,6 @@ Current machines include:
 
 Machines coming soon:
 
-- PGP ClamAV
 - PGP Exfiltrated
 - PGP Squid
 - PGP Pebbles
