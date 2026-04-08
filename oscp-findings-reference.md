@@ -800,6 +800,32 @@ Restrict high-risk privileges and assign only required permissions to service ac
 
 ## 6. Writable Files, Services, or Scheduled Tasks
 
+### **Finding:** Vulnerable File Processing in Privileged Scheduled Task
+
+**Severity:** Critical
+
+**Description:**
+A scheduled task executed a file-processing utility (e.g., ExifTool) on user-controlled files without proper validation.
+
+**Impact:**
+Attackers could craft malicious files to trigger command execution with elevated privileges, leading to root compromise.
+
+**Recommendation:**
+Update vulnerable utilities, avoid processing untrusted files with privileged tasks, and validate or isolate input before execution.
+
+### **Finding:** Insecure Cron Job Processing User-Controlled Input
+
+**Severity:** High
+
+**Description:**
+A cron job running with elevated privileges processed files from a user-accessible or web-exposed directory.
+
+**Impact:**
+Attackers could manipulate input files to achieve privilege escalation.
+
+**Recommendation:**
+Avoid executing privileged tasks on user-controlled input, restrict directory permissions, and validate all inputs processed by scheduled tasks.
+
 ### **Finding:** Insecure Cron Job Privilege Escalation
 
 **Severity:** Critical

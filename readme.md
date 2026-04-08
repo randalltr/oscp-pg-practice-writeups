@@ -23,6 +23,7 @@ Current machines include:
 - [HTB Cronos](./cronos/cronos.md)
 - [HTB Devel](./devel/devel.md)
 - [HTB Escape](./escape/escape.md)
+- [PGP Exfiltrated](./exfiltrated/exfiltrated.md)
 - [HTB Forest](./forest/forest.md)
 - [HTB Fuse](./fuse/fuse.md)
 - [HTB Grandpa](./grandpa/grandpa.md)
@@ -56,7 +57,6 @@ Current machines include:
 
 Machines coming soon:
 
-- PGP Exfiltrated
 - PGP Squid
 - PGP Pebbles
 - PGP Craft2
