@@ -49,6 +49,7 @@ Current machines include:
 - [HTB Sense](./sense/sense.md)
 - [HTB Shocker](./shocker/shocker.md)
 - [PGP Slort](./slort/slort.md)
+- [PGP Squid](./squid/squid.md)
 - [HTB Sunday](./sunday/sunday.md)
 - [HTB Support](./support/support.md)
 - [HTB Valentine](./valentine/valentine.md)
@@ -57,7 +58,6 @@ Current machines include:
 
 Machines coming soon:
 
-- PGP Squid
 - PGP Pebbles
 - PGP Craft2
 - PGP Jacko
