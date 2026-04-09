@@ -43,6 +43,19 @@ Remove or upgrade the vulnerable application, restrict administrative interfaces
 
 ## 2. Weak or Exposed Credentials
 
+### **Finding:** Default phpMyAdmin Credentials
+
+**Severity:** Critical
+
+**Description:**
+The phpMyAdmin interface allowed authentication using default credentials (e.g., root with no password).
+
+**Impact:**
+Attackers could gain full database access, modify data, and potentially write files to the underlying system.
+
+**Recommendation:**
+Disable default credentials, enforce strong authentication, and restrict access to administrative interfaces.
+
 ### **Finding:** Weak MSSQL Credentials
 
 **Severity:** High
@@ -242,6 +255,32 @@ Avoid storing credentials in plaintext. Sanitize scripts, clear history files, a
 
 ## 3. Unauthenticated or Misconfigured Network Services
 
+### **Finding:** Lack of Egress Filtering
+
+**Severity:** High
+
+**Description:**
+The system allowed unrestricted outbound network connections to external hosts.
+
+**Impact:**
+Attackers could establish reverse shells and maintain persistent remote access.
+
+**Recommendation:**
+Implement outbound firewall rules to restrict unauthorized connections and monitor network traffic for suspicious activity.
+
+### **Finding:** Open Proxy Allowing Access to Internal Services
+
+**Severity:** High
+
+**Description:**
+A proxy service (e.g., Squid) allowed unrestricted access to internal services, enabling users to connect to otherwise inaccessible hosts and ports.
+
+**Impact:**
+Attackers could pivot into internal networks, enumerate hidden services, and identify additional attack paths.
+
+**Recommendation:**
+Restrict proxy access using authentication and IP whitelisting, and limit accessible destinations to trusted networks only.
+
 ### **Finding:** NTLM Hash Exposure via MSSQL UNC Path Injection
 
 **Severity:** Critical
@@ -401,6 +440,19 @@ Disable anonymous access, separate file transfer directories from web roots, and
 ---
 
 ## 4. Web Application Vulnerabilities
+
+### **Finding:** Arbitrary File Write via Database Service
+
+**Severity:** Critical
+
+**Description:**
+The database service (e.g., MySQL) permitted writing files to the server filesystem, including web-accessible directories.
+
+**Impact:**
+Attackers could upload malicious files such as web shells and achieve remote code execution.
+
+**Recommendation:**
+Restrict FILE privileges, prevent database services from writing to web directories, and enforce least-privilege access controls.
 
 ### **Finding:** Server-Side Request Forgery (SSRF)
 
@@ -600,6 +652,19 @@ Validate and sanitize inputs, avoid direct shell execution, and use parameterize
 ---
 
 ## 5. Misconfigured Privileges and Sudo Rights
+
+### **Finding:** SeImpersonatePrivilege Assigned to Service Account
+
+**Severity:** Critical
+
+**Description:**
+A service account possessed the SeImpersonatePrivilege privilege, allowing token impersonation attacks.
+
+**Impact:**
+Attackers could exploit token impersonation techniques to escalate privileges to SYSTEM.
+
+**Recommendation:**
+Remove unnecessary impersonation privileges, harden service account permissions, and monitor for abnormal privilege usage.
 
 ### **Finding:** Insecure Sudo Configuration Allowing Shell Escape via systemctl Pager
 
