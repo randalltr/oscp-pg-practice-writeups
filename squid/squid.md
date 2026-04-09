@@ -368,3 +368,15 @@ Implement outbound firewall rules to restrict unauthorized connections and monit
 ---
 
 ## 11. Appendix
+
+Pentesting Squid Proxy - 
+[https://hacktricks.wiki/en/network-services-pentesting/3128-pentesting-squid.html](https://hacktricks.wiki/en/network-services-pentesting/3128-pentesting-squid.html)
+
+Squid Pivoting Open Port Scanner -
+[https://github.com/aancw/spose](https://github.com/aancw/spose)
+
+Uploading Reverse Shell in phpMyAdmin -
+[https://medium.com/@toon.commander/uploading-a-shell-in-phpmyadmin-61b066b481a7](https://medium.com/@toon.commander/uploading-a-shell-in-phpmyadmin-61b066b481a7)
+
+PrintSpoofer SeImpersonatePrivilege Token Impersonation Tool -
+[https://github.com/itm4n/PrintSpoofer](https://github.com/itm4n/PrintSpoofer)
