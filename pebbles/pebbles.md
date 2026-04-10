@@ -8,7 +8,7 @@
 
 ## 0. Lesson Learned
 
-Be patient with time-based SQL queries.
+Be patient with error-based / stacked query SQL injections.
 
 ---
 
