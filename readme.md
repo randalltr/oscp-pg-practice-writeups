@@ -39,6 +39,7 @@ Current machines include:
 - [HTB Node](./node/node.md)
 - [HTB October](./october/october.md)
 - [HTB Optimum](./optimum/optimum.md)
+- [PGP Pebbles](./pebbles/pebbles.md)
 - [PGP Pelican](./pelican/pelican.md)
 - [HTB Poison](./poison/poison.md)
 - [HTB Popcorn](./popcorn/popcorn.md)
@@ -58,7 +59,6 @@ Current machines include:
 
 Machines coming soon:
 
-- PGP Pebbles
 - PGP Craft2
 - PGP Jacko
 - PGP HA Natraj

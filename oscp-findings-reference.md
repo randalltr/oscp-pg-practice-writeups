@@ -441,6 +441,19 @@ Disable anonymous access, separate file transfer directories from web roots, and
 
 ## 4. Web Application Vulnerabilities
 
+### **Finding:** SQL Injection Leading to Operating System Command Execution
+
+**Severity:** Critical
+
+**Description:**
+The application was vulnerable to SQL injection, allowing attackers to manipulate database queries and leverage database functionality to execute operating system commands.
+
+**Impact:**
+Attackers could achieve remote code execution on the underlying system, potentially as a highly privileged user, resulting in full system compromise.
+
+**Recommendation:**
+Use parameterized queries and prepared statements, restrict database privileges, ensure database and application services do not run with elevated privileges, and apply security patches to vulnerable software.
+
 ### **Finding:** Arbitrary File Write via Database Service
 
 **Severity:** Critical
