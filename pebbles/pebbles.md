@@ -20,7 +20,7 @@ A penetration test was conducted against the target system "Pebbles". The assess
 
 ## 2. Scope
 
-- **Target:** 192.168.194.52
+- **Target:** 192.168.162.52
 - **Environment:** PG Practice Pebbles
 - **Testing Window:** 2026-4-10
 - **Objective:** Full system compromise
