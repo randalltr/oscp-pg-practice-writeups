@@ -43,6 +43,32 @@ Remove or upgrade the vulnerable application, restrict administrative interfaces
 
 ## 2. Weak or Exposed Credentials
 
+### **Finding:** Hardcoded Credentials in Configuration Files
+
+**Severity:** High
+
+**Description:**
+Credentials were stored in configuration files and exposed through application vulnerabilities.
+
+**Impact:**
+Attackers could retrieve credentials and use them to authenticate or execute commands on the system.
+
+**Recommendation:**
+Store credentials securely using protected storage mechanisms and restrict access to configuration files.
+
+### **Finding:** SSH Key Misconfiguration Allowing Root Access
+
+**Severity:** Critical
+
+**Description:**
+An SSH key was configured to allow direct root login without sufficient restrictions.
+
+**Impact:**
+Attackers possessing the private key could gain immediate root access to the system.
+
+**Recommendation:**
+Disable root SSH login, restrict authorized keys, enforce key passphrases, and audit SSH configurations regularly.
+
 ### **Finding:** Default phpMyAdmin Credentials
 
 **Severity:** Critical
@@ -255,6 +281,32 @@ Avoid storing credentials in plaintext. Sanitize scripts, clear history files, a
 
 ## 3. Unauthenticated or Misconfigured Network Services
 
+### **Finding:** SMB Anonymous Access Allowing Sensitive File Retrieval
+
+**Severity:** Medium
+
+**Description:**
+An SMB share allowed unauthenticated access to files containing sensitive information.
+
+**Impact:**
+Attackers could retrieve configuration files, credentials, or other sensitive data to aid further compromise.
+
+**Recommendation:**
+Disable anonymous access to SMB shares, enforce authentication, and apply least-privilege permissions.
+
+### **Finding:** Unauthenticated Service Allowing Command Execution
+
+**Severity:** Critical
+
+**Description:**
+A network service (e.g., FreeSWITCH event socket) allowed unauthenticated users to execute commands.
+
+**Impact:**
+Attackers could execute arbitrary commands and gain shell access to the system.
+
+**Recommendation:**
+Restrict access to the service, enforce authentication, and limit exposure to trusted networks.
+
 ### **Finding:** Lack of Egress Filtering
 
 **Severity:** High
@@ -440,6 +492,19 @@ Disable anonymous access, separate file transfer directories from web roots, and
 ---
 
 ## 4. Web Application Vulnerabilities
+
+### **Finding:** Directory Traversal Leading to Arbitrary File Read
+
+**Severity:** Critical
+
+**Description:**
+The application was vulnerable to directory traversal, allowing attackers to access arbitrary files on the system.
+
+**Impact:**
+Attackers could read sensitive files such as configuration files, credentials, and SSH keys.
+
+**Recommendation:**
+Sanitize user input, enforce strict path validation, and restrict file access to intended directories only.
 
 ### **Finding:** SQL Injection Leading to Operating System Command Execution
 
@@ -665,6 +730,19 @@ Validate and sanitize inputs, avoid direct shell execution, and use parameterize
 ---
 
 ## 5. Misconfigured Privileges and Sudo Rights
+
+### **Finding:** Misconfigured Sudo Permissions Allowing Privileged Execution
+
+**Severity:** Critical
+
+**Description:**
+A user was permitted to execute a service or application (e.g., Cassandra Web) with root privileges via sudo without restrictions.
+
+**Impact:**
+Attackers could escalate privileges to root and fully compromise the system.
+
+**Recommendation:**
+Remove unnecessary sudo permissions, restrict execution to required commands only, and enforce least-privilege principles.
 
 ### **Finding:** SeImpersonatePrivilege Assigned to Service Account
 
