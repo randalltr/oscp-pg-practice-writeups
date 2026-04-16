@@ -12,6 +12,7 @@ Current machines include:
 - [HTB Access](./access/access.md)
 - [HTB Active](./active/active.md)
 - [HTB Arctic](./arctic/arctic.md)
+- [PGP Authby](./authby/authby.md)
 - [HTB Authority](./authority/authority.md)
 - [HTB Bashed](./bashed/bashed.md)
 - [HTB Blackfield](./blackfield/blackfield.md)
