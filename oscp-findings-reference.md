@@ -43,6 +43,19 @@ Remove or upgrade the vulnerable application, restrict administrative interfaces
 
 ## 2. Weak or Exposed Credentials
 
+### **Finding:** Weak FTP Credentials
+
+**Severity:** Critical
+
+**Description:**
+The FTP service allowed authentication using weak or default credentials (e.g., `admin:admin`).
+
+**Impact:**
+Attackers could gain authenticated access to the FTP service and potentially upload malicious files or access sensitive data.
+
+**Recommendation:**
+Enforce strong password policies, disable default credentials, and implement account lockout mechanisms.
+
 ### **Finding:** Hardcoded Credentials in Configuration Files
 
 **Severity:** High
@@ -281,6 +294,19 @@ Avoid storing credentials in plaintext. Sanitize scripts, clear history files, a
 
 ## 3. Unauthenticated or Misconfigured Network Services
 
+### **Finding:** Anonymous FTP Access Enabled
+
+**Severity:** Medium
+
+**Description:**
+The FTP service permitted anonymous login without authentication.
+
+**Impact:**
+Attackers could enumerate directory structures and gather sensitive information.
+
+**Recommendation:**
+Disable anonymous FTP access unless explicitly required, and restrict access to authorized users only.
+
 ### **Finding:** SMB Anonymous Access Allowing Sensitive File Retrieval
 
 **Severity:** Medium
@@ -492,6 +518,19 @@ Disable anonymous access, separate file transfer directories from web roots, and
 ---
 
 ## 4. Web Application Vulnerabilities
+
+### **Finding:** Insecure File Upload Mechanism via FTP
+
+**Severity:** High
+
+**Description:**
+Authenticated FTP users were able to upload arbitrary files to a web-accessible directory.
+
+**Impact:**
+Attackers could upload web shells and achieve remote code execution.
+
+**Recommendation:**
+Validate uploaded files, restrict executable file types, and disable execution in upload directories.
 
 ### **Finding:** Directory Traversal Leading to Arbitrary File Read
 
@@ -730,6 +769,19 @@ Validate and sanitize inputs, avoid direct shell execution, and use parameterize
 ---
 
 ## 5. Misconfigured Privileges and Sudo Rights
+
+### **Finding:** Token Impersonation Privilege Allowing SYSTEM Escalation
+
+**Severity:** Critical
+
+**Description:**
+The system permitted exploitation of token impersonation privileges (e.g., SeImpersonatePrivilege), enabling escalation through known techniques such as Juicy Potato.
+
+**Impact:**
+Attackers could escalate privileges to SYSTEM and fully compromise the host.
+
+**Recommendation:**
+Apply security patches, restrict high-risk privileges, and ensure services run with least privilege.
 
 ### **Finding:** Misconfigured Sudo Permissions Allowing Privileged Execution
 
@@ -1222,6 +1274,19 @@ Enforce SMB signing, disable NTLM where possible, and implement credential prote
 ---
 
 ## 11. Sensitive Data Exposure
+
+### **Finding:** Sensitive Configuration File Exposure (.htpasswd)
+
+**Severity:** High
+
+**Description:**
+A `.htpasswd` file containing hashed credentials was publicly accessible.
+
+**Impact:**
+Attackers could retrieve password hashes and perform offline cracking to gain unauthorized access.
+
+**Recommendation:**
+Restrict access to sensitive configuration files, ensure proper file permissions, and prevent exposure of authentication data.
 
 ### **Finding:** Credential Exposure in Log Files
 
