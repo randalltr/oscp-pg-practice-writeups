@@ -519,6 +519,19 @@ Disable anonymous access, separate file transfer directories from web roots, and
 
 ## 4. Web Application Vulnerabilities
 
+### **Finding:** Database Command Execution via xp_cmdshell
+
+**Severity:** High
+
+**Description:**
+The database service allowed execution of operating system commands through functionality such as `xp_cmdshell`.
+
+**Impact:**
+Attackers could execute arbitrary system commands, potentially leading to full system compromise.
+
+**Recommendation:**
+Disable `xp_cmdshell`, restrict database permissions, and ensure database services run with minimal privileges.
+
 ### **Finding:** Insecure File Upload Mechanism via FTP
 
 **Severity:** High
@@ -1408,6 +1421,19 @@ Restrict file permissions, use centralized secret storage, and conduct regular a
 ---
 
 ## 12. Active Directory Weaknesses
+
+### **Finding:** Excessive Privileges Allowing Password Reset via RPC
+
+**Severity:** Critical
+
+**Description:**
+Users were granted excessive privileges that allowed them to reset passwords of other accounts via RPC or directory services.
+
+**Impact:**
+Attackers could reset passwords of privileged users, leading to privilege escalation and lateral movement.
+
+**Recommendation:**
+Restrict permissions on user management operations, review delegated privileges, and enforce least-privilege access controls.
 
 ### **Finding:** Vulnerable Active Directory Certificate Services Configuration (ESC1)
 

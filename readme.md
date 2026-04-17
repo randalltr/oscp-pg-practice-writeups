@@ -35,6 +35,7 @@ Current machines include:
 - [HTB Jeeves](./jeeves/jeeves.md)
 - [HTB Lame](./lame/lame.md)
 - [HTB Mango](./mango/mango.md)
+- [PGP Nagoya](./nagoya/nagoya.md)
 - [HTB Nibbles](./nibbles/nibbles.md)
 - [PGP Nickel](./nickel/nickel.md)
 - [HTB Nineveh](./nineveh/nineveh.md)
