@@ -22,6 +22,7 @@ Current machines include:
 - [HTB Cascade](./cascade/cascade.md)
 - [PGP ClamAV](./clamav/clamav.md)
 - [PGP Clue](./clue/clue.md)
+- [PGP Craft](./craft/craft.md)
 - [HTB Cronos](./cronos/cronos.md)
 - [HTB Devel](./devel/devel.md)
 - [HTB Escape](./escape/escape.md)
@@ -62,7 +63,6 @@ Current machines include:
 
 Machines coming soon:
 
-- PGP Craft2
 - PGP Jacko
 - PGP HA Natraj
 - PGP CTF-200-01
