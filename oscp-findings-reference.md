@@ -519,6 +519,32 @@ Disable anonymous access, separate file transfer directories from web roots, and
 
 ## 4. Web Application Vulnerabilities
 
+### **Finding:** Insecure File Upload Allowing Malicious Macro Execution
+
+**Severity:** Critical
+
+**Description:**
+The web application allowed users to upload document files containing embedded macros (e.g., LibreOffice or Microsoft Office macros).
+
+**Impact:**
+Attackers could upload malicious documents that execute arbitrary commands when opened by a user, potentially leading to remote code execution.
+
+**Recommendation:**
+Disable macro execution for uploaded documents, sanitize uploaded files before processing, and restrict accepted file types to trusted formats.
+
+### **Finding:** Writable Web Root Directory
+
+**Severity:** High
+
+**Description:**
+A low-privileged user had write access to the web server document root directory.
+
+**Impact:**
+Attackers could upload arbitrary server-side scripts (e.g., PHP web shells) and gain persistent remote code execution through the web application.
+
+**Recommendation:**
+Restrict write permissions on web directories, separate upload locations from executable directories, and enforce least-privilege access controls.
+
 ### **Finding:** Database Command Execution via xp_cmdshell
 
 **Severity:** High
