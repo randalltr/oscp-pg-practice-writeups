@@ -14,7 +14,7 @@ The absolute path for PowerShell is necessary to use in constrained/unstable she
 C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe
 ```
 
-With multiple levels of parsing and escaping (SQL, Java, Windows), backslashes ('\') can get consumed as escape characters. Windows APIs accept forward slashes ('/') or you can escape backslashes ('\\').  Most H2/JNI payloads and Java RCE payloads on Windows use forward slash ('/') paths by default.
+With multiple levels of parsing and escaping (SQL, Java, Windows), backslashes (`\`) can get consumed as escape characters. Windows APIs accept forward slashes (`/`) or you can escape backslashes (`\\`).  Most H2/JNI payloads and Java RCE payloads on Windows use forward slash (`/`) paths by default.
 
 ---
 
