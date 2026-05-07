@@ -32,6 +32,7 @@ Current machines include:
 - [HTB Grandpa](./grandpa/grandpa.md)
 - [HTB Granny](./granny/granny.md)
 - [PGP Hutch](./hutch/hutch.md)
+- [PGP Jacko](./jacko/jacko.md)
 - [HTB Jarvis](./jarvis/jarvis.md)
 - [HTB Jeeves](./jeeves/jeeves.md)
 - [HTB Lame](./lame/lame.md)
@@ -63,7 +64,6 @@ Current machines include:
 
 Machines coming soon:
 
-- PGP Jacko
 - PGP HA Natraj
 - PGP CTF-200-01
 - PGP Tiki
