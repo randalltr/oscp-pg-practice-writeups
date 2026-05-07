@@ -1142,6 +1142,19 @@ Restrict write access to service paths, apply least-privilege permissions, and m
 
 ## 7. Kernel or OS Privilege Escalation
 
+### **Finding:** Insecure DLL Loading Allowing Privilege Escalation
+
+**Severity:** Critical
+
+**Description:**
+An installed application was vulnerable to insecure DLL loading or DLL hijacking, allowing execution of attacker-controlled code with elevated privileges.
+
+**Impact:**
+Attackers with local access could escalate privileges to SYSTEM and fully compromise the operating system.
+
+**Recommendation:**
+Update or remove vulnerable software, enforce secure DLL search order practices, and restrict write access to application directories.
+
 ### **Finding:** Vulnerable Local Service Allowing Privilege Escalation
 
 **Severity:** High
@@ -1197,6 +1210,19 @@ Apply all security patches, upgrade to a supported OS version, and implement a p
 ---
 
 ## 8. Insecure Development or Administrative Interfaces
+
+### **Finding:** Exposed Administrative Console Allowing Remote Code Execution
+
+**Severity:** Critical
+
+**Description:**
+An administrative database or application console was exposed externally and allowed execution of operating system commands through unsafe functionality.
+
+**Impact:**
+Attackers could execute arbitrary commands remotely and obtain code execution on the underlying system.
+
+**Recommendation:**
+Restrict administrative interfaces to localhost or trusted networks, implement authentication and network access controls, and upgrade vulnerable software to supported versions.
 
 ### **Finding:** Application Exposed in Configuration Mode Without Authentication
 
