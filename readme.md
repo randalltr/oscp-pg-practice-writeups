@@ -19,6 +19,7 @@ Current machines include:
 - [PGP BlackGate](./blackgate/blackgate.md)
 - [HTB Blue](./blue/blue.md)
 - [HTB Buff](./buff/buff.md)
+- [HTB Busqueda](./busqueda/busqueda.md)
 - [HTB Cascade](./cascade/cascade.md)
 - [PGP ClamAV](./clamav/clamav.md)
 - [PGP Clue](./clue/clue.md)
@@ -64,12 +65,10 @@ Current machines include:
 
 Machines coming soon:
 
-- PGP HA Natraj
-- PGP CTF-200-01
-- PGP Tiki
+- PGP Ha-natraj
 - PGP Seppuku
 - PGP Katana
-- PGP DJINN-3
+- PGP Djinn3
 
 Everything here comes from **legitimate, controlled environments** like HackTheBox and OffSec Proving Grounds Practice.
 
