@@ -32,7 +32,7 @@ Current machines include:
 - [HTB Fuse](./fuse/fuse.md)
 - [HTB Grandpa](./grandpa/grandpa.md)
 - [HTB Granny](./granny/granny.md)
-- [PGP Ha-natraj]()
+- [PGP Ha-natraj](./ha-natraj/ha-natraj.md)
 - [PGP Hutch](./hutch/hutch.md)
 - [PGP Jacko](./jacko/jacko.md)
 - [HTB Jarvis](./jarvis/jarvis.md)
@@ -68,9 +68,27 @@ Current machines include:
 
 Machines coming soon:
 
-- PGP Seppuku
+- PGP Solstice
+- PGP Photographer
+- PGP HAWordy
+- PGP Fish
+- PGP Election1
+- PGP EvilBox-One
+- PGP Dawn
+- PGP ICMP
+- PGP Moneybox
+- PGP Blogger-1
 - PGP Katana
 - PGP Djinn3
+- PGP Seppuku
+
+- PGP Kevin
+- PGP Nickel
+- PGP Astronaut
+- PGP Medjed
+- PGP Codo
+- PGP Levram
+- PGP DVR4
 
 Everything here comes from **legitimate, controlled environments** like HackTheBox and OffSec Proving Grounds Practice.
 
