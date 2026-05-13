@@ -32,6 +32,7 @@ Current machines include:
 - [HTB Fuse](./fuse/fuse.md)
 - [HTB Grandpa](./grandpa/grandpa.md)
 - [HTB Granny](./granny/granny.md)
+- [PGP Ha-natraj]()
 - [PGP Hutch](./hutch/hutch.md)
 - [PGP Jacko](./jacko/jacko.md)
 - [HTB Jarvis](./jarvis/jarvis.md)
@@ -67,7 +68,6 @@ Current machines include:
 
 Machines coming soon:
 
-- PGP Ha-natraj
 - PGP Seppuku
 - PGP Katana
 - PGP Djinn3
