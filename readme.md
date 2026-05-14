@@ -59,6 +59,7 @@ Current machines include:
 - [HTB ServMon](./servmon/servmon.md)
 - [HTB Shocker](./shocker/shocker.md)
 - [PGP Slort](./slort/slort.md)
+- [PGP Solstice](./solstice/solstice.md)
 - [PGP Squid](./squid/squid.md)
 - [HTB Sunday](./sunday/sunday.md)
 - [HTB Support](./support/support.md)
@@ -68,7 +69,6 @@ Current machines include:
 
 Machines coming soon:
 
-- PGP Solstice
 - PGP Photographer
 - PGP HAWordy
 - PGP Fish
