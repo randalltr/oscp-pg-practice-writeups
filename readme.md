@@ -49,6 +49,7 @@ Current machines include:
 - [HTB Optimum](./optimum/optimum.md)
 - [PGP Pebbles](./pebbles/pebbles.md)
 - [PGP Pelican](./pelican/pelican.md)
+- [PGP Photographer](./photographer/photographer.md)
 - [HTB Poison](./poison/poison.md)
 - [HTB Popcorn](./popcorn/popcorn.md)
 - [HTB Resolute](./resolute/resolute.md)
@@ -69,7 +70,6 @@ Current machines include:
 
 Machines coming soon:
 
-- PGP Photographer
 - PGP HAWordy
 - PGP Fish
 - PGP Election1
