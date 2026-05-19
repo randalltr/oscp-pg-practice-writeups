@@ -33,6 +33,7 @@ Current machines include:
 - [HTB Grandpa](./grandpa/grandpa.md)
 - [HTB Granny](./granny/granny.md)
 - [PGP Ha-natraj](./ha-natraj/ha-natraj.md)
+- [PGP HAWordy](./hawordy/hawordy.md)
 - [PGP Hutch](./hutch/hutch.md)
 - [PGP Jacko](./jacko/jacko.md)
 - [HTB Jarvis](./jarvis/jarvis.md)
@@ -70,7 +71,6 @@ Current machines include:
 
 Machines coming soon:
 
-- PGP HAWordy
 - PGP Fish
 - PGP Election1
 - PGP EvilBox-One
