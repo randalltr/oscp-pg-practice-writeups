@@ -28,6 +28,7 @@ Current machines include:
 - [HTB Devel](./devel/devel.md)
 - [HTB Escape](./escape/escape.md)
 - [PGP Exfiltrated](./exfiltrated/exfiltrated.md)
+- [PGP Fish](./fish/fish.md)
 - [HTB Forest](./forest/forest.md)
 - [HTB Fuse](./fuse/fuse.md)
 - [HTB Grandpa](./grandpa/grandpa.md)
@@ -71,7 +72,6 @@ Current machines include:
 
 Machines coming soon:
 
-- PGP Fish
 - PGP Election1
 - PGP EvilBox-One
 - PGP Dawn
