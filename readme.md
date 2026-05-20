@@ -66,6 +66,7 @@ Current machines include:
 - [PGP Squid](./squid/squid.md)
 - [HTB Sunday](./sunday/sunday.md)
 - [HTB Support](./support/support.md)
+- [HTB Timelapse](./timelapse/timelapse.md)
 - [HTB Valentine](./valentine/valentine.md)
 - [PGP Vault](./vault/vault.md)
 - [PGP Wombo](./wombo/wombo.md)
