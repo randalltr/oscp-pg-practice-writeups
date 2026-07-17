@@ -21,6 +21,7 @@ Current machines include:
 - [HTB Buff](./buff/buff.md)
 - [HTB Busqueda](./busqueda/busqueda.md)
 - [HTB Cascade](./cascade/cascade.md)
+- [HTB Cicada](./cicada/cicada.md)
 - [PGP ClamAV](./clamav/clamav.md)
 - [PGP Clue](./clue/clue.md)
 - [PGP Craft](./craft/craft.md)
